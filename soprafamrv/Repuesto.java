@@ -37,6 +37,7 @@ public class Repuesto extends javax.swing.JInternalFrame {
         this.JFCODREP.setEnabled(true);
         this.JFNOMBRE.setEnabled(true);
         this.JTEXTDESCRIP.setEnabled(true);
+        this.JFMARCA.setEnabled(true);
     
     }
     
@@ -44,6 +45,7 @@ public class Repuesto extends javax.swing.JInternalFrame {
         this.JFCODREP.setText(null);
         this.JFNOMBRE.setText(null);
         this.JTEXTDESCRIP.setText(null);
+        this.JFMARCA.setText(null);
     
     }
     
@@ -78,6 +80,8 @@ public class Repuesto extends javax.swing.JInternalFrame {
         JFNOMBRE = new javax.swing.JFormattedTextField();
         JFCODREP = new javax.swing.JFormattedTextField();
         jLabel5 = new javax.swing.JLabel();
+        JFMARCA = new javax.swing.JFormattedTextField();
+        jLabel6 = new javax.swing.JLabel();
         JPanelImagen = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
@@ -159,6 +163,12 @@ public class Repuesto extends javax.swing.JInternalFrame {
         jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
         jLabel5.setName("jLabel5"); // NOI18N
 
+        JFMARCA.setEnabled(false);
+        JFMARCA.setName("JFMARCA"); // NOI18N
+
+        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
+        jLabel6.setName("jLabel6"); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -166,18 +176,17 @@ public class Repuesto extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(JFCODREP, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JFNOMBRE, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(37, 37, 37)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 269, Short.MAX_VALUE)))
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JFMARCA, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(JFCODREP, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(JFNOMBRE, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 302, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -192,10 +201,14 @@ public class Repuesto extends javax.swing.JInternalFrame {
                     .addComponent(JFNOMBRE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(JFMARCA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         JPanelImagen.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("JPanelImagen.border.title"))); // NOI18N
@@ -304,7 +317,7 @@ public class Repuesto extends javax.swing.JInternalFrame {
                 .addContainerGap(865, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(307, Short.MAX_VALUE)
+                    .addContainerGap(274, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(1, 1, 1)))
         );
@@ -319,7 +332,7 @@ public class Repuesto extends javax.swing.JInternalFrame {
                 .addGroup(layout.createSequentialGroup()
                     .addGap(36, 36, 36)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(59, Short.MAX_VALUE)))
+                    .addContainerGap(57, Short.MAX_VALUE)))
         );
 
         pack();
@@ -358,12 +371,14 @@ private void JRGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     System.out.println("Inicio Definición Variables");
     int ID_REPUESTO = Integer.parseInt(this.JFCODREP.getText());    
     String NOMBRE = this.JFNOMBRE.getText().toUpperCase().trim();    
+    String MARCA = this.JFMARCA.getText().toUpperCase().trim();
     String DESCRIPCION  = this.JTEXTDESCRIP.getText().toUpperCase().trim();    
     byte[] FOTO = s.ObtenerBytes();
     System.out.println("Termino Definición Variables");
     
     r.setID_REPUESTO(ID_REPUESTO);
     r.setNOMBRE(NOMBRE);
+    r.setMARCA(MARCA);
     r.setDETALLE(DESCRIPCION);
     r.setFOTO(FOTO);
     
@@ -374,6 +389,7 @@ private void JRGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     System.out.println("INICIO impresion variables asignadas");
     System.out.println("ID_REPUESTO: " +r.getID_REPUESTO());
     System.out.println("NOMBRE: " +r.getNOMBRE());
+    System.out.println("MARCA: " +r.getMARCA());
     System.out.println("DESCRIPCION: " +r.getDETALLE());
     System.out.println("FOTO: " +r.getFOTO());
     
@@ -409,6 +425,7 @@ private void JRGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField JFCODREP;
+    private javax.swing.JFormattedTextField JFMARCA;
     private javax.swing.JFormattedTextField JFNOMBRE;
     private java.awt.List JLRepueR;
     private javax.swing.JPanel JPanelImagen;
@@ -423,6 +440,7 @@ private void JRGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

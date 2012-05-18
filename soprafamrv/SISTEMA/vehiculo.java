@@ -4,12 +4,17 @@
  */
 package soprafamrv.SISTEMA;
 
+import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import soprafamrv.ARCHIVOS_EXP.GeneratePDF;
 
 /**
  *
@@ -125,9 +130,7 @@ public class vehiculo {
         ArrayList cabeceras = new ArrayList();
         for(int z=0;z<cantidadColumnas;z++){
             //Esto imprime el nombre de las columnas
-            cabeceras.add(resultadoMostrarPersonal.getMetaData().getColumnName(z+1));
-            System.out.println ("Imprimiendo esta wea de metadata : " +resultadoMostrarPersonal.getMetaData().getColumnName(z+1));
-            
+            cabeceras.add(resultadoMostrarPersonal.getMetaData().getColumnName(z+1));                        
         }
         modelo.setColumnIdentifiers(cabeceras.toArray()); 
         while(resultadoMostrarPersonal.next()){
@@ -179,8 +182,5 @@ public class vehiculo {
         
         
     }
-    
-    
-    
     
 }

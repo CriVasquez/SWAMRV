@@ -1,5 +1,7 @@
 package soprafamrv;
 
+import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.lang.String;
 import java.lang.reflect.Array;
 import java.sql.Connection;
@@ -113,11 +115,6 @@ public class OT extends javax.swing.JInternalFrame {
                 this.JCMECANICO.addItem(rs4.getString("RUT_MECANICO")+ " - " +rs4.getString("NOMBRE")+ " " +rs4.getString("APELLIDO_PATERNO")+ " " +rs4.getString("APELLIDO_MATERNO"));
             }
             
-            String query5 = "Select id_servicio, nombre from servicio";
-            ResultSet rs5 = Conexion.ejecutarQuery(query5);
-            while (rs5.next()) {        
-                this.JLServiDispo.add(rs5.getString("nombre"));
-            }
             
         } catch (SQLException ex) {
             Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
@@ -130,9 +127,6 @@ public class OT extends javax.swing.JInternalFrame {
          this.JCPATENTE.setSelectedIndex(0);
          this.JCADMINISTRADOR.setSelectedIndex(0);
          this.JCMECANICO.setSelectedIndex(0);
-         this.TCINI1.setSelectedIndex(0);
-         this.TCINI2.setSelectedIndex(0);
-         this.TCINI3.setSelectedIndex(0);
          this.TCTER1.setSelectedIndex(0);
          this.TCTER2.setSelectedIndex(0);
          this.TCTER3.setSelectedIndex(0);
@@ -197,7 +191,6 @@ public class OT extends javax.swing.JInternalFrame {
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
         JDSMODELO = new javax.swing.JFormattedTextField();
-        jButton10 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -679,9 +672,6 @@ public class OT extends javax.swing.JInternalFrame {
         JDSMODELO.setEnabled(false);
         JDSMODELO.setName("JDSMODELO"); // NOI18N
 
-        jButton10.setText(resourceMap.getString("jButton10.text")); // NOI18N
-        jButton10.setName("jButton10"); // NOI18N
-
         jButton9.setText(resourceMap.getString("jButton9.text")); // NOI18N
         jButton9.setName("jButton9"); // NOI18N
         jButton9.addActionListener(new java.awt.event.ActionListener() {
@@ -717,11 +707,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jButton9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton10)
-                                .addGap(77, 77, 77))
+                            .addComponent(jButton9)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -754,11 +740,9 @@ public class OT extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton10)
-                    .addComponent(jButton9))
-                .addGap(77, 77, 77))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton9)
+                .addGap(95, 95, 95))
         );
 
         jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("jPanel10.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, resourceMap.getColor("jPanel10.border.titleColor"))); // NOI18N
@@ -838,7 +822,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addComponent(jcasdasd1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 348, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 371, Short.MAX_VALUE)
                         .addComponent(jButton17))
                     .addGroup(jPanel11Layout.createSequentialGroup()
                         .addComponent(jLabel14)
@@ -848,7 +832,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addComponent(jRadioButton5)
                         .addGap(18, 18, 18)
                         .addComponent(jRadioButton6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 225, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 248, Short.MAX_VALUE)
                         .addComponent(jButton16)))
                 .addContainerGap())
         );
@@ -878,7 +862,7 @@ public class OT extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 672, Short.MAX_VALUE)
                         .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jButton15, javax.swing.GroupLayout.Alignment.TRAILING)))
         );
@@ -898,7 +882,7 @@ public class OT extends javax.swing.JInternalFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(167, 167, 167))
@@ -916,7 +900,8 @@ public class OT extends javax.swing.JInternalFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(39, 39, 39)))
                 .addContainerGap())
         );
 
@@ -1242,8 +1227,8 @@ public class OT extends javax.swing.JInternalFrame {
                         .addComponent(jButton6)
                         .addGap(24, 24, 24)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 767, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1254,7 +1239,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6))
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addContainerGap(85, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel8.TabConstraints.tabTitle"), jPanel8); // NOI18N
@@ -1494,14 +1479,14 @@ public class OT extends javax.swing.JInternalFrame {
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE))
+                        .addComponent(jScrollPane9, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addGap(158, 158, 158)
                         .addComponent(jButton26, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel21Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel21Layout.createSequentialGroup()
-                        .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                        .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel21Layout.createSequentialGroup()
                         .addComponent(jLabel34, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
@@ -1519,7 +1504,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addComponent(jLabel32)
                         .addGap(223, 223, 223))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel21Layout.createSequentialGroup()
-                        .addComponent(JTOBSSERVICIO2, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
+                        .addComponent(JTOBSSERVICIO2, javax.swing.GroupLayout.DEFAULT_SIZE, 214, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JTOBSIDSERVICIO2, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())
@@ -1581,16 +1566,17 @@ public class OT extends javax.swing.JInternalFrame {
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel14Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap(408, Short.MAX_VALUE)
                         .addComponent(JBCargarRepuesto)
-                        .addGap(28, 28, 28)))
+                        .addGap(28, 28, 28))
+                    .addGroup(jPanel14Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jPanel21, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(205, 205, 205))
+                .addGap(201, 201, 201))
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1601,7 +1587,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JBCargarRepuesto))
                     .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel14.TabConstraints.tabTitle"), jPanel14); // NOI18N
@@ -1938,7 +1924,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addComponent(JBCargarFalla)
                         .addGap(28, 28, 28)))
                 .addComponent(jPanel19, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(205, 205, 205))
+                .addGap(209, 209, 209))
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1949,7 +1935,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JBCargarFalla))
                     .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel13.TabConstraints.tabTitle"), jPanel13); // NOI18N
@@ -1961,7 +1947,7 @@ public class OT extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1327, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1331, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1969,7 +1955,7 @@ public class OT extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
 
@@ -2056,13 +2042,18 @@ public class OT extends javax.swing.JInternalFrame {
                 try {
                 c.registrarOT(ordentrabajo);
                 ResetearCampos();
+                String query5 = "Select id_servicio, nombre from servicio";
+                ResultSet rs5 = Conexion.ejecutarQuery(query5);
+                while (rs5.next()) {        
+                    this.JLServiDispo.add(rs5.getString("nombre"));
+                }
                 JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
                 CargarOT();
                 
                 System.out.println ("OBTENCION DE MARCA Y MODELO VEHICULO SEGUN PATENTE");
                 String query = "Select marca, modelo from vehiculo where patente ='"+ordentrabajo.getPATENTE()+"'";
-                 ResultSet rs = Conexion.ejecutarQuery(query);
-                 while (rs.next()) {
+                ResultSet rs = Conexion.ejecutarQuery(query);
+                while (rs.next()) {
                      this.JDSPATENTE.setText(ordentrabajo.getPATENTE());
                      this.JDSMARCA.setText(rs.getString("marca"));
                      this.JDSMODELO.setText(rs.getString("modelo"));
@@ -2203,7 +2194,7 @@ public class OT extends javax.swing.JInternalFrame {
                 System.out.println("AQUI ENTRE AL TRY");
                 this.JLServiDispo.add(selectedItems[i]);
                 String nombre = selectedItems[i];
-                String query = "Select id_servicio from servicio where nombre = '" + nombre + "'";
+                String query = "Select id_servicio from servicio where nombre = '"+nombre+"'";
                 ResultSet rs = Conexion.ejecutarQuery(query);
                 while (rs.next()) {
                     System.out.println("AQUI ENTRE AL WHILE");
@@ -2217,7 +2208,11 @@ public class OT extends javax.swing.JInternalFrame {
                     
                     c.registrarOTSERVICIO(idOT, patente, idServ);
                 }
-            } catch (SQLException ex) {
+            }   catch (DocumentException ex) {
+                    Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (SQLException ex) {
                 System.out.println("AQUI ENTRE AL CATCH");
                 Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
                 JOptionPane.showMessageDialog(null, "Ha ocurrido un error");
@@ -2473,7 +2468,6 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JTable TablaOT5;
     private javax.swing.JTable TablaOT6;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;

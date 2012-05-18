@@ -11,10 +11,19 @@ package soprafamrv.SISTEMA;
 public class repuesto {    
     private int ID_REPUESTO;
     private String NOMBRE;
+    private String MARCA;
     private String DETALLE;
 
     public int getCANTIDAD() {
         return CANTIDAD;
+    }
+
+    public String getMARCA() {
+        return MARCA;
+    }
+
+    public void setMARCA(String MARCA) {
+        this.MARCA = MARCA;
     }
 
     public void setCANTIDAD(int CANTIDAD) {

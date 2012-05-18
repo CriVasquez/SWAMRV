@@ -24,21 +24,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JProgressBar;
 import oracle.jdbc.OracleCallableStatement;
 import org.jdesktop.application.Action;
-import org.jdesktop.application.Task;
 import soprafamrv.BD.Conexion;
-import soprafamrv.SISTEMA.BarraProgreso;
-import soprafamrv.SISTEMA.EjemploBarraProgreso;
 import soprafamrv.SISTEMA.miPanel;
 import soprafamrv.SISTEMA.subeImagen;
 import soprafamrv.SISTEMA.vehiculo;
@@ -327,7 +319,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         JDConductorVehiculo.setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getResourceMap(Vehiculo.class);
         JDConductorVehiculo.setTitle(resourceMap.getString("JDConductorVehiculo.title")); // NOI18N
-        JDConductorVehiculo.setAlwaysOnTop(true);
         JDConductorVehiculo.setName("JDConductorVehiculo"); // NOI18N
         JDConductorVehiculo.setResizable(false);
 
@@ -437,8 +428,9 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                 .addGroup(JDConductorVehiculoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel16)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         setClosable(true);

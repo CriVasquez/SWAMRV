@@ -38,7 +38,6 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
     /** Creates new form RetiroRepuesto */
     public RetiroRepuesto() throws SQLException {
         initComponents();
-        CargarOT();
         this.JLID_REPUESTO.setVisible(false);
 
     }
