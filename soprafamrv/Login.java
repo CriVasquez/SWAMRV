@@ -11,12 +11,21 @@
 package soprafamrv;
 
 import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import soprafamrv.BD.Conexion;
 
 /**
@@ -30,6 +39,55 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setBounds(400, 200, 460, 350);
         PruebaConexion();
+    }
+    
+    private void escribirArchivo(String texto){
+        
+        try {
+            FileWriter escritorArchivo = null;
+            File f = new File("hola.txt");
+            escritorArchivo = new FileWriter(f);
+            BufferedWriter bw = new BufferedWriter(escritorArchivo);
+            PrintWriter salida = new PrintWriter(bw);
+            salida.write(texto);
+            salida.close();
+            
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        
+        
+    }
+    
+    private String leerArchivo(String nombre){
+        try {
+            File f;
+            FileReader LectorArchivo;
+            
+            f = new File(nombre);
+            LectorArchivo = new FileReader(f);
+            BufferedReader br = new BufferedReader(LectorArchivo);
+            String L= "";
+            String aux= "";
+            while (true){
+                aux = br.readLine();
+                if (aux != null){
+                    L=L+aux+"\n";
+                }
+                else
+                    break;
+                
+            }
+            br.close();
+            LectorArchivo.close();
+            return L;
+            
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), "Mensajero", JOptionPane.ERROR_MESSAGE);
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    
     }
 
     /** This method is called from within the constructor to
@@ -55,7 +113,6 @@ public class Login extends javax.swing.JFrame {
         LabelEstadoConexion = new javax.swing.JLabel();
         LabelESTADO = new javax.swing.JLabel();
         JCTipoCuenta = new javax.swing.JComboBox();
-        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -149,10 +206,6 @@ public class Login extends javax.swing.JFrame {
         JCTipoCuenta.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Tipo cuenta", "Administrador", "Encargado Bodega" }));
         JCTipoCuenta.setName("JCTipoCuenta"); // NOI18N
 
-        jLabel2.setFont(resourceMap.getFont("jLabel2.font")); // NOI18N
-        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
-        jLabel2.setName("jLabel2"); // NOI18N
-
         jLabel1.setIcon(resourceMap.getIcon("jLabel1.icon")); // NOI18N
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
@@ -164,9 +217,6 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(220, 220, 220)
                 .addComponent(JBIngresar, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(90, 90, 90)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(220, 220, 220)
                 .addComponent(JPCONTRASENA, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -199,9 +249,6 @@ public class Login extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(190, 190, 190)
                 .addComponent(JBIngresar))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(270, 270, 270)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(130, 130, 130)
                 .addComponent(JPCONTRASENA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -240,7 +287,10 @@ private void JFLOGINRUTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:eve
 private void JBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBIngresarActionPerformed
         try {
             if (this.JCTipoCuenta.getSelectedItem() == "Encargado Bodega"){
-                
+            Login l = new Login();
+            l.escribirArchivo("HOLACTM como te va??");
+            String texto = l.leerArchivo("hola.txt");
+            System.out.println(texto);
             Principal p = new Principal();
             p.show();
             p.JBFalla.setEnabled(false);
@@ -258,6 +308,7 @@ private void JBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
             else{
             Principal p = new Principal();
+                        JOptionPane.showMessageDialog(rootPane, "Verifique que la hora y fecha sean las correctas en el equipo", "Bienvenido!", JOptionPane.INFORMATION_MESSAGE);
             p.show();
             RetiroRepuesto rp = new RetiroRepuesto();
             //String query = "Select nombre, apellido_paterno, apellido_materno from Administrador where rut_administrador='"+this.JFLOGINRUT.getText()+"'";
@@ -339,7 +390,6 @@ private void PruebaConexion(){
     private javax.swing.JLabel LabelUsuario;
     private javax.swing.JLabel LabelVersion;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;

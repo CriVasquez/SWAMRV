@@ -104,7 +104,7 @@ public class Conexion {
             //PreparedStatement cs = con.prepareStatement("insert into conductor values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
             //**********NO FUNCIONA//OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("{call pruebaqlia(?,?)");
             //F U N C I O N A PERFECT OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("begin registrarConductor(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?); end;");
-            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("begin registrarVehiculo(?,?,?,?,?,?,?,?,?); end;");
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("begin registrarVehiculo(?,?,?,?,?,?,?,?); end;");
             System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
             cs.setString(1, v.getPATENTE());
             cs.setString(2, v.getCHASIS());
@@ -112,9 +112,8 @@ public class Conexion {
             cs.setString(4, v.getCOLOR());
             cs.setString(5, v.getMARCA());
             cs.setString(6, v.getMODELO());
-            cs.setDate(7, v.getFECHA_INGRESO());
-            cs.setDate(8, v.getFECHA_RETIRO());            
-            cs.setBytes(9, v.getFOTO());
+            cs.setDate(7, v.getFECHA_INGRESO());            
+            cs.setBytes(8, v.getFOTO());
             /*cs.setBytes(1, conductor.getFOTO());
             cs.setInt(2,1);
              * 

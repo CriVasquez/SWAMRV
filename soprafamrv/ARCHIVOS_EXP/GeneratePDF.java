@@ -57,7 +57,7 @@ public class GeneratePDF {
         documento.add(new Paragraph("--------------------------------------------------------------------------------------------------------------------------------"));
         while (InformacionPersonal.next()){
             documento.add(new Paragraph("NUMERO ORDEN DE TRABAJO : " +InformacionPersonal.getString("idot"), FontFactory.getFont(FontFactory.COURIER,10,Font.NORMAL)));
-            documento.add(new Paragraph("NUMERO ORDEN DE TRABAJO : " +InformacionPersonal.getString("fechainicio"), FontFactory.getFont(FontFactory.COURIER,10,Font.NORMAL)));
+            documento.add(new Paragraph("FECHA ORDEN DE TRABAJO : " +InformacionPersonal.getString("fechainicio"), FontFactory.getFont(FontFactory.COURIER,10,Font.NORMAL)));
             documento.add(new Paragraph("PATENTE VEHICULO        : " +InformacionPersonal.getString("patente"), FontFactory.getFont(FontFactory.COURIER,10,Font.NORMAL)));
             documento.add(new Paragraph("MECANICO                : " +InformacionPersonal.getString("mecnombre")+ " " +InformacionPersonal.getString("mecapepa")+ " " +InformacionPersonal.getString("mecamema"), FontFactory.getFont(FontFactory.COURIER,10,Font.NORMAL)));
             documento.add(new Paragraph("ADMINISTRADOR           : " +InformacionPersonal.getString("adnombre")+ " " +InformacionPersonal.getString("adapepa")+ " " +InformacionPersonal.getString("adamema"), FontFactory.getFont(FontFactory.COURIER,10,Font.NORMAL)));    
@@ -144,7 +144,7 @@ public class GeneratePDF {
         documento.close();
         for (int x=0; x<MESES.length; x++){        
             System.out.println("Dentro del FOR");            
-            String query = "Select sum(cd.cantidad)TOTAL_AÑO, r.nombre, r.marca from compra_detalle cd, repuesto r, compra c where cd.nro_factura = c.nro_factura and cd.id_repuesto = r.id_repuesto and c.fecha_compra between to_date('1-' || "+MESES[x]+" || '-' || "+ANO+",'dd-mm-yyyy') and to_date(last_day(to_date('28-' || "+MESES[x]+" || '-' || "+ANO+",'dd-mm-yyyy'))) group by r.nombre, r.marca";            
+            String query = "Select sum(cd.cantidad)TOTAL_AÑO, r.nombre, r.marca from compra_detalle cd, repuesto r, compra c where cd.nro_factura = c.nro_factura and cd.id_repuesto = r.id_repuesto and c.fecha_compra between to_date('1-' || "+MESES[x]+" || '-' || "+ANO+",'dd-mm-yyyy') and last_day(to_date('01-' || "+MESES[x]+" || '-' || "+ANO+",'dd-mm-yyyy')) group by r.nombre, r.marca";            
             ResultSet rs = Conexion.ejecutarQuery(query);            
             int cantidad_inicial = 0;
             int cantidad_final = 0;
@@ -166,8 +166,8 @@ public class GeneratePDF {
             
         }
         System.out.println("TERMINO LA EJECUCION");
-        
-        
+        CrearGrafico cg = new CrearGrafico();
+        cg.BarChart("Contenido Informe Repuestos",CANTIDADXMES, ANO);
         
         
     }
