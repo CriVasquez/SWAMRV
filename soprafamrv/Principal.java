@@ -25,7 +25,8 @@ public class Principal extends javax.swing.JFrame {
 
     /** Creates new form Principal */
     public Principal() throws SQLException {
-        initComponents();   
+        initComponents();  
+        
         this.JBRUT.setVisible(false);
         setExtendedState(MAXIMIZED_BOTH);
                 //Agregando Stylo Nimbuu a todas las ventanas

@@ -786,6 +786,11 @@ public class OT extends javax.swing.JInternalFrame {
 
         jButton16.setText(resourceMap.getString("jButton16.text")); // NOI18N
         jButton16.setName("jButton16"); // NOI18N
+        jButton16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton16ActionPerformed(evt);
+            }
+        });
 
         jLabel14.setText(resourceMap.getString("jLabel14.text")); // NOI18N
         jLabel14.setName("jLabel14"); // NOI18N
@@ -808,6 +813,11 @@ public class OT extends javax.swing.JInternalFrame {
 
         jButton17.setText(resourceMap.getString("jButton17.text")); // NOI18N
         jButton17.setName("jButton17"); // NOI18N
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -896,10 +906,10 @@ public class OT extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 594, Short.MAX_VALUE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 606, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                         .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)))
                 .addContainerGap())
@@ -1227,7 +1237,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addComponent(jButton6)
                         .addGap(24, 24, 24)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 767, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel8Layout.setVerticalGroup(
@@ -1239,7 +1249,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton6))
                     .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addContainerGap(97, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel8.TabConstraints.tabTitle"), jPanel8); // NOI18N
@@ -1587,7 +1597,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JBCargarRepuesto))
                     .addComponent(jPanel21, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel14.TabConstraints.tabTitle"), jPanel14); // NOI18N
@@ -1935,7 +1945,7 @@ public class OT extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JBCargarFalla))
                     .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab(resourceMap.getString("jPanel13.TabConstraints.tabTitle"), jPanel13); // NOI18N
@@ -1955,7 +1965,7 @@ public class OT extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -2128,8 +2138,7 @@ public class OT extends javax.swing.JInternalFrame {
     System.out.println("VALOR EN CELDA SELECCIONADA " +TablaOT1.getValueAt(x, y));
     
     //Con este saco el IDOT
-    System.out.println("VALOR EN CELDA SELECCIONADA " +TablaOT1.getValueAt(x, 0)); //esto sirve para seleccionar cualquier fila y que me tome el valor de la primera columna
-           // TODO add your handling code here:
+    System.out.println("VALOR EN CELDA SELECCIONADA " +TablaOT1.getValueAt(x, 0)); //esto sirve para seleccionar cualquier fila y que me tome el valor de la primera columna           
     }//GEN-LAST:event_TablaOT1FocusGained
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -2312,7 +2321,7 @@ public class OT extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        System.out.println("INICIO IMPRESION BOTON");
+      /*  System.out.println("INICIO IMPRESION BOTON");
         int y = this.TablaOT2.getRowCount();
         int x = this.TablaOT2.getColumnCount();   
         
@@ -2334,7 +2343,9 @@ public class OT extends javax.swing.JInternalFrame {
         System.out.println("filas: " +y);
         System.out.println("columnas: " +x);
         //String idot = (String) TablaOT.getValueAt(x,0);
-        //String patente = (String) TablaOT.getValueAt(x,1);     
+        //String patente = (String) TablaOT.getValueAt(x,1); 
+       * 
+       */
 
     }//GEN-LAST:event_jButton14ActionPerformed
 
@@ -2421,6 +2432,14 @@ private void jButton26ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
 // TODO add your handling code here:
 }//GEN-LAST:event_jButton15ActionPerformed
+
+private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jButton16ActionPerformed
+
+private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+// TODO add your handling code here:
+}//GEN-LAST:event_jButton17ActionPerformed
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBCargarFalla;

@@ -308,7 +308,7 @@ private void JBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             }
             else{
             Principal p = new Principal();
-                        JOptionPane.showMessageDialog(rootPane, "Verifique que la hora y fecha sean las correctas en el equipo", "Bienvenido!", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(rootPane, "Bienvenido " +"Cristian"+ " al Software AMRV \nVerifique que la fecha y hora sean correctas en el equipo", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
             p.show();
             RetiroRepuesto rp = new RetiroRepuesto();
             //String query = "Select nombre, apellido_paterno, apellido_materno from Administrador where rut_administrador='"+this.JFLOGINRUT.getText()+"'";

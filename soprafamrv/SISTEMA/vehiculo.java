@@ -124,7 +124,13 @@ public class vehiculo {
         System.out.println("Inicio Llenado de tabla");
         int cantidadColumnas = resultadoMostrarPersonal.getMetaData().getColumnCount();
         System.out.println("Cantidad columnas:" +cantidadColumnas);
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel(){
+            public boolean isCellEditable(int x, int y) {            
+            return false; //Disallow the editing of any cell
+            }            
+        };
+        
+        
         
         modelo.setColumnCount(cantidadColumnas);
         ArrayList cabeceras = new ArrayList();

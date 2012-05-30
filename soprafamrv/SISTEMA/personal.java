@@ -22,14 +22,11 @@ import soprafamrv.Personal;
  */
 public class personal {
     
-    
-    
-    //personal P = new personal();
-    private static String RUT;
-    private String CONTRASENA;
+    private String RUT;
     private String NOMBRE;
-    private String APELLIDO_PATERNO;
-    private String APELLIDO_MATERNO;
+    private String CONTRASENA;
+    private String APELLIDOPAT;
+    private String APELLIDOMAT;
     private String DIRECCION;
     private int TELEFONO;
     private String EMAIL;
@@ -37,23 +34,25 @@ public class personal {
     private Date FECHA_INGRESO;
     private Date FECHA_RETIRO;
     private Date FECHA_NACIMIENTO;
+    private int RADIO;
+    private String LICENCIA;
     private String DETALLE;
-    static byte[] FOTO;
+    private byte[] FOTO;
 
-    public String getAPELLIDO_MATERNO() {
-        return APELLIDO_MATERNO;
+    public String getAPELLIDOMAT() {
+        return APELLIDOMAT;
     }
 
-    public void setAPELLIDO_MATERNO(String APELLIDO_MATERNO) {
-        this.APELLIDO_MATERNO = APELLIDO_MATERNO;
+    public void setAPELLIDOMAT(String APELLIDOMAT) {
+        this.APELLIDOMAT = APELLIDOMAT;
     }
 
-    public String getAPELLIDO_PATERNO() {
-        return APELLIDO_PATERNO;
+    public String getAPELLIDOPAT() {
+        return APELLIDOPAT;
     }
 
-    public void setAPELLIDO_PATERNO(String APELLIDO_PATERNO) {
-        this.APELLIDO_PATERNO = APELLIDO_PATERNO;
+    public void setAPELLIDOPAT(String APELLIDOPAT) {
+        this.APELLIDOPAT = APELLIDOPAT;
     }
 
     public String getCONTRASENA() {
@@ -128,6 +127,14 @@ public class personal {
         this.ID_COMUNA = ID_COMUNA;
     }
 
+    public String getLICENCIA() {
+        return LICENCIA;
+    }
+
+    public void setLICENCIA(String LICENCIA) {
+        this.LICENCIA = LICENCIA;
+    }
+
     public String getNOMBRE() {
         return NOMBRE;
     }
@@ -135,14 +142,14 @@ public class personal {
     public void setNOMBRE(String NOMBRE) {
         this.NOMBRE = NOMBRE;
     }
-/*
-    public personal getP() {
-        return P;
+
+    public int getRADIO() {
+        return RADIO;
     }
 
-    public void setP(personal P) {
-        this.P = P;
-    }*/
+    public void setRADIO(int RADIO) {
+        this.RADIO = RADIO;
+    }
 
     public String getRUT() {
         return RUT;
@@ -159,8 +166,7 @@ public class personal {
     public void setTELEFONO(int TELEFONO) {
         this.TELEFONO = TELEFONO;
     }
-    
-    
+
     public boolean verificarRut(int rut, char dv){
         int m = 0 , s = 1;
         for (; rut!= 0; rut /=10){
@@ -173,7 +179,12 @@ public class personal {
         tabla.removeAll();
         int cantidadColumnas = resultadoMostrarPersonal.getMetaData().getColumnCount();
         System.out.println(cantidadColumnas);
-        DefaultTableModel modelo = new DefaultTableModel();
+        DefaultTableModel modelo = new DefaultTableModel(){
+             public boolean isCellEditable(int x, int y) {            
+            return false; //Disallow the editing of any cell
+            }            
+        };
+        
         
         modelo.setColumnCount(cantidadColumnas);
         ArrayList cabeceras = new ArrayList();
@@ -200,12 +211,5 @@ public class personal {
         
         
     }
-    
-    /*public boolean isCellEditable(int Fila, int Columna) {
-    return false;
-    
-    }
-     * 
-     */
     
 }

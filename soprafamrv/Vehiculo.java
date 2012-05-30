@@ -47,7 +47,9 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         initComponents();
         CargarVehiculos();                  
     }
+    byte[] IMAGEN;
     int contador = 0;
+    int contador2 = 0;
     
     private String retornarMes(String month){
     if (month.equals("1")){
@@ -104,8 +106,15 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         String MARCA = (String) this.JCMARCA.getSelectedItem();
         String MODELO = (String) this.JCMODELO.getSelectedItem();
         String FECHA_INGRESO = this.JCFECHAING1.getSelectedItem() + "-" + this.JCFECHAING2.getSelectedItem() + "-" + this.JCFECHAING3.getSelectedItem();
-        
-        byte[] FOTO = s.ObtenerBytes();
+        //byte[] FOTO = s.obtenerBytes();
+        byte[] FOTO = IMAGEN;
+        if (contador2 == 1){
+            System.out.println("numero contador2: " +contador2);
+            FOTO = s.ObtenerBytes();    
+        }
+        else if(contador2 == 2){
+            FOTO = s.ObtenerBytes();    
+        }
         
         System.out.println("Definicion formato fecha");
         SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MMMMMMMMMM-yyyy", new Locale("es", "ES"));
@@ -135,34 +144,69 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         System.out.println("FECHA_IN: " +v.getFECHA_INGRESO());        
         System.out.println("FOTO: " +v.getFOTO());
         System.out.println("TERMINO impresion variables asignadas");
-        
-        if (this.JFPATENTE.getText().trim() != null && this.JFCHASIS.getText().trim() != null && this.JFANO.getText().trim() != null && !"Seleccionar Color".equals(this.JCCOLOR.getSelectedItem().toString()) && !"Seleccionar Marca".equals(this.JCMARCA.getSelectedItem().toString()) && !"Seleccionar Modelo".equals(this.JCMODELO.getSelectedItem().toString()))        {
-            int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
-            //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
-            System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
-            if (n == 0) {
-                //String query = "begin RegistrarConductor ('"+RUT+"','"+NOMBRE+"','"+APELLIDO_PATERNO+"','"+APELLIDO_MATERNO+"','"+DIRECCION+"',"+TELEFONO+",'"+EMAIL+"',"+COMUNA+",'"+FECHA_INGRESO+"','"+FECHA_RETIRO+"','"+FECHA_NACIMIENTO+"',"+NUM_RADIO+",'"+LICENCIA+"','"+DETALLES+"', "+FOTO+"); end;";       
-                try {
-                c.registrarVehiculo(v);
-                ResetearCampos();
-                CargarVehiculos();  
-                JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
-                DeshabilitarCampos();
-                } catch (Exception e) {
-                e.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);
-                
-                }        
+        if (contador == 2){
+            System.out.println("NUMERO CONTADOR DENTRO DEL IF: " +contador);
+            if (this.JFPATENTE.getText().trim() != null && this.JFCHASIS.getText().trim() != null && this.JFANO.getText().trim() != null && !"Seleccionar Color".equals(this.JCCOLOR.getSelectedItem().toString()) && !"Seleccionar Marca".equals(this.JCMARCA.getSelectedItem().toString()) && !"Seleccionar Modelo".equals(this.JCMODELO.getSelectedItem().toString())){
+                int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
+                //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
+                System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
+                if (n == 0) {
+                    try {
+                        c.actualizarVehiculo(v);
+                        ResetearCampos();
+                        CargarVehiculos();  
+                        DeshabilitarCampos();
+                        JOptionPane.showMessageDialog(null, "Datos Actualizados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                        
+                        contador = 0;
+                        contador2 = 0;
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);
+                            }        
+                    
                 JPanelImagen.removeAll();        
                 JPanelImagen.repaint();
                 CargarVehiculos();  
-            } else if (n == 1) {
-            ResetearCampos();
+                } else if (n == 1) {
+                    ResetearCampos();
                 }
-        }else{
-            JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+                
+                }else{
+                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
             }
-    
+            
+        }
+        else{
+             if (this.JFPATENTE.getText().trim() != null && this.JFCHASIS.getText().trim() != null && this.JFANO.getText().trim() != null && !"Seleccionar Color".equals(this.JCCOLOR.getSelectedItem().toString()) && !"Seleccionar Marca".equals(this.JCMARCA.getSelectedItem().toString()) && !"Seleccionar Modelo".equals(this.JCMODELO.getSelectedItem().toString())){
+                int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
+                //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
+                System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
+                if (n == 0) {
+                    try {
+                        c.registrarVehiculo(v);
+                        ResetearCampos();
+                        CargarVehiculos();  
+                        JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+                        contador = 0;
+                        contador2 = 0;
+                        DeshabilitarCampos();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);
+                            }        
+                    
+                JPanelImagen.removeAll();        
+                JPanelImagen.repaint();
+                CargarVehiculos();  
+                } else if (n == 1) {
+                    ResetearCampos();
+                }
+                
+                }else{
+                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+            }
+        }
+                
     }
     
     private void cargaVehiculoConductor(){
@@ -215,10 +259,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         this.JFANO.setEnabled(false);
         this.JCCOLOR.setEnabled(false);
         this.JCMARCA.setEnabled(false);
-        this.JCMODELO.setEnabled(false);
-        this.JCFECHARET1.setEnabled(false);
-        this.JCFECHARET2.setEnabled(false);
-        this.JCFECHARET3.setEnabled(false);
+        this.JCMODELO.setEnabled(false);        
         JPanelImagen.removeAll();
         JPanelImagen.repaint();
     }
@@ -257,14 +298,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         this.JCFECHAING4.setSelectedIndex(1);
         this.JCFECHAING5.setSelectedIndex(1);
         this.JCFECHAING6.setSelectedIndex(1);
-
-        int year = Integer.parseInt(ano.format(date));
-        System.out.println("Inicio ingreso años");
-        for (int x = 1900; x <= year; x++) {
-            this.JCFECHARET3.addItem(x);
-        }
-        System.out.println("Termino ingreso años");
-
     }
     
     private void ResetearCampos() {
@@ -285,10 +318,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         
         this.JCFECHAING3.removeItemAt(0);
         this.JCFECHAING3.addItem("Año");
-        this.JCFECHAING3.setSelectedIndex(0);
-        this.JCFECHARET1.setSelectedIndex(0);
-        this.JCFECHARET2.setSelectedIndex(0);
-        this.JCFECHARET3.setSelectedIndex(0);
+        this.JCFECHAING3.setSelectedIndex(0);        
         this.JPanelImagen.removeAll();
         this.JPanelImagen.repaint();
         this.JCConductor.setSelectedIndex(0);
@@ -347,13 +377,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         JCFECHAING1 = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        JCFECHARET1 = new javax.swing.JComboBox();
         jButton3 = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        JCFECHARET2 = new javax.swing.JComboBox();
-        JCFECHARET3 = new javax.swing.JComboBox();
-        jLabel7 = new javax.swing.JLabel();
         JPanelImagen = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         JFANO = new javax.swing.JFormattedTextField();
@@ -369,7 +393,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         TablaVehiculoConductor = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         JCPATENTE = new javax.swing.JComboBox();
-        JBBuscar = new javax.swing.JButton();
 
         jFileChooser.setName("jFileChooser"); // NOI18N
 
@@ -591,6 +614,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        JFPATENTE.setText(resourceMap.getString("JFPATENTE.text")); // NOI18N
         JFPATENTE.setEnabled(false);
         JFPATENTE.setName("JFPATENTE"); // NOI18N
 
@@ -616,10 +640,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
         jLabel5.setName("jLabel5"); // NOI18N
 
-        JCFECHARET1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Día", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
-        JCFECHARET1.setEnabled(false);
-        JCFECHARET1.setName("JCFECHARET1"); // NOI18N
-
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
         jButton3.setEnabled(false);
         jButton3.setName("jButton3"); // NOI18N
@@ -628,23 +648,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-
-        jLabel10.setText(resourceMap.getString("jLabel10.text")); // NOI18N
-        jLabel10.setName("jLabel10"); // NOI18N
-
-        jLabel11.setText(resourceMap.getString("jLabel11.text")); // NOI18N
-        jLabel11.setName("jLabel11"); // NOI18N
-
-        JCFECHARET2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mes", "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE" }));
-        JCFECHARET2.setEnabled(false);
-        JCFECHARET2.setName("JCFECHARET2"); // NOI18N
-
-        JCFECHARET3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Año" }));
-        JCFECHARET3.setEnabled(false);
-        JCFECHARET3.setName("JCFECHARET3"); // NOI18N
-
-        jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
-        jLabel7.setName("jLabel7"); // NOI18N
 
         JPanelImagen.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("JPanelImagen.border.title"))); // NOI18N
         JPanelImagen.setName("JPanelImagen"); // NOI18N
@@ -707,31 +710,17 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel6)
-                                        .addComponent(jLabel7))
+                                    .addComponent(jLabel6)
                                     .addGap(18, 18, 18)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(JCFECHARET1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(JCFECHAING1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(JCFECHAING1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel8)
-                                        .addComponent(jLabel11))
+                                    .addComponent(jLabel8)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                            .addComponent(JCFECHARET2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel10)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(JCFECHARET3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                            .addComponent(JCFECHAING2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(jLabel9)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(JCFECHAING3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(JCFECHAING2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabel9)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(JCFECHAING3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel2)
@@ -793,15 +782,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8)
                     .addComponent(JCFECHAING1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JCFECHARET3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel10)
-                    .addComponent(JCFECHARET2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JCFECHARET1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel7))
-                .addGap(18, 18, 18)
+                .addGap(44, 44, 44)
                 .addComponent(jButton3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JPanelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -837,6 +818,11 @@ public class Vehiculo extends javax.swing.JInternalFrame {
             }
         ));
         TablaVehiculo.setName("TablaVehiculo"); // NOI18N
+        TablaVehiculo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TablaVehiculoFocusGained(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaVehiculo);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -888,14 +874,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
             }
         });
 
-        JBBuscar.setText(resourceMap.getString("JBBuscar.text")); // NOI18N
-        JBBuscar.setName("JBBuscar"); // NOI18N
-        JBBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBBuscarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -903,17 +881,13 @@ public class Vehiculo extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(JCPATENTE, 0, 211, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JBBuscar)
-                .addGap(293, 293, 293))
+                .addGap(368, 368, 368))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JCPATENTE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JBBuscar))
+                .addComponent(JCPATENTE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -982,21 +956,25 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (contador == 2){
+            subeImagen m = new subeImagen();
+            m.Abrir_Dialogo(JPanelImagen);
+            contador2 = 1;
+        }
+        else{
         subeImagen m = new subeImagen();
         m.Abrir_Dialogo(JPanelImagen);
+        contador2 = 2;
+        }
         
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         JPanelImagen.removeAll();
@@ -1006,7 +984,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         HabilitarCampos();
         ResetearCampos();
-        AsignarFechaIngreso();
+        AsignarFechaIngreso();        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     
@@ -1053,6 +1031,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                 InputStream z = new ByteArrayInputStream(FOTOByte);
                 BufferedImage FOTO = ImageIO.read(z);
                 
+                IMAGEN = FOTOByte;
                 System.out.println("IMPRIMIENDO FOTO: "+FOTO);
                 
                 System.out.println(CHASIS);
@@ -1177,12 +1156,13 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         this.jButton11.setEnabled(true);
         HabilitarCampos();
         this.JFPATENTE.setEnabled(false);
+        contador = 2;
     }
     
 }//GEN-LAST:event_jButton6ActionPerformed
 
 private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-    if (contador == 1){            
+    if (contador == 1 || contador == 2){            
         int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Eliminar?", "Mensajero", JOptionPane.YES_NO_OPTION);
         if (n == 0){
                 try {
@@ -1194,7 +1174,7 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     cs.executeUpdate();
                     CargarVehiculos();
                     ResetearCampos();
-                    JOptionPane.showMessageDialog(null, "Vehiculo Borrado Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Vehiculo Borrado Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                    
                     
                 } catch (SQLException ex) {
                     Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
@@ -1211,14 +1191,6 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton5ActionPerformed
 
 private void JCPATENTEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCPATENTEItemStateChanged
-             
-}//GEN-LAST:event_JCPATENTEItemStateChanged
-
-private void JCPATENTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCPATENTEActionPerformed
-
-}//GEN-LAST:event_JCPATENTEActionPerformed
-
-private void JBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBuscarActionPerformed
         try {
             String patente = this.JCPATENTE.getSelectedItem().toString().substring(0, 6);
             String query2 = "Select * from DatosVehiculoConductor where patente = '"+patente+"'";
@@ -1228,10 +1200,26 @@ private void JBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
         }
     
-}//GEN-LAST:event_JBBuscarActionPerformed
+             
+}//GEN-LAST:event_JCPATENTEItemStateChanged
+
+private void JCPATENTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCPATENTEActionPerformed
+
+}//GEN-LAST:event_JCPATENTEActionPerformed
+
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+}//GEN-LAST:event_jButton1ActionPerformed
+
+private void TablaVehiculoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TablaVehiculoFocusGained
+    int y = this.TablaVehiculo.getSelectedColumn();
+    int x = this.TablaVehiculo.getSelectedRow();
+    
+    String patente = (String) TablaVehiculo.getValueAt(x,1); 
+    System.out.println("VALOR EN CELDA SELECCIONADA " +TablaVehiculo.getValueAt(x, 0));
+}//GEN-LAST:event_TablaVehiculoFocusGained
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JBBuscar;
     private javax.swing.JComboBox JCCOLOR;
     private javax.swing.JComboBox JCConductor;
     private javax.swing.JComboBox JCFECHAING1;
@@ -1240,9 +1228,6 @@ private void JBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JComboBox JCFECHAING4;
     private javax.swing.JComboBox JCFECHAING5;
     private javax.swing.JComboBox JCFECHAING6;
-    private javax.swing.JComboBox JCFECHARET1;
-    private javax.swing.JComboBox JCFECHARET2;
-    private javax.swing.JComboBox JCFECHARET3;
     private javax.swing.JComboBox JCMARCA;
     private javax.swing.JComboBox JCMODELO;
     private javax.swing.JComboBox JCPATENTE;
@@ -1266,8 +1251,6 @@ private void JBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JButton jButton9;
     private javax.swing.JFileChooser jFileChooser;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
@@ -1280,7 +1263,6 @@ private void JBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
