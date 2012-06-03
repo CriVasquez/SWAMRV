@@ -73,6 +73,15 @@ public class Principal extends javax.swing.JFrame {
     }
     
     @Action
+    public void ModuloProveedor() throws SQLException {
+        Proveedor h1 = new Proveedor();
+        // se aÃ±ade al jDesktopPane
+        jDesktopPane1.add(h1);
+        //se muestra en pantalla
+        h1.show();
+    }
+    
+    @Action
     public void ModuloRepuesto() throws SQLException {
         Repuesto h1 = new Repuesto();
         // se aÃ±ade al jDesktopPane
@@ -154,6 +163,7 @@ public class Principal extends javax.swing.JFrame {
         JBRepuesto = new javax.swing.JMenuItem();
         JBFalla = new javax.swing.JMenuItem();
         JBOT = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         javax.swing.JMenuItem JBAbout = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
@@ -284,6 +294,11 @@ public class Principal extends javax.swing.JFrame {
         JBOT.setName("JBOT"); // NOI18N
         helpMenu.add(JBOT);
 
+        jMenuItem6.setAction(actionMap.get("ModuloProveedor")); // NOI18N
+        jMenuItem6.setText(resourceMap.getString("jMenuItem6.text")); // NOI18N
+        jMenuItem6.setName("jMenuItem6"); // NOI18N
+        helpMenu.add(jMenuItem6);
+
         JBAbout.setAction(actionMap.get("showAboutBox")); // NOI18N
         JBAbout.setText(resourceMap.getString("JBAbout.text")); // NOI18N
         JBAbout.setName("JBAbout"); // NOI18N
@@ -398,6 +413,7 @@ private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JLabel statusAnimationLabel;

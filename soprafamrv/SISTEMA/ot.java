@@ -33,7 +33,7 @@ public class ot {
     private Date FECHA_INICIO;
     private Date FECHA_TERMINO;
     private String TIPOTRABAJO;
-
+    
     public Date getFECHA_INICIO() {
         return FECHA_INICIO;
     }
@@ -118,9 +118,7 @@ public class ot {
             }
             modelo.addRow(lista.toArray());
         }
-        
-       
-        
+    
         tabla.setModel(modelo);
         tabla.setAutoCreateRowSorter(true);
         tabla.setAutoscrolls(true);
@@ -155,23 +153,11 @@ public class ot {
                 lista.add(i,resultadoMostrarOT.getString(i+1));                    
                 
             }
-            modelo.addRow(lista.toArray());
-            
-            
+            modelo.addRow(lista.toArray());                        
         }
-        
-       /* 
-        DefaultTableCellRenderer i = new DefaultTableCellRenderer();
-        i.setFont(new Font("Helvetica Bold", Font.ITALIC,24));
-        TableColumn t = new TableColumn();
-        t.setWidth(400);
-        * 
-        */
-        
         tabla.setModel(modelo);
         tabla.setAutoCreateRowSorter(true);
-        tabla.setAutoscrolls(true);
-        
+        tabla.setAutoscrolls(true);        
         System.out.println("FIN LLENADO TABLA");
         
     }

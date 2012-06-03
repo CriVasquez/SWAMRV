@@ -45,7 +45,8 @@ public class Vehiculo extends javax.swing.JInternalFrame {
     /** Creates new form Vehiculos */
     public Vehiculo() throws SQLException {
         initComponents();
-        CargarVehiculos();                  
+        CargarVehiculos();    
+        AsignarFechaIngreso();
     }
     byte[] IMAGEN;
     int contador = 0;
@@ -131,7 +132,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         v.setFOTO(FOTO);
         
         System.out.println("Termino Definición Variables");
-        Conexion c = new Conexion();
+        vehiculo conexionVehiculo = new vehiculo();
         
         
         System.out.println("INICIO impresion variables asignadas");
@@ -146,64 +147,46 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         System.out.println("TERMINO impresion variables asignadas");
         if (contador == 2){
             System.out.println("NUMERO CONTADOR DENTRO DEL IF: " +contador);
-            if (this.JFPATENTE.getText().trim() != null && this.JFCHASIS.getText().trim() != null && this.JFANO.getText().trim() != null && !"Seleccionar Color".equals(this.JCCOLOR.getSelectedItem().toString()) && !"Seleccionar Marca".equals(this.JCMARCA.getSelectedItem().toString()) && !"Seleccionar Modelo".equals(this.JCMODELO.getSelectedItem().toString())){
+            if (v.getPATENTE() != null && v.getCHASIS() != null && v.getANO() != 0 && !"Seleccionar Color".equals(v.getCOLOR()) && !"Seleccionar Marca".equals(v.getMARCA()) && !"Seleccionar Modelo".equals(v.getMODELO()) && v.getFOTO() != null){
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
                 //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                 if (n == 0) {
-                    try {
-                        c.actualizarVehiculo(v);
-                        ResetearCampos();
-                        CargarVehiculos();  
-                        DeshabilitarCampos();
-                        JOptionPane.showMessageDialog(null, "Datos Actualizados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                        
-                        contador = 0;
-                        contador2 = 0;
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);
-                            }        
-                    
-                JPanelImagen.removeAll();        
-                JPanelImagen.repaint();
-                CargarVehiculos();  
-                } else if (n == 1) {
+                    conexionVehiculo.actualizarVehiculo(v);
                     ResetearCampos();
-                }
-                
+                    CargarVehiculos();  
+                    HabilitarCampos(false);
+                    contador = 0;
+                    contador2 = 0;                        
+                    JPanelImagen.removeAll();        
+                    JPanelImagen.repaint();
+                    CargarVehiculos();  
+                    } else if (n == 1) {
+                        ResetearCampos();
+                }                
                 }else{
                 JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
             }
             
         }
         else{
-             if (this.JFPATENTE.getText().trim() != null && this.JFCHASIS.getText().trim() != null && this.JFANO.getText().trim() != null && !"Seleccionar Color".equals(this.JCCOLOR.getSelectedItem().toString()) && !"Seleccionar Marca".equals(this.JCMARCA.getSelectedItem().toString()) && !"Seleccionar Modelo".equals(this.JCMODELO.getSelectedItem().toString())){
+             if (v.getPATENTE() != null && v.getCHASIS() != null && v.getANO() != 0 && !"Seleccionar Color".equals(v.getCOLOR()) && !"Seleccionar Marca".equals(v.getMARCA()) && !"Seleccionar Modelo".equals(v.getMODELO()) && v.getFOTO() != null){
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
                 //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                 if (n == 0) {
-                    try {
-                        c.registrarVehiculo(v);
-                        ResetearCampos();
-                        CargarVehiculos();  
-                        JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
-                        contador = 0;
-                        contador2 = 0;
-                        DeshabilitarCampos();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);
-                            }        
-                    
-                JPanelImagen.removeAll();        
-                JPanelImagen.repaint();
-                CargarVehiculos();  
-                } else if (n == 1) {
+                    conexionVehiculo.registrarVehiculo(v);
                     ResetearCampos();
-                }
-                
+                    CargarVehiculos();                      
+                    contador = 0;
+                    contador2 = 0;
+                    HabilitarCampos(false);                                                                    
+                    CargarVehiculos();  
+                    } else if (n == 1) {
+                        ResetearCampos();
+                    }                
                 }else{
-                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
             }
         }
                 
@@ -231,39 +214,18 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         }
          
     }
-         
-    
-    
-    
-    private void HabilitarCampos() {
-        this.JFPATENTE.setEnabled(true);
-        this.JFCHASIS.setEnabled(true);
-        this.JFANO.setEnabled(true);
-        this.JCCOLOR.setEnabled(true);
-        this.JCMARCA.setEnabled(true);
-        this.JCMODELO.setEnabled(true);
-        this.jButton3.setEnabled(true);
-        this.jButton11.setEnabled(true);
-        this.jButton1.setEnabled(true);
-/*      this.JCFECHARET1.setEnabled(true);
-        this.JCFECHARET2.setEnabled(true);
-        this.JCFECHARET3.setEnabled(true);
-         * 
-         */
-        
+                    
+    private void HabilitarCampos(boolean x) {
+        this.JFPATENTE.setEnabled(x);
+        this.JFCHASIS.setEnabled(x);
+        this.JFANO.setEnabled(x);
+        this.JCCOLOR.setEnabled(x);
+        this.JCMARCA.setEnabled(x);
+        this.JCMODELO.setEnabled(x);
+        this.jButton3.setEnabled(x);
+        this.jButton11.setEnabled(x);
+        this.jButton1.setEnabled(x);        
     }
-    
-    private void DeshabilitarCampos() {
-        this.JFPATENTE.setEnabled(false);
-        this.JFCHASIS.setEnabled(false);
-        this.JFANO.setEnabled(false);
-        this.JCCOLOR.setEnabled(false);
-        this.JCMARCA.setEnabled(false);
-        this.JCMODELO.setEnabled(false);        
-        JPanelImagen.removeAll();
-        JPanelImagen.repaint();
-    }
-    
     
     private void CargarVehiculos() throws SQLException{
         TablaVehiculo.removeAll();
@@ -301,6 +263,8 @@ public class Vehiculo extends javax.swing.JInternalFrame {
     }
     
     private void ResetearCampos() {
+        JPanelImagen.removeAll();        
+        JPanelImagen.repaint();
         this.JFPATENTE.setText(null);
         this.JFCHASIS.setText(null);
         this.JFANO.setText(null);
@@ -308,17 +272,9 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         this.JCMARCA.setSelectedIndex(0);
         this.JCMODELO.setSelectedIndex(0);
         
-        this.JCFECHAING1.removeItemAt(0);
-        this.JCFECHAING1.addItem("Dia");
         this.JCFECHAING1.setSelectedIndex(0);
-        
-        this.JCFECHAING2.removeItemAt(0);
-        this.JCFECHAING2.addItem("Mes");
         this.JCFECHAING2.setSelectedIndex(0);
-        
-        this.JCFECHAING3.removeItemAt(0);
-        this.JCFECHAING3.addItem("Año");
-        this.JCFECHAING3.setSelectedIndex(0);        
+        this.JCFECHAING3.setSelectedIndex(0);
         this.JPanelImagen.removeAll();
         this.JPanelImagen.repaint();
         this.JCConductor.setSelectedIndex(0);
@@ -519,7 +475,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         setName("Form"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1280, 700));
 
-        jToolBar1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jToolBar1.setBorder(null);
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
         jToolBar1.setName("jToolBar1"); // NOI18N
@@ -677,7 +633,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getActionMap(Vehiculo.class, this);
         jButton1.setAction(actionMap.get("guardar")); // NOI18N
         jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setEnabled(false);
         jButton1.setName("jButton1"); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -982,7 +937,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        HabilitarCampos();
+        HabilitarCampos(true);
         ResetearCampos();
         AsignarFechaIngreso();        
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -991,56 +946,26 @@ public class Vehiculo extends javax.swing.JInternalFrame {
     
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
     try {
-                DeshabilitarCampos();
-                
-                String PATENTE = (String) this.TablaVehiculo.getValueAt(TablaVehiculo.getSelectedRow(), TablaVehiculo.getSelectedColumn());
-                Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-                OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaVehiculos(?,?,?,?,?,?,?,?); END;");
-                
-
-                System.out.println("***INICIO CARGA VEHICULO***");
-                System.out.println("Setiando Parametros ENTRADA");
-                cs.setString(1, PATENTE);
-
-                System.out.println("Setiando Parametros SALIDA");
-                cs.registerOutParameter(2, Types.VARCHAR);
-                cs.registerOutParameter(3, Types.INTEGER);
-                cs.registerOutParameter(4, Types.VARCHAR);
-                cs.registerOutParameter(5, Types.VARCHAR);
-                cs.registerOutParameter(6, Types.VARCHAR);
-                cs.registerOutParameter(7, Types.DATE);                              
-                cs.registerOutParameter(8, Types.BLOB);
+                JPanelImagen.removeAll();
+                HabilitarCampos(false);                                
+                int x = this.TablaVehiculo.getSelectedRow();                    
+                String PATENTE = (String) TablaVehiculo.getValueAt(x,0);                
+                vehiculo v = new vehiculo();                
+                v.cargarVehiculo(PATENTE);                
+                System.out.println("imprimiendo PATENTE: " +v.getPATENTE());
+                System.out.println("imprimiendo CHASIS: " +v.getCHASIS());
+                System.out.println("imprimiendo MARCA: " +v.getMARCA());
+                System.out.println("imprimiendo MODELO: " +v.getMODELO());
+                System.out.println("imprimiendo AÑO: " +v.getANO());
+                System.out.println("imprimiendo COLOR: " +v.getCOLOR());
+                System.out.println("imprimiendo FECHA INGRESO: " +v.getFECHAIN());
+                System.out.println("imprimiendo FOTO: " +v.getFOTO());                
                                                 
-                cs.execute();
-                String CHASIS = null;
-                int ANO = 0;
-                String COLOR = null;
-                String MARCA = null;
-                String MODELO = null;
-                String FECHAIN = null;                
-                byte[] FOTOByte;
-                
-                //Asignacion a las variables
-                CHASIS = cs.getOracleObject(2).stringValue();
-                ANO = cs.getOracleObject(3).intValue();
-                COLOR = cs.getOracleObject(4).stringValue();
-                MARCA = cs.getOracleObject(5).stringValue();
-                MODELO = cs.getOracleObject(6).stringValue();
-                FECHAIN = cs.getOracleObject(7).stringValue();                
-                FOTOByte = cs.getBytes(8);
-                InputStream z = new ByteArrayInputStream(FOTOByte);
-                BufferedImage FOTO = ImageIO.read(z);
-                
-                IMAGEN = FOTOByte;
-                System.out.println("IMPRIMIENDO FOTO: "+FOTO);
-                
-                System.out.println(CHASIS);
-                System.out.println(ANO);
-                System.out.println(COLOR);
-                System.out.println(MARCA);
-                System.out.println(MODELO);
-                
-                String FECHA = FECHAIN.substring(0, 10);
+                IMAGEN = v.getFOTO();
+                InputStream z = new ByteArrayInputStream(v.getFOTO());
+                BufferedImage FOTO = ImageIO.read(z);                
+                               
+                String FECHA = v.getFECHAIN().substring(0, 9);
                 String dateParts[] = FECHA.split("/");
                 String month  = dateParts[0];
                 String day  = dateParts[1];
@@ -1049,28 +974,25 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                 System.out.println ("FECHAINGRESO sin java sql: " +day);
                 System.out.println ("FECHAINGRESO sin java sql: " +year);
                 String mes = retornarMes(month);
-                                                
-                System.out.println(FOTO);
+                                                                
                 System.out.println("TERMINO CARGA VEHICULO");
+                                                
+                this.JFPATENTE.setText(v.getPATENTE());
+                this.JFCHASIS.setText(v.getCHASIS());
+                this.JFANO.setText(String.valueOf(v.getANO()));
+                this.JCCOLOR.setSelectedItem(v.getCOLOR());
+                this.JCMARCA.setSelectedItem(v.getMARCA());
+                this.JCMODELO.setSelectedItem(v.getMODELO());
                 
-                vehiculo v = new vehiculo();
-                v.setPATENTE(PATENTE);
-                this.JFPATENTE.setText(PATENTE);
-                this.JFCHASIS.setText(CHASIS.trim());
-                this.JFANO.setText(String.valueOf(ANO).trim());
-                this.JCCOLOR.setSelectedItem(COLOR);
-                this.JCMARCA.setSelectedItem(MARCA);
-                this.JCMODELO.setSelectedItem(MODELO);
-                
-                this.JCFECHAING1.removeItemAt(0);
+                this.JCFECHAING1.removeAllItems();
                 this.JCFECHAING1.addItem(day);
                 this.JCFECHAING1.setSelectedIndex(0);
                 
-                this.JCFECHAING2.removeItemAt(0);
+                this.JCFECHAING2.removeAllItems();
                 this.JCFECHAING2.addItem(mes);
                 this.JCFECHAING2.setSelectedIndex(0);
                 
-                this.JCFECHAING3.removeItemAt(0);
+                this.JCFECHAING3.removeAllItems();
                 this.JCFECHAING3.addItem(year);
                 this.JCFECHAING3.setSelectedIndex(0);
                 
@@ -1154,7 +1076,7 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         this.jButton3.setEnabled(true);
         this.jButton1.setEnabled(true);
         this.jButton11.setEnabled(true);
-        HabilitarCampos();
+        HabilitarCampos(true);
         this.JFPATENTE.setEnabled(false);
         contador = 2;
     }
@@ -1166,16 +1088,12 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Eliminar?", "Mensajero", JOptionPane.YES_NO_OPTION);
         if (n == 0){
                 try {
+                    vehiculo v = new vehiculo();
                     System.out.println("IMPRIMIENDO N :" +n);
                     String PATENTE = this.JFPATENTE.getText();
-                    Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-                    OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BorrarVehiculo(?); END;");
-                    cs.setString(1, PATENTE);
-                    cs.executeUpdate();
+                    v.borrarVehiculo(PATENTE);
                     CargarVehiculos();
                     ResetearCampos();
-                    JOptionPane.showMessageDialog(null, "Vehiculo Borrado Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                    
-                    
                 } catch (SQLException ex) {
                     Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
                 }

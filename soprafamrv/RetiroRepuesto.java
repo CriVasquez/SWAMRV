@@ -39,10 +39,19 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
     public RetiroRepuesto() throws SQLException {
         initComponents();
         this.JLID_REPUESTO.setVisible(false);
+        CargaVehiculo();
 
     }
     
-     static protected String RUT = null;
+    private void CargaVehiculo() throws SQLException {                
+        String query = "Select * from buscarvehiculo";
+        ResultSet rs = Conexion.ejecutarQuery(query);
+            while (rs.next()) {                             
+                this.JCPATENTEBUSQUEDA3.addItem(rs.getString("patente")+ " - " +rs.getString("marca")+ " " +rs.getString("modelo")+ " " +rs.getString("ano"));                
+            }        
+    } 
+    
+     static protected String RUT = "11.111.111-1";
      private void CargarOT() throws SQLException {
         this.TablaOTRR.removeAll();
         String query = "select * from DATOSOTServicio";
@@ -81,12 +90,11 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         jPanel15 = new javax.swing.JPanel();
         jScrollPane5 = new javax.swing.JScrollPane();
         TablaOTRR = new javax.swing.JTable();
-        jPanel16 = new javax.swing.JPanel();
-        jButton19 = new javax.swing.JButton();
-        jLabel25 = new javax.swing.JLabel();
-        jRadioButton7 = new javax.swing.JRadioButton();
-        jRadioButton8 = new javax.swing.JRadioButton();
         JBCargarOT = new javax.swing.JButton();
+        jPanel16 = new javax.swing.JPanel();
+        jLabel25 = new javax.swing.JLabel();
+        JCPATENTEBUSQUEDA3 = new javax.swing.JComboBox();
+        jButton21 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         JTRDSNUMORDEN = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -120,9 +128,6 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         JTABLAOTREP = new javax.swing.JTable();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu1 = new javax.swing.JMenu();
-        jMenu2 = new javax.swing.JMenu();
 
         setClosable(true);
         setMaximizable(true);
@@ -159,26 +164,30 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         });
         jScrollPane5.setViewportView(TablaOTRR);
 
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("jPanel16.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, resourceMap.getColor("jPanel16.border.titleColor"))); // NOI18N
-        jPanel16.setName("jPanel16"); // NOI18N
-
-        jButton19.setText(resourceMap.getString("jButton19.text")); // NOI18N
-        jButton19.setName("jButton19"); // NOI18N
-        jButton19.addActionListener(new java.awt.event.ActionListener() {
+        JBCargarOT.setText(resourceMap.getString("JBCargarOT.text")); // NOI18N
+        JBCargarOT.setName("JBCargarOT"); // NOI18N
+        JBCargarOT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton19ActionPerformed(evt);
+                JBCargarOTActionPerformed(evt);
             }
         });
+
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("jPanel16.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, resourceMap.getColor("jPanel16.border.titleColor"))); // NOI18N
+        jPanel16.setName("jPanel16"); // NOI18N
 
         jLabel25.setText(resourceMap.getString("jLabel25.text")); // NOI18N
         jLabel25.setName("jLabel25"); // NOI18N
 
-        jRadioButton7.setText(resourceMap.getString("jRadioButton7.text")); // NOI18N
-        jRadioButton7.setName("jRadioButton7"); // NOI18N
+        JCPATENTEBUSQUEDA3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Patente" }));
+        JCPATENTEBUSQUEDA3.setName("JCPATENTEBUSQUEDA3"); // NOI18N
 
-        jRadioButton8.setText(resourceMap.getString("jRadioButton8.text")); // NOI18N
-        jRadioButton8.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jRadioButton8.setName("jRadioButton8"); // NOI18N
+        jButton21.setText(resourceMap.getString("jButton21.text")); // NOI18N
+        jButton21.setName("jButton21"); // NOI18N
+        jButton21.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton21ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
@@ -187,32 +196,19 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jRadioButton7)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 160, Short.MAX_VALUE)
-                .addComponent(jButton19)
-                .addGap(22, 22, 22))
+                .addComponent(JCPATENTEBUSQUEDA3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton21)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                 .addComponent(jLabel25)
-                .addComponent(jRadioButton7)
-                .addComponent(jRadioButton8))
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addComponent(jButton19))
+                .addComponent(JCPATENTEBUSQUEDA3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jButton21))
         );
-
-        JBCargarOT.setText(resourceMap.getString("JBCargarOT.text")); // NOI18N
-        JBCargarOT.setName("JBCargarOT"); // NOI18N
-        JBCargarOT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBCargarOTActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -222,15 +218,15 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, 0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JBCargarOT, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(JBCargarOT, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JBCargarOT))
@@ -556,16 +552,17 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -575,32 +572,22 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                .addGroup(jPanel1Layout.createSequentialGroup()
-                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jMenuBar1.setName("jMenuBar1"); // NOI18N
-
-        jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
-        jMenu1.setName("jMenu1"); // NOI18N
-        jMenuBar1.add(jMenu1);
-
-        jMenu2.setText(resourceMap.getString("jMenu2.text")); // NOI18N
-        jMenu2.setName("jMenu2"); // NOI18N
-        jMenuBar1.add(jMenu2);
-
-        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -623,10 +610,6 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
 private void TablaOTRRFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TablaOTRRFocusGained
 // TODO add your handling code here:
 }//GEN-LAST:event_TablaOTRRFocusGained
-
-private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_jButton19ActionPerformed
 
 private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
@@ -685,9 +668,9 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 
         } catch (NullPointerException ex){
-                JOptionPane.showMessageDialog(rootPane, "El Repuesto no tiene STOCK, no puede retirar repuesto seleccionado", "Mensajero", JOptionPane.WARNING_MESSAGE);                
+                //JOptionPane.showMessageDialog(rootPane, "El Repuesto no tiene STOCK, no puede retirar repuesto seleccionado", "Mensajero", JOptionPane.WARNING_MESSAGE);                
                 Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
-                LimpiarCampos();
+                //LimpiarCampos();
                 
         }
             
@@ -762,6 +745,7 @@ private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 private void JBCargarOTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCargarOTActionPerformed
         try {
+            this.JLRepuDispo.removeAll();
             this.JTABLAOTREP.removeAll();
             int y = this.TablaOTRR.getSelectedColumn();    
             int x = this.TablaOTRR.getSelectedRow();        
@@ -774,12 +758,14 @@ private void JBCargarOTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             this.JTRDSMODELO.setText(modelo);
             this.JTRDSNUMORDEN.setText(idot);
             CargarRepuestos();
+            String query ="select otr.id_ot as ID_OT, otr.patente as PATENTE, v.marca as MARCA, v.modelo as MODELO, r.nombre as REPUESTO, r.cantidad as CANTIDAD from orden_trabajo_repuesto otr, repuesto r, vehiculo v where otr.patente = v.patente and otr.id_repuesto = r.id_repuesto and otr.patente = '"+patente+"' and otr.id_ot = '"+idot+"'";
+            ResultSet rs = Conexion.ejecutarQuery(query);
+            while (rs.next()){
+                ot.llenarTablaOT(JTABLAOTREP, rs);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-
-
 }//GEN-LAST:event_JBCargarOTActionPerformed
 
 private void JFCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JFCantidadActionPerformed
@@ -814,8 +800,21 @@ private void JFCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
 
 }//GEN-LAST:event_JFCantidadKeyReleased
 
+private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
+        try {            
+            String PATENTE = (String) this.JCPATENTEBUSQUEDA3.getSelectedItem().toString().substring(0, 6);
+            String query = "Select ot.id_ot as idot, ot.patente as patente, marca, modelo from orden_trabajo ot, vehiculo v where ot.patente ='"+PATENTE+"' and v.patente = ot.patente";   
+            ResultSet rs = Conexion.ejecutarQuery(query);
+            ot.llenarTablaOT(TablaOTRR, rs);
+        } catch (SQLException ex) {
+            Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                  
+}//GEN-LAST:event_jButton21ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBCargarOT;
+    private javax.swing.JComboBox JCPATENTEBUSQUEDA3;
     private javax.swing.JFormattedTextField JFCantidad;
     private javax.swing.JLabel JLID_REPUESTO;
     private java.awt.List JLRepuDispo;
@@ -830,7 +829,7 @@ private void JFCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
     private javax.swing.JTextField JTRepueSelec;
     private javax.swing.JTextField JTStock;
     private javax.swing.JTable TablaOTRR;
-    private javax.swing.JButton jButton19;
+    private javax.swing.JButton jButton21;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
@@ -843,9 +842,6 @@ private void JFCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
@@ -854,8 +850,6 @@ private void JFCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:eve
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
-    private javax.swing.JRadioButton jRadioButton7;
-    private javax.swing.JRadioButton jRadioButton8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

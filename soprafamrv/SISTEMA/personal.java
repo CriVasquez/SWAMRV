@@ -4,17 +4,12 @@
  */
 package soprafamrv.SISTEMA;
 
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import soprafamrv.BD.Conexion;
-import soprafamrv.Personal;
 
 /**
  *

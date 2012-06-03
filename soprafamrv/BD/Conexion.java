@@ -18,6 +18,7 @@ import soprafamrv.SISTEMA.ot;
 import soprafamrv.SISTEMA.repuesto;
 import soprafamrv.ARCHIVOS_EXP.GeneratePDF;
 import soprafamrv.SISTEMA.compra;
+import soprafamrv.SISTEMA.falla;
 import soprafamrv.SISTEMA.personal;
 
 /**
@@ -309,61 +310,6 @@ public class Conexion {
     }
     
     //METODOS CONEXION BD PARA VEHICULO
-    public void registrarVehiculo(vehiculo v) throws SQLException{
-        try {
-            System.out.println("INICIO del Stored Procedure de insercion Vehiculo");
-            
-            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("begin registrarVehiculo(?,?,?,?,?,?,?,?); end;");
-            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
-            cs.setString(1, v.getPATENTE());
-            cs.setString(2, v.getCHASIS());
-            cs.setInt(3, v.getANO());
-            cs.setString(4, v.getCOLOR());
-            cs.setString(5, v.getMARCA());
-            cs.setString(6, v.getMODELO());
-            cs.setDate(7, v.getFECHA_INGRESO());            
-            cs.setBytes(8, v.getFOTO());
-            
-            cs.executeUpdate();
-
-            System.out.println("\nBlob succesfully inserted");
-            con.commit();
-            
-            
-            System.out.println("TERMINO del Stored Procedure de insercion Vehiculo");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-    
-        }    
-    }
-    
-    public void actualizarVehiculo(vehiculo v) throws SQLException{
-        try {
-            System.out.println("INICIO del Stored Procedure de insercion Conductor");
-            
-            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("begin actualizarVehiculo(?,?,?,?,?,?,?,?); end;");
-            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
-            cs.setString(1, v.getPATENTE());
-            cs.setString(2, v.getCHASIS());
-            cs.setInt(3, v.getANO());
-            cs.setString(4, v.getCOLOR());
-            cs.setString(5, v.getMARCA());
-            cs.setString(6, v.getMODELO());
-            cs.setDate(7, v.getFECHA_INGRESO());            
-            cs.setBytes(8, v.getFOTO());
-            
-            cs.executeUpdate();
-
-            System.out.println("\nBlob succesfully inserted");
-            con.commit();
-            
-            
-            System.out.println("TERMINO del Stored Procedure de actualizacion Conductor");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
-    
-        }    
-    }
     
     
     public void registrarVehiculoConductor(String conductor, String patente, Date fecha_asignacion, String descripcion) throws SQLException{
@@ -401,7 +347,7 @@ public class Conexion {
             cs.setString(4, ordentrabajo.getRUT_MECANICO());
             cs.setDate(5, ordentrabajo.getFECHA_INICIO());
             cs.setDate(6, ordentrabajo.getFECHA_TERMINO());            
-            cs.setString(7, ordentrabajo.getTIPOTRABAJO());
+            cs.setString(7, ordentrabajo.getTIPOTRABAJO());            
 
             cs.executeUpdate();
 
@@ -413,7 +359,7 @@ public class Conexion {
     
         }    
 }
-    
+            
     public void registrarOTSERVICIO (int idot, String patente, int id_servicio) throws SQLException, DocumentException, FileNotFoundException{
         try {
             System.out.println("INICIO del Stored Procedure de insercion Conductor");
@@ -447,29 +393,39 @@ public class Conexion {
         }    
 }
     
-    //METODOS CONEXION BD PARA REPUESTO
-    public void registrarRepuesto(repuesto repuesto) throws SQLException{
+    public void actualizarOTSERVICIO (int idot, String patente, int id_servicio) throws SQLException, DocumentException, FileNotFoundException{
         try {
-            System.out.println("INICIO del Stored Procedure de insercion Repuesto");
-            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("begin registrarRepuesto(?,?,?,?,?); end;");
+            System.out.println("INICIO del Stored Procedure de insercion Conductor");
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("begin registrarOTSERVICIO(?,?,?); end;");
             System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
-            cs.setInt(1, repuesto.getID_REPUESTO());
-            cs.setString(2, repuesto.getNOMBRE());
-            cs.setString(3, repuesto.getMARCA());
-            cs.setString(4, repuesto.getDETALLE());
-            cs.setBytes(5, repuesto.getFOTO());
+            cs.setInt(1, idot);
+            cs.setString(2, patente);
+            cs.setInt(3, id_servicio);
+
             cs.executeUpdate();
 
-            System.out.println("\nBlob succesfully inserted");
+            System.out.println("\nOTSERVICIO succesfully inserted");
             con.commit();
-            System.out.println("TERMINO del Stored Procedure de insercion Repuesto");
+            System.out.println("TERMINO del Stored Procedure de insercion OTSERVICIO");
+            GeneratePDF gpdf = new GeneratePDF();
+            
+            //Obtencion datos personal de la orden_trabajo
+            String query = "select ot.fecha_inicio as fechainicio, mec.nombre as mecnombre, mec.apellido_paterno as mecapepa, mec.apellido_materno as mecamema, adm.nombre as adnombre, adm.apellido_paterno as adapepa, adm.apellido_materno as adamema, ot.id_ot as idot, ot.patente as patente from orden_trabajo ot, mecanico mec, administrador adm where ot.id_ot = "+idot+" and ot.patente = '"+patente+"' and ot.rut_mecanico = mec.rut_mecanico and ot.rut_administrador = adm.rut_administrador";
+            ResultSet rs = Conexion.ejecutarQuery(query);     
+            
+            String query2 = "select s.id_servicio, s.nombre from orden_trabajo_servicio ots, servicio s where ots.id_ot = "+idot+" and ots.patente = '"+patente+"' and ots.id_servicio = s.id_servicio";
+            ResultSet rs2 = Conexion.ejecutarQuery(query2);     
+            //Creacion de PDF
+            gpdf.crearDocumento("ORDEN DE TRABAJO N°"+idot+"-PATENTE-"+patente);
+            //Asignacion de contenido PDF a la clase GeneratePDF
+            gpdf.ContenidoDocumento("SOPRAF S.A. SOFTWARE AMRV", "O  R  D  E  N     D  E     T  R  A  B  A  J  O", "S  E  R  V  I  C  I  O  S", rs, rs2);
             
         } catch (SQLException ex) {
             ex.printStackTrace();
     
-        }
-        
-    }
+        }    
+}
+    
     
     public void RegistrarRepuestoOT(int NUM_ORDEN, String PATENTE, int ID_REPUESTO, String RUT_ENCARGADO, String OBSERVACIONES, int CANTIDAD) throws SQLException{
         try {
@@ -488,6 +444,30 @@ public class Conexion {
             System.out.println("\nSuccesfully inserted");
             con.commit();
             System.out.println("TERMINO del Stored Procedure de insercion OTREPUESTO");
+            JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,ex, "Error", JOptionPane.ERROR_MESSAGE); 
+    
+        }
+         
+    }
+    
+    public void RegistrarFallaOT(int NUM_ORDEN, String PATENTE, int ID_FALLA, String OBSERVACIONES) throws SQLException{
+        try {
+            System.out.println("INICIO del Stored Procedure de insercion OTREPUESTO");
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("begin registrarOTFALLA(?,?,?,?); end;");
+            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
+            System.out.println("AQUI YA RECIBI PARAMETROS DESDE RETIROREPUESTOS: " +NUM_ORDEN+ " , " +PATENTE+ " , " +ID_FALLA+ " , " +OBSERVACIONES);
+            cs.setInt(1, NUM_ORDEN);
+            cs.setString(2, PATENTE);
+            cs.setInt(3, ID_FALLA);           
+            cs.setString(4, OBSERVACIONES);            
+            
+            cs.executeUpdate();
+            System.out.println("\nSuccesfully inserted");
+            con.commit();
+            System.out.println("TERMINO del Stored Procedure de insercion OTFALLA");
             JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException ex) {
             ex.printStackTrace();

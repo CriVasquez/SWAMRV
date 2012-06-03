@@ -11,7 +11,6 @@
 package soprafamrv;
 
 import java.io.IOException;
-import soprafamrv.SISTEMA.conductor;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
@@ -152,7 +151,7 @@ public class Personal extends javax.swing.JInternalFrame {
 
         int year = Integer.parseInt(ano.format(date));
         System.out.println("Inicio ingreso años");
-        for (int x = 1900; x <= year; x++) {            
+        for (int x = 2010; x <= year; x++) {            
             this.JCFECHANAC3.addItem(x);
 
         }
@@ -956,7 +955,6 @@ public class Personal extends javax.swing.JInternalFrame {
         javax.swing.ActionMap actionMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getActionMap(Personal.class, this);
         JBGUARDAR.setAction(actionMap.get("Guardar")); // NOI18N
         JBGUARDAR.setText(resourceMap.getString("JBGUARDAR.text")); // NOI18N
-        JBGUARDAR.setEnabled(false);
         JBGUARDAR.setName("JBGUARDAR"); // NOI18N
         JBGUARDAR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
