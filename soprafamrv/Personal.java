@@ -47,15 +47,7 @@ public class Personal extends javax.swing.JInternalFrame {
     public Personal() throws SQLException {
 
         initComponents();        
-        this.JFNUMRADIO.setVisible(false);
-        this.JFTIPOLICENCIA.setVisible(false);
-        this.jLabel13.setVisible(false);
-        this.jLabel14.setVisible(false);
-        this.JFCONTRASENA.setVisible(false);
-        this.JFCONTRASENA1.setVisible(false);
-        this.jLabel2.setVisible(false);
-        this.jLabel24.setVisible(false);
-        this.JFComunaID.setVisible(false);
+        MostrarCampos(false);        
         cargarNuevo();        
         AsignarFechaIngreso();
 
@@ -66,48 +58,10 @@ public class Personal extends javax.swing.JInternalFrame {
     int contador = 0;
     int contador2 = 0;
     
-    private String retornarMes(String month){
-    if (month.equals("1")){
-        month = "Enero";                
-        }                              
-    else if(month.equals("2")){                    
-        month = "Febrero";                    
-        }
-    else if(month.equals("3")){                    
-        month = "Marzo";                    
-        }
-    else if(month.equals("4")){                    
-        month = "Abril";                    
-        }
-    else if(month.equals("5")){                    
-        month = "Mayo";                    
-        }
-    else if(month.equals("6")){                    
-        month = "Junio";                    
-        }
-    else if(month.equals("7")){                    
-        month = "Julio";                    
-        }
-    else if(month.equals("8")){                    
-        month = "Agosto";                    
-        }
-    else if(month.equals("9")){          
-        month = "Septiembre";                    
-        }
-    else if(month.equals("10")){                    
-        month = "Octubre";                    
-        }
-    else if(month.equals("11")){                    
-        month = "Noviembre";                    
-        }
-    else if(month.equals("12")){                    
-        month = "Diciembre";                    
-        }
-    System.out.println ("MES RETORNADO: " +month);
-    return month;
-    }
+    
 
     private void ResetearCampos() {
+        IMAGEN = null;
         this.JFRUT.setText(null);
         this.JFCONTRASENA.setText(null);
         this.JFCONTRASENA1.setText(null);
@@ -133,11 +87,23 @@ public class Personal extends javax.swing.JInternalFrame {
         this.JPanelImagen.repaint();
         
     }
-
+    
+    private void MostrarCampos(boolean x){
+        this.JFNUMRADIO.setVisible(x);
+        this.JFTIPOLICENCIA.setVisible(x);
+        this.jLabel13.setVisible(x);
+        this.jLabel14.setVisible(x);            
+        this.JFCONTRASENA.setVisible(x);
+        this.JFCONTRASENA1.setVisible(x);
+        this.jLabel2.setVisible(x);
+        this.jLabel24.setVisible(x);
+        this.JFComunaID.setVisible(false);
+    }
+        
     private void AsignarFechaIngreso() {
         //Puedo jugar con DD MM YYYY para mostrarlos individualmente
         DateFormat dia = new SimpleDateFormat("dd");
-        DateFormat mes = new SimpleDateFormat("MMMMMMMMMM");
+        DateFormat mes = new SimpleDateFormat("MM");
         DateFormat ano = new SimpleDateFormat("yyyy");
         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
@@ -151,7 +117,7 @@ public class Personal extends javax.swing.JInternalFrame {
 
         int year = Integer.parseInt(ano.format(date));
         System.out.println("Inicio ingreso años");
-        for (int x = 2010; x <= year; x++) {            
+        for (int x = 1900; x <= year; x++) {            
             this.JCFECHANAC3.addItem(x);
 
         }
@@ -159,55 +125,28 @@ public class Personal extends javax.swing.JInternalFrame {
 
     }
 
-    private void HabilitarCampos() {
-        this.JFRUT.setEnabled(true);
-        this.JFCONTRASENA.setEnabled(true);
-        this.JFCONTRASENA1.setEnabled(true);
-        this.JFNOMBRE.setEnabled(true);
-        this.JFAPEPA.setEnabled(true);
-        this.JFAPEMA.setEnabled(true);
-        this.JFDIRE.setEnabled(true);
-        this.JFTELE.setEnabled(true);
-        this.JFEMAIL.setEnabled(true);
-        this.JTDETALLE.setEnabled(true);
-        this.JCCOMUNA.setEnabled(true);
-        this.JCFECHANAC1.setEnabled(true);
-        this.JCFECHANAC2.setEnabled(true);
-        this.JCFECHANAC3.setEnabled(true);        
-        this.JBGUARDAR.setEnabled(true);
-        this.JBBorrar.setEnabled(true);
-        this.JFNUMRADIO.setEnabled(true);
-        this.JFTIPOLICENCIA.setEnabled(true);
-        this.jCBTipoCuenta.setEnabled(true);
-        this.jButton3.setEnabled(true);
-   
+    private void HabilitarCampos(boolean x) {
+        this.JFRUT.setEnabled(x);
+        this.JFCONTRASENA.setEnabled(x);
+        this.JFCONTRASENA1.setEnabled(x);
+        this.JFNOMBRE.setEnabled(x);
+        this.JFAPEPA.setEnabled(x);
+        this.JFAPEMA.setEnabled(x);
+        this.JFDIRE.setEnabled(x);
+        this.JFTELE.setEnabled(x);
+        this.JFEMAIL.setEnabled(x);
+        this.JTDETALLE.setEnabled(x);
+        this.JCCOMUNA.setEnabled(x);
+        this.JCFECHANAC1.setEnabled(x);
+        this.JCFECHANAC2.setEnabled(x);
+        this.JCFECHANAC3.setEnabled(x);        
+        this.JBGUARDAR.setEnabled(x);        
+        this.JFNUMRADIO.setEnabled(x);
+        this.JFTIPOLICENCIA.setEnabled(x);
+        this.jCBTipoCuenta.setEnabled(x);
+        this.jButton3.setEnabled(x);   
     }
-    
-    private void DeshabilitarCampos(){
-        this.JBBorrar.setEnabled(false);
-        this.JBGUARDAR.setEnabled(false);
-        this.jButton3.setEnabled(false);
-        this.JFRUT.setEnabled(false);
-        this.JFCONTRASENA.setEnabled(false);
-        this.JFCONTRASENA1.setEnabled(false);
-        this.JFNOMBRE.setEnabled(false);
-        this.JFAPEPA.setEnabled(false);
-        this.JFAPEMA.setEnabled(false);
-        this.JFDIRE.setEnabled(false);
-        this.JFTELE.setEnabled(false);
-        this.JFEMAIL.setEnabled(false);
-        this.JTDETALLE.setEnabled(false);
-        this.JCCOMUNA.setEnabled(false);
-        this.JCFECHANAC1.setEnabled(false);
-        this.JCFECHANAC2.setEnabled(false);
-        this.JCFECHANAC3.setEnabled(false);        
-        this.JFNUMRADIO.setEnabled(false);
-        this.JFTIPOLICENCIA.setEnabled(false);
-        JPanelImagen.removeAll();
-        JPanelImagen.repaint();
-    
-    }
-   
+           
     private void cargarNuevo() {
         //Carga las COMUNAS en el comboBox
         try {
@@ -242,7 +181,10 @@ public class Personal extends javax.swing.JInternalFrame {
         String COMUNA = this.JFComunaID.getText().trim();
         String FECHA_INGRESO = this.JCFECHAING1.getSelectedItem() + "-" + this.JCFECHAING2.getSelectedItem() + "-" + this.JCFECHAING3.getSelectedItem();        
         String FECHA_NACIMIENTO = this.JCFECHANAC1.getSelectedItem() + "-" + this.JCFECHANAC2.getSelectedItem() + "-" + this.JCFECHANAC3.getSelectedItem();
-        String NUM_RADIO = this.JFNUMRADIO.getText().trim();
+        if ("Día-Mes-Año".equals(FECHA_NACIMIENTO)){
+            JOptionPane.showMessageDialog(rootPane, "Debe llenar todos los campos solicitados", "Mensajero", JOptionPane.ERROR_MESSAGE);            
+        }
+        String RADIO = this.JFNUMRADIO.getText().trim();
         String LICENCIA = this.JFTIPOLICENCIA.getText().trim();
         String DETALLES = this.JTDETALLE.getText().toUpperCase().trim();
         
@@ -257,29 +199,30 @@ public class Personal extends javax.swing.JInternalFrame {
         
         
         System.out.println("Definicion formato fecha");
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MMMMMMMMMM-yyyy", new Locale("es", "ES"));
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy", new Locale("es", "ES"));
         java.sql.Date ingreso = new java.sql.Date(sdf.parse(FECHA_INGRESO).getTime());        
         java.sql.Date nac = new java.sql.Date(sdf.parse(FECHA_NACIMIENTO).getTime());
    
         p.setRUT(RUT);
-        p.setNOMBRE(NOMBRE);        
+        p.setNOMBRE(NOMBRE);         
         p.setAPELLIDOPAT(APELLIDO_PATERNO);
         p.setAPELLIDOMAT(APELLIDO_MATERNO);
         p.setDIRECCION(DIRECCION);
         p.setTELEFONO(Integer.parseInt(TELEFONO));
         p.setEMAIL(EMAIL);
-        p.setID_COMUNA(Integer.parseInt(COMUNA)-1);
+        p.setID_COMUNA(Integer.parseInt(COMUNA));
         p.setFECHA_INGRESO(ingreso);        
         p.setFECHA_NACIMIENTO(nac);        
         p.setDETALLE(DETALLES);
         p.setFOTO(FOTO);
         
-        Conexion c = new Conexion();      
+        personal conexionPersonal = new personal();     
         System.out.println("Termino Definición Variables");
         
         System.out.println("INICIO impresion variables asignadas");
         System.out.println("RUT: " +p.getRUT());
         System.out.println("NOMBRE: " +p.getNOMBRE());
+        System.out.println("CONTRASEÑA: " +p.getCONTRASENA());
         System.out.println("APEPA: " +p.getAPELLIDOPAT());
         System.out.println("APEMA: " +p.getAPELLIDOMAT());
         System.out.println("DIRECCION: " +p.getDIRECCION());
@@ -294,22 +237,22 @@ public class Personal extends javax.swing.JInternalFrame {
         if (contador == 2){
             System.out.println("NUMERO CONTADOR DENTRO DEL IF: " +contador);
             if (TIPOCUENTA.equals("Administrador")){
-                if (!"Seleccionar Tipo Cuenta".equals(this.jCBTipoCuenta.getSelectedItem().toString()) && this.JFRUT.getText().trim() != null && this.JFCONTRASENA.getText().trim() != null && this.JFNOMBRE.getText().trim() != null && this.JFAPEPA.getText().trim() != null && this.JFAPEMA.getText().trim() != null && this.JFDIRE.getText().trim() != null && this.JFTELE.getText().trim() != null && this.JFEMAIL.getText().trim() != null && this.JTDETALLE.getText().trim() != null && !"Día".equals(this.JCFECHAING1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHAING2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHAING3.getSelectedItem().toString()) && !"Día".equals(this.JCFECHANAC1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHANAC2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHANAC3.getSelectedItem().toString()) && !"Seleccionar Comuna".equals(this.JCCOMUNA.getSelectedItem().toString()))        {
+                if (p.getRUT() != null && p.getNOMBRE() != null && p.getAPELLIDOPAT() != null && p.getAPELLIDOMAT() != null && p.getDIRECCION() != null && p.getTELEFONO() != 0 && p.getEMAIL() != null && p.getDETALLE() != null && p.getFECHA_NACIMIENTO() != null && p.getFECHA_INGRESO() != null && p.getID_COMUNA() != 0  && p.getFOTO() != null)        {
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
                 //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                     if (n == 0) {                
-                        try {                    
+                        try {                            
                             p.setCONTRASENA(CONTRASENA);
-                            c.actualizarAdminstrador(p);
+                            conexionPersonal.actualizarAdminstrador(p);
                             ResetearCampos();
-                            JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                
+                            JOptionPane.showMessageDialog(null, "Datos Actualizados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                
                             contador = 0;
                             contador2 = 0;
-                            DeshabilitarCampos();
+                            HabilitarCampos(false);
                             } catch (Exception e) {
                                 e.printStackTrace();
-                                JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);                
+                                JOptionPane.showMessageDialog(null, "Se ha producido un error en la actualizacion", "Error", JOptionPane.ERROR_MESSAGE);                
                                 }        
                             JPanelImagen.removeAll();        
                             JPanelImagen.repaint();                
@@ -321,27 +264,27 @@ public class Personal extends javax.swing.JInternalFrame {
                     }
             
                     else{
-                    JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+                    JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
                     }
                 }        
         else if(TIPOCUENTA.equals("Mecanico")){
-            if (!"Seleccionar Tipo Cuenta".equals(this.jCBTipoCuenta.getSelectedItem().toString()) && this.JFRUT.getText().trim() != null && this.JFNOMBRE.getText().trim() != null && this.JFAPEPA.getText().trim() != null && this.JFAPEMA.getText().trim() != null && this.JFDIRE.getText().trim() != null && this.JFTELE.getText().trim() != null && this.JFEMAIL.getText().trim() != null && this.JTDETALLE.getText().trim() != null && !"Día".equals(this.JCFECHAING1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHAING2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHAING3.getSelectedItem().toString()) && !"Día".equals(this.JCFECHANAC1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHANAC2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHANAC3.getSelectedItem().toString()) && !"Seleccionar Comuna".equals(this.JCCOMUNA.getSelectedItem().toString()))        {
+            if (p.getRUT() != null && p.getNOMBRE() != null && p.getAPELLIDOPAT() != null && p.getAPELLIDOMAT() != null && p.getDIRECCION() != null && p.getTELEFONO() != 0 && p.getEMAIL() != null && p.getDETALLE() != null && p.getFECHA_NACIMIENTO() != null && p.getFECHA_INGRESO() != null && p.getID_COMUNA() != 0  && p.getFOTO() != null)        {
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
                 //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                 if (n == 0) {               
-                    try {
-                        c.actualizarMecanico(p);
+                    try {                        
+                        conexionPersonal.actualizarMecanico(p);
                         ResetearCampos();
-                        JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                            
+                        JOptionPane.showMessageDialog(null, "Datos Actualizados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                            
                         contador = 0;
                         contador2 = 0;
-                        DeshabilitarCampos();
+                        HabilitarCampos(false);
                         }
                     
                     catch (Exception e) {
                         e.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Se ha producido un error en la actualizacion", "Error", JOptionPane.ERROR_MESSAGE);
                         }                    
                         JPanelImagen.removeAll();                        
                         JPanelImagen.repaint();
@@ -353,30 +296,30 @@ public class Personal extends javax.swing.JInternalFrame {
                 }
                 
         else{
-                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
                 }                
             }        
         
         else if(TIPOCUENTA.equals("Conductor")){
-            if (!"Seleccionar Tipo Cuenta".equals(this.jCBTipoCuenta.getSelectedItem().toString()) && this.JFRUT.getText().trim() != null && this.JFCONTRASENA.getText().trim() != null && this.JFNOMBRE.getText().trim() != null && this.JFAPEPA.getText().trim() != null && this.JFAPEMA.getText().trim() != null && this.JFDIRE.getText().trim() != null && this.JFTELE.getText().trim() != null && this.JFEMAIL.getText().trim() != null && this.JFNUMRADIO.getText().trim() != null && this.JTDETALLE.getText().trim() != null && !"Día".equals(this.JCFECHAING1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHAING2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHAING3.getSelectedItem().toString()) && !"Día".equals(this.JCFECHANAC1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHANAC2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHANAC3.getSelectedItem().toString()) && !"Seleccionar Comuna".equals(this.JCCOMUNA.getSelectedItem().toString()))        {
+            if (p.getRUT() != null && p.getNOMBRE() != null && p.getAPELLIDOPAT() != null && p.getAPELLIDOMAT() != null && p.getDIRECCION() != null && p.getTELEFONO() != 0 && p.getEMAIL() != null && p.getDETALLE() != null && p.getFECHA_NACIMIENTO() != null && p.getFECHA_INGRESO() != null && p.getID_COMUNA() != 0  && p.getFOTO() != null)        {
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
                 //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                 if (n == 0) {               
                     try {
-                        p.setRADIO(Integer.parseInt(NUM_RADIO));
+                        p.setRADIO(Integer.parseInt(RADIO));
                         p.setLICENCIA(LICENCIA);
-                        c.actualizarConductor(p);
+                        conexionPersonal.actualizarConductor(p);
                         ResetearCampos();
-                        JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                            
+                        JOptionPane.showMessageDialog(null, "Datos Actualizados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                            
                         contador = 0;
                         contador2 = 0;
-                        DeshabilitarCampos();
+                        HabilitarCampos(false);
                         }
                     
                     catch (Exception e) {
                         e.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Se ha producido un error en la actualizacion", "Error", JOptionPane.ERROR_MESSAGE);
                         }                    
                         JPanelImagen.removeAll();                        
                         JPanelImagen.repaint();
@@ -388,29 +331,29 @@ public class Personal extends javax.swing.JInternalFrame {
                 }
                 
         else{
-                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
                 }  
             
         }
         else if(TIPOCUENTA.equals("Encargado Bodega")){
-            if (!"Seleccionar Tipo Cuenta".equals(this.jCBTipoCuenta.getSelectedItem().toString()) && this.JFRUT.getText().trim() != null && this.JFCONTRASENA.getText().trim() != null && this.JFNOMBRE.getText().trim() != null && this.JFAPEPA.getText().trim() != null && this.JFAPEMA.getText().trim() != null && this.JFDIRE.getText().trim() != null && this.JFTELE.getText().trim() != null && this.JFEMAIL.getText().trim() != null && this.JFNUMRADIO.getText().trim() != null && this.JTDETALLE.getText().trim() != null && !"Día".equals(this.JCFECHAING1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHAING2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHAING3.getSelectedItem().toString()) && !"Día".equals(this.JCFECHANAC1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHANAC2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHANAC3.getSelectedItem().toString()) && !"Seleccionar Comuna".equals(this.JCCOMUNA.getSelectedItem().toString()))        {
+            if (p.getRUT() != null && p.getCONTRASENA() != null && p.getNOMBRE() != null && p.getAPELLIDOPAT() != null && p.getAPELLIDOMAT() != null && p.getDIRECCION() != null && p.getTELEFONO() != 0 && p.getEMAIL() != null && p.getDETALLE() != null && p.getFECHA_NACIMIENTO() != null && p.getFECHA_INGRESO() != null && p.getID_COMUNA() != 0 && p.getFOTO() != null)        {
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
                 //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                 if (n == 0) {               
                     try {
                         p.setCONTRASENA(CONTRASENA);
-                        c.actualizarEncargadoB(p);
+                        conexionPersonal.actualizarEncargadoB(p);
                         ResetearCampos();
-                        JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                            
+                        JOptionPane.showMessageDialog(null, "Datos Actualizados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                            
                         contador = 0;
                         contador2 = 0;
-                        DeshabilitarCampos();
+                        HabilitarCampos(false);
                         }
                     
                     catch (Exception e) {
                         e.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Se ha producido un error en la actualizacion", "Error", JOptionPane.ERROR_MESSAGE);
                         }                    
                         JPanelImagen.removeAll();                        
                         JPanelImagen.repaint();
@@ -422,27 +365,26 @@ public class Personal extends javax.swing.JInternalFrame {
                 }
                 
         else{
-                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
                 }  
             
             }
         }
-        else{
-            //aqui no hago nada
+        else{            
             if (TIPOCUENTA.equals("Administrador")){
-                if (!"Seleccionar Tipo Cuenta".equals(this.jCBTipoCuenta.getSelectedItem().toString()) && this.JFRUT.getText().trim() != null && this.JFCONTRASENA.getText().trim() != null && this.JFNOMBRE.getText().trim() != null && this.JFAPEPA.getText().trim() != null && this.JFAPEMA.getText().trim() != null && this.JFDIRE.getText().trim() != null && this.JFTELE.getText().trim() != null && this.JFEMAIL.getText().trim() != null && this.JTDETALLE.getText().trim() != null && !"Día".equals(this.JCFECHAING1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHAING2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHAING3.getSelectedItem().toString()) && !"Día".equals(this.JCFECHANAC1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHANAC2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHANAC3.getSelectedItem().toString()) && !"Seleccionar Comuna".equals(this.JCCOMUNA.getSelectedItem().toString()))        {
+                if (p.getRUT() != null && p.getNOMBRE() != null && p.getAPELLIDOPAT() != null && p.getAPELLIDOMAT() != null && p.getDIRECCION() != null && p.getTELEFONO() != 0 && p.getEMAIL() != null && p.getDETALLE() != null && p.getFECHA_NACIMIENTO() != null && p.getFECHA_INGRESO() != null && p.getID_COMUNA() != 0 && p.getFOTO() != null)        {
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
                 //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                     if (n == 0) {                
                         try {                    
                             p.setCONTRASENA(CONTRASENA);
-                            c.registrarAdministrador(p);
+                            conexionPersonal.registrarAdministrador(p);
                             ResetearCampos();
                             JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                
                             contador = 0;
                             contador2 = 0;
-                            DeshabilitarCampos();
+                            HabilitarCampos(false);
                             } catch (Exception e) {
                                 e.printStackTrace();
                                 JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);                
@@ -457,22 +399,22 @@ public class Personal extends javax.swing.JInternalFrame {
                     }
             
                     else{
-                    JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+                    JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
                     }
                 }        
         else if(TIPOCUENTA.equals("Mecanico")){
-            if (!"Seleccionar Tipo Cuenta".equals(this.jCBTipoCuenta.getSelectedItem().toString()) && this.JFRUT.getText().trim() != null && this.JFNOMBRE.getText().trim() != null && this.JFAPEPA.getText().trim() != null && this.JFAPEMA.getText().trim() != null && this.JFDIRE.getText().trim() != null && this.JFTELE.getText().trim() != null && this.JFEMAIL.getText().trim() != null && this.JTDETALLE.getText().trim() != null && !"Día".equals(this.JCFECHAING1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHAING2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHAING3.getSelectedItem().toString()) && !"Día".equals(this.JCFECHANAC1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHANAC2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHANAC3.getSelectedItem().toString()) && !"Seleccionar Comuna".equals(this.JCCOMUNA.getSelectedItem().toString()))        {
+            if (p.getRUT() != null && p.getNOMBRE() != null && p.getAPELLIDOPAT() != null && p.getAPELLIDOMAT() != null && p.getDIRECCION() != null && p.getTELEFONO() != 0 && p.getEMAIL() != null && p.getDETALLE() != null && p.getFECHA_NACIMIENTO() != null && p.getFECHA_INGRESO() != null && p.getID_COMUNA() != 0 && p.getFOTO() != null)        {
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
                 //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                 if (n == 0) {               
                     try {
-                        c.registrarMecanico(p);
+                        conexionPersonal.registrarMecanico(p);
                         ResetearCampos();
                         JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                            
                         contador = 0;
                         contador2 = 0;
-                        DeshabilitarCampos();
+                        HabilitarCampos(false);
                         }
                     
                     catch (Exception e) {
@@ -489,25 +431,25 @@ public class Personal extends javax.swing.JInternalFrame {
                 }
                 
         else{
-                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
                 }                
             }        
         
         else if(TIPOCUENTA.equals("Conductor")){
-            if (!"Seleccionar Tipo Cuenta".equals(this.jCBTipoCuenta.getSelectedItem().toString()) && this.JFRUT.getText().trim() != null && this.JFCONTRASENA.getText().trim() != null && this.JFNOMBRE.getText().trim() != null && this.JFAPEPA.getText().trim() != null && this.JFAPEMA.getText().trim() != null && this.JFDIRE.getText().trim() != null && this.JFTELE.getText().trim() != null && this.JFEMAIL.getText().trim() != null && this.JFNUMRADIO.getText().trim() != null && this.JTDETALLE.getText().trim() != null && !"Día".equals(this.JCFECHAING1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHAING2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHAING3.getSelectedItem().toString()) && !"Día".equals(this.JCFECHANAC1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHANAC2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHANAC3.getSelectedItem().toString()) && !"Seleccionar Comuna".equals(this.JCCOMUNA.getSelectedItem().toString()))        {
+            if (p.getRUT() != null && p.getNOMBRE() != null && p.getAPELLIDOPAT() != null && p.getAPELLIDOMAT() != null && p.getDIRECCION() != null && p.getTELEFONO() != 0 && p.getEMAIL() != null && p.getDETALLE() != null && p.getFECHA_NACIMIENTO() != null && p.getFECHA_INGRESO() != null && p.getID_COMUNA() != 0 && p.getFOTO() != null)        {
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
                 //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                 if (n == 0) {               
                     try {
-                        p.setRADIO(Integer.parseInt(NUM_RADIO));
+                        p.setRADIO(Integer.parseInt(RADIO));
                         p.setLICENCIA(LICENCIA);
-                        c.registrarConductor(p);
+                        conexionPersonal.registrarConductor(p);
                         ResetearCampos();
                         JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                            
                         contador = 0;
                         contador2 = 0;
-                        DeshabilitarCampos();
+                        HabilitarCampos(false);
                         }
                     
                     catch (Exception e) {
@@ -524,24 +466,24 @@ public class Personal extends javax.swing.JInternalFrame {
                 }
                 
         else{
-                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
                 }  
             
         }
         else if(TIPOCUENTA.equals("Encargado Bodega")){
-            if (!"Seleccionar Tipo Cuenta".equals(this.jCBTipoCuenta.getSelectedItem().toString()) && this.JFRUT.getText().trim() != null && this.JFCONTRASENA.getText().trim() != null && this.JFNOMBRE.getText().trim() != null && this.JFAPEPA.getText().trim() != null && this.JFAPEMA.getText().trim() != null && this.JFDIRE.getText().trim() != null && this.JFTELE.getText().trim() != null && this.JFEMAIL.getText().trim() != null && this.JFNUMRADIO.getText().trim() != null && this.JTDETALLE.getText().trim() != null && !"Día".equals(this.JCFECHAING1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHAING2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHAING3.getSelectedItem().toString()) && !"Día".equals(this.JCFECHANAC1.getSelectedItem().toString()) && !"Mes".equals(this.JCFECHANAC2.getSelectedItem().toString()) && !"Año".equals(this.JCFECHANAC3.getSelectedItem().toString()) && !"Seleccionar Comuna".equals(this.JCCOMUNA.getSelectedItem().toString()))        {
+            if (p.getRUT() != null && p.getCONTRASENA() != null && p.getNOMBRE() != null && p.getAPELLIDOPAT() != null && p.getAPELLIDOMAT() != null && p.getDIRECCION() != null && p.getTELEFONO() != 0 && p.getEMAIL() != null && p.getDETALLE() != null && p.getFECHA_NACIMIENTO() != null && p.getFECHA_INGRESO() != null && p.getID_COMUNA() != 0 && p.getFOTO() != null)        {
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
                 //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                 if (n == 0) {               
                     try {
                         p.setCONTRASENA(CONTRASENA);
-                        c.registrarEncargadoBodega(p);
+                        conexionPersonal.registrarEncargadoBodega(p);
                         ResetearCampos();
                         JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                            
                         contador = 0;
                         contador2 = 0;
-                        DeshabilitarCampos();
+                        HabilitarCampos(false);
                         }
                     
                     catch (Exception e) {
@@ -558,15 +500,13 @@ public class Personal extends javax.swing.JInternalFrame {
                 }
                 
         else{
-                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
                 }  
             
             }
         }
         
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -630,7 +570,6 @@ public class Personal extends javax.swing.JInternalFrame {
         jLabel24 = new javax.swing.JLabel();
         JFCONTRASENA1 = new javax.swing.JPasswordField();
         JFComunaID = new javax.swing.JTextField();
-        JBBorrar = new javax.swing.JButton();
         jToolBar1 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -812,7 +751,11 @@ public class Personal extends javax.swing.JInternalFrame {
         jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
         jLabel2.setName("jLabel2"); // NOI18N
 
-        JFNUMRADIO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("########"))));
+        try {
+            JFNUMRADIO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("########")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
         JFNUMRADIO.setEnabled(false);
         JFNUMRADIO.setName("JFNUMRADIO"); // NOI18N
 
@@ -995,15 +938,6 @@ public class Personal extends javax.swing.JInternalFrame {
         JFComunaID.setEnabled(false);
         JFComunaID.setName("JFComunaID"); // NOI18N
 
-        JBBorrar.setText(resourceMap.getString("JBBorrar.text")); // NOI18N
-        JBBorrar.setEnabled(false);
-        JBBorrar.setName("JBBorrar"); // NOI18N
-        JBBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBBorrarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -1011,10 +945,7 @@ public class Personal extends javax.swing.JInternalFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(JBBorrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JBGUARDAR))
+                    .addComponent(JBGUARDAR)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -1106,9 +1037,7 @@ public class Personal extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JPanelImagen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JBGUARDAR)
-                    .addComponent(JBBorrar))
+                .addComponent(JBGUARDAR)
                 .addGap(38, 38, 38))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
@@ -1305,30 +1234,17 @@ public class Personal extends javax.swing.JInternalFrame {
 
     private void jCBTipoCuentaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCBTipoCuentaItemStateChanged
         if (this.jCBTipoCuenta.getSelectedItem() == "Conductor") {
-            this.JFNUMRADIO.setVisible(true);
-            this.JFTIPOLICENCIA.setVisible(true);
-            this.jLabel13.setVisible(true);
-            this.jLabel14.setVisible(true);
+            MostrarCampos(true);
             this.JFCONTRASENA.setVisible(false);
             this.JFCONTRASENA1.setVisible(false);
             this.jLabel2.setVisible(false);
             this.jLabel24.setVisible(false);
             }
         else if(this.jCBTipoCuenta.getSelectedItem() == "Mecanico"){
-            this.JFNUMRADIO.setVisible(false);
-            this.JFTIPOLICENCIA.setVisible(false);
-            this.jLabel13.setVisible(false);
-            this.jLabel14.setVisible(false);            
-            this.JFCONTRASENA.setVisible(false);
-            this.JFCONTRASENA1.setVisible(false);
-            this.jLabel2.setVisible(false);
-            this.jLabel24.setVisible(false);
+            MostrarCampos(false);
         }
         else {
-            this.JFNUMRADIO.setVisible(false);
-            this.JFTIPOLICENCIA.setVisible(false);
-            this.jLabel13.setVisible(false);
-            this.jLabel14.setVisible(false);
+            MostrarCampos(false);
             this.JFCONTRASENA.setVisible(true);
             this.JFCONTRASENA1.setVisible(true);
             this.jLabel2.setVisible(true);
@@ -1384,144 +1300,50 @@ public class Personal extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_JCTipoPersonalItemStateChanged
 
     private void JBCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCargarActionPerformed
-        String NOMBRE = null;
-        String CONTRASENA = null;
-        String APEPA = null;
-        String APEMA = null;
-        String DIRE = null;
-        int TELEFONO = 0;
-        String EMAIL = null;
-        int IDCOMUNA = 0;
-        String FECHAIN = null;
-        String FECHARE = null;
-        String FECHANA = null;
-        int RADIO = 0;
-        String LICENCIA = null;
-        String DETALLE = null;
-        byte[] FOTOByte;
-                
+        int x = this.tabla.getSelectedRow();                                                 
+        String RUT = (String) tabla.getValueAt(x,0);   
         //CONDUCTORES
         if (this.JCTipoPersonal.getSelectedItem() == "Conductores") {
             try {
-                DeshabilitarCampos();
-                String RUT = (String) this.tabla.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn());
-                Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-                OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaConductores(?,?,?,?,?,?,?,?,?,?,?,?,?,?); END;");
-
-                System.out.println("***INICIO CARGA CONDUCTOR***");
-                System.out.println("Setiando Parametros ENTRADA");
-                cs.setString(1, RUT);
-
-                System.out.println("Setiando Parametros SALIDA");
-                cs.registerOutParameter(2, Types.VARCHAR);
-                cs.registerOutParameter(3, Types.VARCHAR);
-                cs.registerOutParameter(4, Types.VARCHAR);
-                cs.registerOutParameter(5, Types.VARCHAR);
-                cs.registerOutParameter(6, Types.INTEGER);
-                cs.registerOutParameter(7, Types.VARCHAR);
-                cs.registerOutParameter(8, Types.INTEGER);
-                cs.registerOutParameter(9, Types.DATE);
-                cs.registerOutParameter(10, Types.DATE);                
-                cs.registerOutParameter(11, Types.INTEGER);
-                cs.registerOutParameter(12, Types.CHAR);
-                cs.registerOutParameter(13, Types.VARCHAR);
-                cs.registerOutParameter(14, Types.BLOB);
-                                
-                cs.execute();
-                
-                //Asignacion a las variables
-                NOMBRE = cs.getOracleObject(2).stringValue();
-                APEPA = cs.getOracleObject(3).stringValue();
-                APEMA = cs.getOracleObject(4).stringValue();
-                DIRE = cs.getOracleObject(5).stringValue();
-                TELEFONO = cs.getOracleObject(6).intValue();
-                EMAIL = cs.getOracleObject(7).stringValue();
-                IDCOMUNA = cs.getOracleObject(8).intValue();
-                String NOMBRE_COMUNA = null;
-                String query = "Select nombre from comuna where id_comuna="+IDCOMUNA+"";
-                ResultSet rs = Conexion.ejecutarQuery(query);
-                while (rs.next()){
-                    NOMBRE_COMUNA = rs.getString("nombre");
-                }
-                FECHAIN = cs.getOracleObject(9).stringValue();                
-                FECHANA = cs.getOracleObject(10).stringValue();
-                RADIO = cs.getOracleObject(11).intValue();
-                LICENCIA = cs.getOracleObject(12).stringValue();
-                DETALLE = cs.getOracleObject(13).stringValue();                                
-                FOTOByte = cs.getBytes(14);
-                InputStream z = new ByteArrayInputStream(FOTOByte);
-                BufferedImage FOTO = ImageIO.read(z);
-                
-                IMAGEN = FOTOByte;
-                
-                String FECHA_INGRESO = FECHAIN.substring(0, 9);
-                String FECHA_NACIMIENTO = FECHANA.substring(0, 9);
-                String dateParts1[] = FECHA_INGRESO.split("/");
-                String dateParts2[] = FECHA_NACIMIENTO.split("/");
-                String month  = dateParts1[0];
-                String day  = dateParts1[1];
-                String year = dateParts1[2];
-                String month2  = dateParts2[0];
-                String day2  = dateParts2[1];
-                String year2 = dateParts2[2];
-                System.out.println ("FECHAINGRESO sin java sql: " +month);
-                System.out.println ("FECHAINGRESO sin java sql: " +day);
-                System.out.println ("FECHAINGRESO sin java sql: " +year);
-                
-                System.out.println ("FECHAINGRESO sin java sql: " +month2);
-                System.out.println ("FECHAINGRESO sin java sql: " +day2);
-                System.out.println ("FECHAINGRESO sin java sql: " +year2);
-                String mes = retornarMes(month);
-                String mes2 = retornarMes(month2);
-                
-                System.out.println("IMPRIMIENDO FOTO: "+FOTO);
-                //Hasta aqui el codigo funciona bien!
-                System.out.println(NOMBRE);
-                System.out.println(APEPA);
-                System.out.println(APEMA);
-                System.out.println(DIRE);
-                System.out.println(TELEFONO);
-                System.out.println(EMAIL);
-                System.out.println(IDCOMUNA);
-                System.out.println(FECHAIN);
-                System.out.println(FECHARE);
-                System.out.println(FECHANA);
-                System.out.println(RADIO);
-                System.out.println(LICENCIA);
-                System.out.println(DETALLE);
-                System.out.println(FOTO);
-                System.out.println("TERMINO CARGA CONDUCTOR");
-                
+                HabilitarCampos(false);                        
                 personal p = new personal();
-                p.setRUT(RUT);
-                this.JFRUT.setText(RUT);
-                this.JFNOMBRE.setText(NOMBRE.trim());
-                this.JFAPEPA.setText(APEPA.trim());
-                this.JFAPEMA.setText(APEMA.trim());
-                this.JFDIRE.setText(DIRE.trim());
-                this.JFTELE.setText(String.valueOf(TELEFONO));
-                this.JFEMAIL.setText(EMAIL.trim());
-                this.JFNUMRADIO.setText(String.valueOf(RADIO));
-                this.JTDETALLE.setText(DETALLE.trim());
+                p.ObtenerConductor(RUT);
+                               
+                this.JFRUT.setText(p.getRUT());
+                this.JFNOMBRE.setText(p.getNOMBRE());
+                this.JFAPEPA.setText(p.getAPELLIDOPAT());
+                this.JFAPEMA.setText(p.getAPELLIDOMAT());
+                this.JFDIRE.setText(p.getDIRECCION());
+                this.JFTELE.setText(String.valueOf(p.getTELEFONO()));
+                this.JFEMAIL.setText(p.getEMAIL());
+                this.JFNUMRADIO.setText(String.valueOf(p.getRADIO()));
+                this.JTDETALLE.setText(p.getDETALLE());
                 this.jCBTipoCuenta.setSelectedIndex(2);
-                this.JFTIPOLICENCIA.setText(LICENCIA);
-                this.JCCOMUNA.setSelectedItem(NOMBRE_COMUNA);
-
+                this.JFTIPOLICENCIA.setText(p.getLICENCIA());
+                this.JCCOMUNA.setSelectedItem(p.getNOMBRE_COMUNA());
+                
                 this.JCFECHAING1.removeAllItems();
-                this.JCFECHAING1.addItem(day);
+                this.JCFECHAING1.addItem(p.getDay());
+                System.out.println("DIA: " +p.getDay());
                 this.JCFECHAING1.setSelectedIndex(0);
                 
                 this.JCFECHAING2.removeAllItems();
-                this.JCFECHAING2.addItem(mes);
+                this.JCFECHAING2.addItem(p.getMes());
+                System.out.println("MES: " +p.getMes());
                 this.JCFECHAING2.setSelectedIndex(0);
                 
                 this.JCFECHAING3.removeAllItems();
-                this.JCFECHAING3.addItem(year);
+                this.JCFECHAING3.addItem(p.getYear().substring(0, 4));
+                System.out.println("AÑO: " +p.getYear().substring(0, 4));
                 this.JCFECHAING3.setSelectedIndex(0);
                                                
-                this.JCFECHANAC1.setSelectedItem(day2);
-                this.JCFECHANAC2.setSelectedItem(mes2.toUpperCase());                                                
-                this.JCFECHANAC3.setSelectedItem(Integer.parseInt(year2.trim()));
+                this.JCFECHANAC1.setSelectedItem(p.getDay2());
+                this.JCFECHANAC2.setSelectedItem(p.getMes2().toUpperCase());                                                
+                this.JCFECHANAC3.setSelectedItem(Integer.parseInt(p.getYear2().substring(0, 4)));
+                
+                IMAGEN = p.getFOTO();
+                InputStream z = new ByteArrayInputStream(p.getFOTO());
+                BufferedImage FOTO = ImageIO.read(z);     
                 
                 JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
                 JPanelImagen.setVisible(true);
@@ -1536,121 +1358,45 @@ public class Personal extends javax.swing.JInternalFrame {
             
         } else if (this.JCTipoPersonal.getSelectedItem() == "Administradores") {
             try {
-                DeshabilitarCampos();
-                String RUT = (String) this.tabla.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn());
-                Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-                OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaAdministradores(?,?,?,?,?,?,?,?,?,?,?,?,?); END;");
-
-                System.out.println("***INICIO CARGA ADMINISTRADOR***");
-                System.out.println("Setiando Parametros ENTRADA");
-                cs.setString(1, RUT);
-
-                System.out.println("Setiando Parametros SALIDA");
-                cs.registerOutParameter(2, Types.VARCHAR);
-                cs.registerOutParameter(3, Types.VARCHAR);
-                cs.registerOutParameter(4, Types.VARCHAR);
-                cs.registerOutParameter(5, Types.VARCHAR);
-                cs.registerOutParameter(6, Types.VARCHAR);
-                cs.registerOutParameter(7, Types.INTEGER);                
-                cs.registerOutParameter(8, Types.VARCHAR);
-                cs.registerOutParameter(9, Types.INTEGER);
-                cs.registerOutParameter(10, Types.DATE);
-                cs.registerOutParameter(11, Types.DATE);                                
-                cs.registerOutParameter(12, Types.VARCHAR);
-                cs.registerOutParameter(13, Types.BLOB);
-                                
-                cs.execute();
-                
-                //Asignacion a las variables
-                NOMBRE = cs.getOracleObject(2).stringValue();
-                CONTRASENA = cs.getOracleObject(3).stringValue();
-                APEPA = cs.getOracleObject(4).stringValue();
-                APEMA = cs.getOracleObject(5).stringValue();
-                DIRE = cs.getOracleObject(6).stringValue();
-                TELEFONO = cs.getOracleObject(7).intValue();
-                EMAIL = cs.getOracleObject(8).stringValue();
-                IDCOMUNA = cs.getOracleObject(9).intValue();
-                String NOMBRE_COMUNA = null;
-                String query = "Select nombre from comuna where id_comuna="+IDCOMUNA+"";
-                ResultSet rs = Conexion.ejecutarQuery(query);
-                while (rs.next()){
-                    NOMBRE_COMUNA = rs.getString("nombre");
-                }
-                FECHAIN = cs.getOracleObject(10).stringValue();                
-                FECHANA = cs.getOracleObject(11).stringValue();                
-                DETALLE = cs.getOracleObject(12).stringValue();                
-                
-                FOTOByte = cs.getBytes(13);
-                InputStream z = new ByteArrayInputStream(FOTOByte);
+                HabilitarCampos(false);
+                personal p = new personal();                
+                p.ObtenerAdministrador(RUT);
+                                              
+                this.JFRUT.setText(p.getRUT());
+                this.JFNOMBRE.setText(p.getNOMBRE());
+                this.JFCONTRASENA.setText(p.getCONTRASENA());
+                this.JFCONTRASENA1.setText(p.getCONTRASENA());
+                this.JFAPEPA.setText(p.getAPELLIDOPAT());
+                this.JFAPEMA.setText(p.getAPELLIDOMAT());
+                this.JFDIRE.setText(p.getDIRECCION());
+                this.JFTELE.setText(String.valueOf(p.getTELEFONO()));
+                this.JFEMAIL.setText(p.getEMAIL());
+                this.JFNUMRADIO.setText(String.valueOf(p.getRADIO()));
+                this.JTDETALLE.setText(p.getDETALLE());
+                this.jCBTipoCuenta.setSelectedIndex(1);                
+                this.JCCOMUNA.setSelectedItem(p.getNOMBRE_COMUNA());
+                InputStream z = new ByteArrayInputStream(p.getFOTO());
                 BufferedImage FOTO = ImageIO.read(z);
                 
-                IMAGEN = FOTOByte;
-                
-                String FECHA_INGRESO = FECHAIN.substring(0, 9);
-                String FECHA_NACIMIENTO = FECHANA.substring(0, 9);
-                String dateParts1[] = FECHA_INGRESO.split("/");
-                String dateParts2[] = FECHA_NACIMIENTO.split("/");
-                String month  = dateParts1[0];
-                String day  = dateParts1[1];
-                String year = dateParts1[2];
-                String month2  = dateParts2[0];
-                String day2  = dateParts2[1];
-                String year2 = dateParts2[2];
-                System.out.println ("FECHAINGRESO sin java sql: " +month);
-                System.out.println ("FECHAINGRESO sin java sql: " +day);
-                System.out.println ("FECHAINGRESO sin java sql: " +year);
-                
-                System.out.println ("FECHAINGRESO sin java sql: " +month2);
-                System.out.println ("FECHAINGRESO sin java sql: " +day2);
-                System.out.println ("FECHAINGRESO sin java sql: " +year2);
-                String mes = retornarMes(month);
-                String mes2 = retornarMes(month2);
-                
-                
-                System.out.println("IMPRIMIENDO FOTO: "+FOTO);
-                //Hasta aqui el codigo funciona bien!
-                System.out.println(NOMBRE);
-                System.out.println(CONTRASENA);
-                System.out.println(APEPA);
-                System.out.println(APEMA);
-                System.out.println(DIRE);
-                System.out.println(TELEFONO);
-                System.out.println(EMAIL);
-                System.out.println(IDCOMUNA);
-                System.out.println(FECHAIN);                
-                System.out.println(FECHANA);                
-                System.out.println(DETALLE);
-                System.out.println(FOTO);
-                System.out.println("TERMINO CARGA ADMINISTRADOR");
-                
-                personal p = new personal();
-                p.setRUT(RUT);
-                this.JFRUT.setText(RUT);
-                this.JFNOMBRE.setText(NOMBRE.trim());
-                this.JFAPEPA.setText(APEPA.trim());
-                this.JFAPEMA.setText(APEMA.trim());
-                this.JFDIRE.setText(DIRE.trim());
-                this.JFTELE.setText(String.valueOf(TELEFONO));
-                this.JFEMAIL.setText(EMAIL.trim());
-                this.JFNUMRADIO.setText(String.valueOf(RADIO));
-                this.JTDETALLE.setText(DETALLE.trim());
-                this.jCBTipoCuenta.setSelectedIndex(1);                
-                this.JCCOMUNA.setSelectedIndex(IDCOMUNA);
+                IMAGEN = p.getFOTO();
                 this.JCFECHAING1.removeAllItems();
-                this.JCFECHAING1.addItem(day);
+                this.JCFECHAING1.addItem(p.getDay());
+                System.out.println("DIA: " +p.getDay());
                 this.JCFECHAING1.setSelectedIndex(0);
                 
                 this.JCFECHAING2.removeAllItems();
-                this.JCFECHAING2.addItem(mes);
+                this.JCFECHAING2.addItem(p.getMes());
+                System.out.println("MES: " +p.getMes());
                 this.JCFECHAING2.setSelectedIndex(0);
                 
                 this.JCFECHAING3.removeAllItems();
-                this.JCFECHAING3.addItem(year);
+                this.JCFECHAING3.addItem(p.getYear().substring(0, 4));
+                System.out.println("AÑO: " +p.getYear().substring(0, 4));
                 this.JCFECHAING3.setSelectedIndex(0);
                                                
-                this.JCFECHANAC1.setSelectedItem(day2);
-                this.JCFECHANAC2.setSelectedItem(mes2.toUpperCase());                                                
-                this.JCFECHANAC3.setSelectedItem(Integer.parseInt(year2.trim()));
+                this.JCFECHANAC1.setSelectedItem(p.getDay2());
+                this.JCFECHANAC2.setSelectedItem(p.getMes2().toUpperCase());                                                
+                this.JCFECHANAC3.setSelectedItem(Integer.parseInt(p.getYear2().substring(0, 4)));
                 
                 JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
                 JPanelImagen.setVisible(true);
@@ -1665,118 +1411,42 @@ public class Personal extends javax.swing.JInternalFrame {
                         
       }else if(this.JCTipoPersonal.getSelectedItem() == "Mecánicos"){
           try {
-                DeshabilitarCampos();
-                String RUT = (String) this.tabla.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn());
-                Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-                OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaMecanicos(?,?,?,?,?,?,?,?,?,?,?,?); END;");
-
-                System.out.println("***INICIO CARGA MECANICO***");
-                System.out.println("Setiando Parametros ENTRADA");
-                cs.setString(1, RUT);
-
-                System.out.println("Setiando Parametros SALIDA");
-                cs.registerOutParameter(2, Types.VARCHAR);                
-                cs.registerOutParameter(3, Types.VARCHAR);
-                cs.registerOutParameter(4, Types.VARCHAR);
-                cs.registerOutParameter(5, Types.VARCHAR);
-                cs.registerOutParameter(6, Types.INTEGER);                
-                cs.registerOutParameter(7, Types.VARCHAR);
-                cs.registerOutParameter(8, Types.INTEGER);
-                cs.registerOutParameter(9, Types.DATE);
-                cs.registerOutParameter(10, Types.DATE);                                
-                cs.registerOutParameter(11, Types.VARCHAR);
-                cs.registerOutParameter(12, Types.BLOB);
-                                
-                cs.execute();
-                
-                //Asignacion a las variables
-                NOMBRE = cs.getOracleObject(2).stringValue();                
-                APEPA = cs.getOracleObject(3).stringValue();
-                APEMA = cs.getOracleObject(4).stringValue();
-                DIRE = cs.getOracleObject(5).stringValue();
-                TELEFONO = cs.getOracleObject(6).intValue();
-                EMAIL = cs.getOracleObject(7).stringValue();
-                IDCOMUNA = cs.getOracleObject(8).intValue();
-                String NOMBRE_COMUNA = null;
-                String query = "Select nombre from comuna where id_comuna="+IDCOMUNA+"";
-                ResultSet rs = Conexion.ejecutarQuery(query);
-                while (rs.next()){
-                    NOMBRE_COMUNA = rs.getString("nombre");
-                }
-                FECHAIN = cs.getOracleObject(9).stringValue();                
-                FECHANA = cs.getOracleObject(10).stringValue();                
-                DETALLE = cs.getOracleObject(11).stringValue();                
-               
-                FOTOByte = cs.getBytes(12);
-                InputStream z = new ByteArrayInputStream(FOTOByte);
-                BufferedImage FOTO = ImageIO.read(z);
-                
-                IMAGEN = FOTOByte;
-                
-                String FECHA_INGRESO = FECHAIN.substring(0, 9);
-                String FECHA_NACIMIENTO = FECHANA.substring(0, 9);
-                String dateParts1[] = FECHA_INGRESO.split("/");
-                String dateParts2[] = FECHA_NACIMIENTO.split("/");
-                String month  = dateParts1[0];
-                String day  = dateParts1[1];
-                String year = dateParts1[2];
-                String month2  = dateParts2[0];
-                String day2  = dateParts2[1];
-                String year2 = dateParts2[2];
-                System.out.println ("FECHAINGRESO sin java sql: " +month);
-                System.out.println ("FECHAINGRESO sin java sql: " +day);
-                System.out.println ("FECHAINGRESO sin java sql: " +year);
-                
-                System.out.println ("FECHAINGRESO sin java sql: " +month2);
-                System.out.println ("FECHAINGRESO sin java sql: " +day2);
-                System.out.println ("FECHAINGRESO sin java sql: " +year2);
-                String mes = retornarMes(month);
-                String mes2 = retornarMes(month2);
-                
-                
-                System.out.println("IMPRIMIENDO FOTO: "+FOTO);
-                //Hasta aqui el codigo funciona bien!
-                System.out.println(NOMBRE);                
-                System.out.println(APEPA);
-                System.out.println(APEMA);
-                System.out.println(DIRE);
-                System.out.println(TELEFONO);
-                System.out.println(EMAIL);
-                System.out.println(IDCOMUNA);
-                System.out.println(FECHAIN);                
-                System.out.println(FECHANA);                
-                System.out.println(DETALLE);
-                System.out.println(FOTO);
-                System.out.println("TERMINO CARGA MECANICO");
-                
+                HabilitarCampos(false);                
                 personal p = new personal();
-                p.setRUT(RUT);
-                this.JFRUT.setText(RUT);
-                this.JFNOMBRE.setText(NOMBRE.trim());
-                this.JFAPEPA.setText(APEPA.trim());
-                this.JFAPEMA.setText(APEMA.trim());
-                this.JFDIRE.setText(DIRE.trim());
-                this.JFTELE.setText(String.valueOf(TELEFONO));
-                this.JFEMAIL.setText(EMAIL.trim());                
-                this.JTDETALLE.setText(DETALLE.trim());
-                this.jCBTipoCuenta.setSelectedIndex(3);                
-                this.JCCOMUNA.setSelectedIndex(IDCOMUNA);
+                p.ObtenerMecanico(RUT);
                 
+                this.JFRUT.setText(p.getRUT());
+                this.JFNOMBRE.setText(p.getNOMBRE());
+                this.JFAPEPA.setText(p.getAPELLIDOPAT());
+                this.JFAPEMA.setText(p.getAPELLIDOMAT());
+                this.JFDIRE.setText(p.getDIRECCION());
+                this.JFTELE.setText(String.valueOf(p.getTELEFONO()));
+                this.JFEMAIL.setText(String.valueOf(p.getTELEFONO()));                
+                this.JTDETALLE.setText(p.getDETALLE());
+                this.jCBTipoCuenta.setSelectedIndex(3);                
+                this.JCCOMUNA.setSelectedItem(p.getNOMBRE_COMUNA());
+
                 this.JCFECHAING1.removeAllItems();
-                this.JCFECHAING1.addItem(day);
+                this.JCFECHAING1.addItem(p.getDay());
+                System.out.println("DIA: " +p.getDay());
                 this.JCFECHAING1.setSelectedIndex(0);
                 
                 this.JCFECHAING2.removeAllItems();
-                this.JCFECHAING2.addItem(mes);
+                this.JCFECHAING2.addItem(p.getMes());
+                System.out.println("MES: " +p.getMes());
                 this.JCFECHAING2.setSelectedIndex(0);
                 
                 this.JCFECHAING3.removeAllItems();
-                this.JCFECHAING3.addItem(year);
+                this.JCFECHAING3.addItem(p.getYear().substring(0, 4));
+                System.out.println("AÑO: " +p.getYear().substring(0, 4));
                 this.JCFECHAING3.setSelectedIndex(0);
                                                
-                this.JCFECHANAC1.setSelectedItem(day2);
-                this.JCFECHANAC2.setSelectedItem(mes2.toUpperCase());                                                
-                this.JCFECHANAC3.setSelectedItem(Integer.parseInt(year2.trim()));
+                this.JCFECHANAC1.setSelectedItem(p.getDay2());
+                this.JCFECHANAC2.setSelectedItem(p.getMes2().toUpperCase());                                                
+                this.JCFECHANAC3.setSelectedItem(Integer.parseInt(p.getYear2().substring(0, 4)));
+                IMAGEN = p.getFOTO();
+                InputStream z = new ByteArrayInputStream(p.getFOTO());
+                BufferedImage FOTO = ImageIO.read(z);
                 
                 JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
                 JPanelImagen.setVisible(true);
@@ -1791,122 +1461,49 @@ public class Personal extends javax.swing.JInternalFrame {
                         
       }else if(this.JCTipoPersonal.getSelectedItem() == "Encargados Bodega"){
           try {
-                DeshabilitarCampos();
-                String RUT = (String) this.tabla.getValueAt(tabla.getSelectedRow(), tabla.getSelectedColumn());
-                Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-                OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaEncargadoB(?,?,?,?,?,?,?,?,?,?,?,?,?); END;");
-
-                System.out.println("***INICIO CARGA ENCARGADO BODEGA***");
-                System.out.println("Setiando Parametros ENTRADA");
-                cs.setString(1, RUT);
-
-                System.out.println("Setiando Parametros SALIDA");
-                cs.registerOutParameter(2, Types.VARCHAR);
-                cs.registerOutParameter(3, Types.VARCHAR);
-                cs.registerOutParameter(4, Types.VARCHAR);
-                cs.registerOutParameter(5, Types.VARCHAR);
-                cs.registerOutParameter(6, Types.VARCHAR);
-                cs.registerOutParameter(7, Types.INTEGER);                
-                cs.registerOutParameter(8, Types.VARCHAR);
-                cs.registerOutParameter(9, Types.INTEGER);
-                cs.registerOutParameter(10, Types.DATE);
-                cs.registerOutParameter(11, Types.DATE);                                
-                cs.registerOutParameter(12, Types.VARCHAR);
-                cs.registerOutParameter(13, Types.BLOB);
-                                
-                cs.execute();
-                
-                //Asignacion a las variables
-                NOMBRE = cs.getOracleObject(2).stringValue();
-                CONTRASENA = cs.getOracleObject(3).stringValue();
-                APEPA = cs.getOracleObject(4).stringValue();
-                APEMA = cs.getOracleObject(5).stringValue();
-                DIRE = cs.getOracleObject(6).stringValue();
-                TELEFONO = cs.getOracleObject(7).intValue();
-                EMAIL = cs.getOracleObject(8).stringValue();
-                IDCOMUNA = cs.getOracleObject(9).intValue();
-                String NOMBRE_COMUNA = null;
-                String query = "Select nombre from comuna where id_comuna="+IDCOMUNA+"";
-                ResultSet rs = Conexion.ejecutarQuery(query);
-                while (rs.next()){
-                    NOMBRE_COMUNA = rs.getString("nombre");
-                }
-                FECHAIN = cs.getOracleObject(10).stringValue();                
-                FECHANA = cs.getOracleObject(11).stringValue();                
-                DETALLE = cs.getOracleObject(12).stringValue();                
-                
-                FOTOByte = cs.getBytes(13);
-                InputStream z = new ByteArrayInputStream(FOTOByte);
-                BufferedImage FOTO = ImageIO.read(z);
-                
-                IMAGEN = FOTOByte;
-                
-                String FECHA_INGRESO = FECHAIN.substring(0, 9);
-                String FECHA_NACIMIENTO = FECHANA.substring(0, 9);
-                String dateParts1[] = FECHA_INGRESO.split("/");
-                String dateParts2[] = FECHA_NACIMIENTO.split("/");
-                String month  = dateParts1[0];
-                String day  = dateParts1[1];
-                String year = dateParts1[2];
-                String month2  = dateParts2[0];
-                String day2  = dateParts2[1];
-                String year2 = dateParts2[2];
-                System.out.println ("FECHAINGRESO sin java sql: " +month);
-                System.out.println ("FECHAINGRESO sin java sql: " +day);
-                System.out.println ("FECHAINGRESO sin java sql: " +year);
-                
-                System.out.println ("FECHAINGRESO sin java sql: " +month2);
-                System.out.println ("FECHAINGRESO sin java sql: " +day2);
-                System.out.println ("FECHAINGRESO sin java sql: " +year2);
-                String mes = retornarMes(month);
-                String mes2 = retornarMes(month2);
-                
-                
-                System.out.println("IMPRIMIENDO FOTO: "+FOTO);
-                //Hasta aqui el codigo funciona bien!
-                System.out.println(NOMBRE);
-                System.out.println(CONTRASENA);
-                System.out.println(APEPA);
-                System.out.println(APEMA);
-                System.out.println(DIRE);
-                System.out.println(TELEFONO);
-                System.out.println(EMAIL);
-                System.out.println(IDCOMUNA);
-                System.out.println(FECHAIN);                
-                System.out.println(FECHANA);                
-                System.out.println(DETALLE);
-                System.out.println(FOTO);
-                System.out.println("TERMINO CARGA ENCARGADO BODEGA");
-                
+                HabilitarCampos(false);                                            
                 personal p = new personal();
-                p.setRUT(RUT);
-                this.JFRUT.setText(RUT);
-                this.JFNOMBRE.setText(NOMBRE.trim());                
-                this.JFAPEPA.setText(APEPA.trim());
-                this.JFAPEMA.setText(APEMA.trim());
-                this.JFDIRE.setText(DIRE.trim());
-                this.JFTELE.setText(String.valueOf(TELEFONO));
-                this.JFEMAIL.setText(EMAIL.trim());
-                this.JFNUMRADIO.setText(String.valueOf(RADIO));
-                this.JTDETALLE.setText(DETALLE.trim());
+                p.ObtenerEncargadoB(RUT);
+                                
+                this.JFRUT.setText(p.getRUT());
+                this.JFNOMBRE.setText(p.getNOMBRE());   
+                this.JFCONTRASENA.setText(p.getCONTRASENA());
+                this.JFCONTRASENA1.setText(p.getCONTRASENA());
+                this.JFAPEPA.setText(p.getAPELLIDOPAT());
+                this.JFAPEMA.setText(p.getAPELLIDOMAT());
+                this.JFDIRE.setText(p.getDIRECCION());
+                this.JFTELE.setText(String.valueOf(p.getTELEFONO()));
+                this.JFEMAIL.setText(p.getEMAIL());
+                this.JFNUMRADIO.setText(String.valueOf(p.getRADIO()));
+                this.JTDETALLE.setText(p.getDETALLE());
                 this.jCBTipoCuenta.setSelectedIndex(4);                
-                this.JCCOMUNA.setSelectedIndex(IDCOMUNA);
+                this.JCCOMUNA.setSelectedItem(p.getNOMBRE_COMUNA());
                 this.JCFECHAING1.removeAllItems();
-                this.JCFECHAING1.addItem(day);
+                this.JCFECHAING1.addItem(p.getDay());
+                this.JCFECHAING1.setSelectedIndex(0);
+                
+                this.JCFECHAING1.removeAllItems();
+                this.JCFECHAING1.addItem(p.getDay());
+                System.out.println("DIA: " +p.getDay());
                 this.JCFECHAING1.setSelectedIndex(0);
                 
                 this.JCFECHAING2.removeAllItems();
-                this.JCFECHAING2.addItem(mes);
+                this.JCFECHAING2.addItem(p.getMes());
+                System.out.println("MES: " +p.getMes());
                 this.JCFECHAING2.setSelectedIndex(0);
                 
                 this.JCFECHAING3.removeAllItems();
-                this.JCFECHAING3.addItem(year);
+                this.JCFECHAING3.addItem(p.getYear().substring(0, 4));
+                System.out.println("AÑO: " +p.getYear().substring(0, 4));
                 this.JCFECHAING3.setSelectedIndex(0);
                                                
-                this.JCFECHANAC1.setSelectedItem(day2);
-                this.JCFECHANAC2.setSelectedItem(mes2.toUpperCase());                                                
-                this.JCFECHANAC3.setSelectedItem(Integer.parseInt(year2.trim()));
-                
+                this.JCFECHANAC1.setSelectedItem(p.getDay2());
+                this.JCFECHANAC2.setSelectedItem(p.getMes2().toUpperCase());                                                
+                this.JCFECHANAC3.setSelectedItem(Integer.parseInt(p.getYear2().substring(0,4)));
+                IMAGEN = p.getFOTO();
+                InputStream z = new ByteArrayInputStream(p.getFOTO());
+                BufferedImage FOTO = ImageIO.read(z);                
+
                 JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
                 JPanelImagen.setVisible(true);
                 JPanelImagen.repaint();
@@ -1962,7 +1559,7 @@ public class Personal extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
          ResetearCampos();
          AsignarFechaIngreso();
-         HabilitarCampos();    
+         HabilitarCampos(true);    
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void tablaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tablaFocusGained
@@ -1974,130 +1571,82 @@ public class Personal extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Las contraseñas no coinciden", "Mensajero", JOptionPane.WARNING_MESSAGE);
             this.JFCONTRASENA.setText(null);
             this.JFCONTRASENA1.setText(null);
-
         }
-
     }//GEN-LAST:event_JFCONTRASENA1FocusLost
 
     private void JFCONTRASENAFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JFCONTRASENAFocusLost
-        if (this.JFCONTRASENA.getText().length() < 6) {
-            JOptionPane.showMessageDialog(null, "La contraseña debe tener un minimo de 6 caracteres", "Mensajero", JOptionPane.WARNING_MESSAGE);
-            this.JFCONTRASENA.setText(null);
-        }
-
     }//GEN-LAST:event_JFCONTRASENAFocusLost
-
-    private void JBBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBBorrarActionPerformed
-            JPanelImagen.removeAll();
-            JPanelImagen.repaint();    
-}//GEN-LAST:event_JBBorrarActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
     if(contador == 1){
         this.jButton3.setEnabled(true);
-        this.JBGUARDAR.setEnabled(true);
-        this.JBBorrar.setEnabled(true);
-        HabilitarCampos();
+        this.JBGUARDAR.setEnabled(true);        
+        HabilitarCampos(true);
         this.JFRUT.setEnabled(false);
         contador = 2;
     }        
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if (contador == 1 || contador == 2){            
+        if (contador == 1 || contador == 2){     
+            String RUT = this.JFRUT.getText();
             if(this.jCBTipoCuenta.getSelectedItem() == "Administrador"){
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Eliminar?", "Mensajero", JOptionPane.YES_NO_OPTION);
                 if (n == 0){
-                    try {
-                        System.out.println("IMPRIMIENDO N :" +n);
-                        String RUT = this.JFRUT.getText();
-                        Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-                        OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BorrarAdministrador(?); END;");
-                        cs.setString(1, RUT);
-                        cs.executeUpdate();
-                        
-                        ResetearCampos();   
-                        JOptionPane.showMessageDialog(null, "Administrador Borrado Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                                                        
-                } catch (SQLException ex) {
-                    Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("IMPRIMIENDO N :" +n);
+                    personal p = new personal();                                                                                        
+                    p.borrarPersonal(RUT, "Administrador");                    
+                    ResetearCampos();                                                   
+                    }
+                else{
+                    System.out.println("IMPRIMIENDO N :" +n);
+                    ResetearCampos();
+                    }
                 }
-        }
-        else{
-            System.out.println("IMPRIMIENDO N :" +n);
-            ResetearCampos();
-        }
-    }
             else if (this.jCBTipoCuenta.getSelectedItem() == "Conductor"){
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Eliminar?", "Mensajero", JOptionPane.YES_NO_OPTION);
-                if (n == 0){
-                    try {
+                if (n == 0){                
                         System.out.println("IMPRIMIENDO N :" +n);
-                        String RUT = this.JFRUT.getText();
-                        Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-                        OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BorrarConductor(?); END;");
-                        cs.setString(1, RUT);
-                        cs.executeUpdate();
-                        
-                        ResetearCampos();   
-                        JOptionPane.showMessageDialog(null, "Conductor Borrado Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                                                        
-                } catch (SQLException ex) {
-                    Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
+                        personal p = new personal();
+                        p.borrarPersonal(RUT, "Conductor");                        
+                        ResetearCampos();
+                        }
+                else{
+                    System.out.println("IMPRIMIENDO N :" +n);
+                    ResetearCampos();
+                    }
                 }
-        }
-        else{
-            System.out.println("IMPRIMIENDO N :" +n);
-            ResetearCampos();
-        }
-            }
             else if(this.jCBTipoCuenta.getSelectedItem() == "Mecanico"){
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Eliminar?", "Mensajero", JOptionPane.YES_NO_OPTION);
                 if (n == 0){
-                    try {
-                        System.out.println("IMPRIMIENDO N :" +n);
-                        String RUT = this.JFRUT.getText();
-                        Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-                        OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BorrarMecanico(?); END;");
-                        cs.setString(1, RUT);
-                        cs.executeUpdate();
-                        
-                        ResetearCampos();   
-                        JOptionPane.showMessageDialog(null, "Mecanico Borrado Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                                                        
-                } catch (SQLException ex) {
-                    Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("IMPRIMIENDO N :" +n);    
+                    personal p = new personal();
+                    p.borrarPersonal(RUT, "Mecanico");                        
+                    ResetearCampos();                                           
+                    }
+                else{
+                    System.out.println("IMPRIMIENDO N :" +n);
+                    ResetearCampos();
+                    }                
                 }
-        }
-        else{
-            System.out.println("IMPRIMIENDO N :" +n);
-            ResetearCampos();
-        }                
-            }
             else if(this.jCBTipoCuenta.getSelectedItem() == "Encargado Bodega"){
                 int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Eliminar?", "Mensajero", JOptionPane.YES_NO_OPTION);
                 if (n == 0){
-                    try {
-                        System.out.println("IMPRIMIENDO N :" +n);
-                        String RUT = this.JFRUT.getText();
-                        Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-                        OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BorrarEncargadoB(?); END;");
-                        cs.setString(1, RUT);
-                        cs.executeUpdate();
-                        
-                        ResetearCampos();   
-                        JOptionPane.showMessageDialog(null, "Encargado de Bodega Borrado Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                                                        
-                } catch (SQLException ex) {
-                    Logger.getLogger(Vehiculo.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("IMPRIMIENDO N :" +n);
+                    personal p = new personal();
+                    p.borrarPersonal(RUT, "Encargado Bodega");                                                
+                    ResetearCampos();   
+                    }
+                else{
+                    System.out.println("IMPRIMIENDO N :" +n);
+                    ResetearCampos();
+                    }                            
                 }
-        }
-        else{
-            System.out.println("IMPRIMIENDO N :" +n);
-            ResetearCampos();
-        }                            
             }
-     
-        }
         else {
-        JOptionPane.showMessageDialog(null, "Primero debe cargar a un Trabajador", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
-    }
+            JOptionPane.showMessageDialog(null, "Primero debe cargar a un Trabajador", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+            }
+        
     }//GEN-LAST:event_jButton2ActionPerformed
 
 private void JCCOMUNAMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JCCOMUNAMouseClicked
@@ -2166,7 +1715,6 @@ private void JCCOMUNAFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event
 }//GEN-LAST:event_JCCOMUNAFocusLost
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton JBBorrar;
     private javax.swing.JButton JBCargar;
     private javax.swing.JButton JBGUARDAR;
     public javax.swing.JComboBox JCCOMUNA;

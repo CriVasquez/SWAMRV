@@ -67,6 +67,7 @@ public class Falla extends javax.swing.JInternalFrame {
     }
     
     private void ResetearCampos(){
+        IMAGEN = null;
         this.JFCODFALL.setText(null);
         this.JFNOMBRE.setText(null);
         this.JTEXTDESCRIP.setText(null);
@@ -367,11 +368,13 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             ResultSet rs = Conexion.ejecutarQuery(query);
             while (rs.next()) {
                 if (rs.getString("max(id_falla)") != null){
+                    ResetearCampos();
                     int id = Integer.parseInt(rs.getString("max(id_falla)"))+1;
-                    this.JFCODFALL.setText(String.valueOf(id));               
-                
+                    this.JFCODFALL.setText(String.valueOf(id));  
+                                    
                 }else{
-                    this.JFCODFALL.setText("1");
+                    ResetearCampos();
+                    this.JFCODFALL.setText("1");                   
                     }
                  }
         } catch (SQLException ex) {
@@ -441,7 +444,7 @@ private void JRGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                     this.JFNOMBRE.setEnabled(false);
                     this.JTEXTDESCRIP.setEnabled(false);
                     CargarFallas();
-                    HabilitarCampos(false);
+                    HabilitarCampos(false);                    
                     } catch (Exception e) {
                     e.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);

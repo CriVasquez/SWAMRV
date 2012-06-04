@@ -14,11 +14,8 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,7 +25,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import oracle.jdbc.OracleCallableStatement;
 import org.jdesktop.application.Action;
 import soprafamrv.BD.Conexion;
 import soprafamrv.SISTEMA.miPanel;
@@ -263,6 +259,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
     }
     
     private void ResetearCampos() {
+        IMAGEN = null;
         JPanelImagen.removeAll();        
         JPanelImagen.repaint();
         this.JFPATENTE.setText(null);
@@ -965,14 +962,14 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                 InputStream z = new ByteArrayInputStream(v.getFOTO());
                 BufferedImage FOTO = ImageIO.read(z);                
                                
-                String FECHA = v.getFECHAIN().substring(0, 9);
+                String FECHA = v.getFECHAIN().substring(0, 10);
                 String dateParts[] = FECHA.split("/");
                 String month  = dateParts[0];
                 String day  = dateParts[1];
                 String year = dateParts[2];
                 System.out.println ("FECHAINGRESO sin java sql: " +month);
                 System.out.println ("FECHAINGRESO sin java sql: " +day);
-                System.out.println ("FECHAINGRESO sin java sql: " +year);
+                System.out.println ("FECHAINGRESO sin java sql: " +year.substring(0,4));
                 String mes = retornarMes(month);
                                                                 
                 System.out.println("TERMINO CARGA VEHICULO");
@@ -993,7 +990,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                 this.JCFECHAING2.setSelectedIndex(0);
                 
                 this.JCFECHAING3.removeAllItems();
-                this.JCFECHAING3.addItem(year);
+                this.JCFECHAING3.addItem(year.substring(0,4));
                 this.JCFECHAING3.setSelectedIndex(0);
                 
                 
