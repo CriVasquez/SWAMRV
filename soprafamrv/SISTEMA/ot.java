@@ -4,21 +4,18 @@
  */
 package soprafamrv.SISTEMA;
 
-import java.awt.Color;
-import java.awt.Font;
+import com.itextpdf.text.DocumentException;
+import java.io.FileNotFoundException;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Enumeration;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableColumnModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-import org.jdesktop.swingbinding.JTableBinding.ColumnBinding;
+import oracle.jdbc.OracleCallableStatement;
+import soprafamrv.ARCHIVOS_EXP.GeneratePDF;
+import soprafamrv.BD.Conexion;
 
 /**
  *
@@ -33,7 +30,7 @@ public class ot {
     private Date FECHA_INICIO;
     private Date FECHA_TERMINO;
     private String TIPOTRABAJO;
-
+    
     public Date getFECHA_INICIO() {
         return FECHA_INICIO;
     }
@@ -118,9 +115,7 @@ public class ot {
             }
             modelo.addRow(lista.toArray());
         }
-        
-       
-        
+    
         tabla.setModel(modelo);
         tabla.setAutoCreateRowSorter(true);
         tabla.setAutoscrolls(true);
@@ -155,26 +150,160 @@ public class ot {
                 lista.add(i,resultadoMostrarOT.getString(i+1));                    
                 
             }
-            modelo.addRow(lista.toArray());
-            
-            
+            modelo.addRow(lista.toArray());                        
         }
-        
-       /* 
-        DefaultTableCellRenderer i = new DefaultTableCellRenderer();
-        i.setFont(new Font("Helvetica Bold", Font.ITALIC,24));
-        TableColumn t = new TableColumn();
-        t.setWidth(400);
-        * 
-        */
-        
         tabla.setModel(modelo);
         tabla.setAutoCreateRowSorter(true);
-        tabla.setAutoscrolls(true);
-        
+        tabla.setAutoscrolls(true);        
         System.out.println("FIN LLENADO TABLA");
         
     }
+     
+     public void registrarOT (ot ordentrabajo) throws SQLException{
+        try {
+            System.out.println("INICIO del Stored Procedure de insercion OT");
+
+            OracleCallableStatement cs = (OracleCallableStatement) Conexion.con.prepareCall("begin registrarOT(?,?,?,?,?,?,?); end;");
+            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
+            cs.setInt(1, ordentrabajo.getID_OT());
+            cs.setString(2, ordentrabajo.getPATENTE());
+            cs.setString(3, ordentrabajo.getRUT_ADMINISTRADOR());
+            cs.setString(4, ordentrabajo.getRUT_MECANICO());
+            cs.setDate(5, ordentrabajo.getFECHA_INICIO());
+            cs.setDate(6, ordentrabajo.getFECHA_TERMINO());            
+            cs.setString(7, ordentrabajo.getTIPOTRABAJO());            
+
+            cs.executeUpdate();
+
+            System.out.println("\nOT succesfully inserted");
+            Conexion.con.commit();
+            System.out.println("TERMINO del Stored Procedure de insercion OT");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+    
+        }    
+    }
+     
+     
+            
+    public void registrarOTSERVICIO (int idot, String patente, int id_servicio) throws SQLException, DocumentException, FileNotFoundException{
+        try {
+            System.out.println("INICIO del Stored Procedure de insercion Conductor");
+            OracleCallableStatement cs = (OracleCallableStatement) Conexion.con.prepareCall("begin registrarOTSERVICIO(?,?,?); end;");
+            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
+            cs.setInt(1, idot);
+            cs.setString(2, patente);
+            cs.setInt(3, id_servicio);
+
+            cs.executeUpdate();
+
+            System.out.println("\nOTSERVICIO succesfully inserted");
+            Conexion.con.commit();
+            System.out.println("TERMINO del Stored Procedure de insercion OTSERVICIO");
+            GeneratePDF gpdf = new GeneratePDF();
+            
+            //Obtencion datos personal de la orden_trabajo
+            String query = "select ot.fecha_inicio as fechainicio, mec.nombre as mecnombre, mec.apellido_paterno as mecapepa, mec.apellido_materno as mecamema, adm.nombre as adnombre, adm.apellido_paterno as adapepa, adm.apellido_materno as adamema, ot.id_ot as idot, ot.patente as patente from orden_trabajo ot, mecanico mec, administrador adm where ot.id_ot = "+idot+" and ot.patente = '"+patente+"' and ot.rut_mecanico = mec.rut_mecanico and ot.rut_administrador = adm.rut_administrador";
+            ResultSet rs = Conexion.ejecutarQuery(query);     
+            
+            String query2 = "select s.id_servicio, s.nombre from orden_trabajo_servicio ots, servicio s where ots.id_ot = "+idot+" and ots.patente = '"+patente+"' and ots.id_servicio = s.id_servicio";
+            ResultSet rs2 = Conexion.ejecutarQuery(query2);     
+            //Creacion de PDF
+            gpdf.crearDocumento("ORDEN DE TRABAJO N°"+idot+"-PATENTE-"+patente);
+            //Asignacion de contenido PDF a la clase GeneratePDF
+            gpdf.ContenidoDocumento("SOPRAF S.A. SOFTWARE AMRV", "O  R  D  E  N     D  E     T  R  A  B  A  J  O", "S  E  R  V  I  C  I  O  S", rs, rs2);
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+    
+        }    
+}
+    
+    public void actualizarOTSERVICIO (int idot, String patente, int id_servicio) throws SQLException, DocumentException, FileNotFoundException{
+        try {
+            System.out.println("INICIO del Stored Procedure de insercion Conductor");
+            OracleCallableStatement cs = (OracleCallableStatement) Conexion.con.prepareCall("begin registrarOTSERVICIO(?,?,?); end;");
+            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
+            cs.setInt(1, idot);
+            cs.setString(2, patente);
+            cs.setInt(3, id_servicio);
+
+            cs.executeUpdate();
+
+            System.out.println("\nOTSERVICIO succesfully inserted");
+            Conexion.con.commit();
+            System.out.println("TERMINO del Stored Procedure de insercion OTSERVICIO");
+            GeneratePDF gpdf = new GeneratePDF();
+            
+            //Obtencion datos personal de la orden_trabajo
+            String query = "select ot.fecha_inicio as fechainicio, mec.nombre as mecnombre, mec.apellido_paterno as mecapepa, mec.apellido_materno as mecamema, adm.nombre as adnombre, adm.apellido_paterno as adapepa, adm.apellido_materno as adamema, ot.id_ot as idot, ot.patente as patente from orden_trabajo ot, mecanico mec, administrador adm where ot.id_ot = "+idot+" and ot.patente = '"+patente+"' and ot.rut_mecanico = mec.rut_mecanico and ot.rut_administrador = adm.rut_administrador";
+            ResultSet rs = Conexion.ejecutarQuery(query);     
+            
+            String query2 = "select s.id_servicio, s.nombre from orden_trabajo_servicio ots, servicio s where ots.id_ot = "+idot+" and ots.patente = '"+patente+"' and ots.id_servicio = s.id_servicio";
+            ResultSet rs2 = Conexion.ejecutarQuery(query2);     
+            //Creacion de PDF
+            gpdf.crearDocumento("ORDEN DE TRABAJO N°"+idot+"-PATENTE-"+patente);
+            //Asignacion de contenido PDF a la clase GeneratePDF
+            gpdf.ContenidoDocumento("SOPRAF S.A. SOFTWARE AMRV", "O  R  D  E  N     D  E     T  R  A  B  A  J  O", "S  E  R  V  I  C  I  O  S", rs, rs2);
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+    
+        }    
+}
+    
+    
+    public void RegistrarRepuestoOT(int NUM_ORDEN, String PATENTE, int ID_REPUESTO, String RUT_ENCARGADO, String OBSERVACIONES, int CANTIDAD) throws SQLException{
+        try {
+            System.out.println("INICIO del Stored Procedure de insercion OTREPUESTO");
+            OracleCallableStatement cs = (OracleCallableStatement) Conexion.con.prepareCall("begin registrarOTREP(?,?,?,?,?,?); end;");
+            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
+            System.out.println("AQUI YA RECIBI PARAMETROS DESDE RETIROREPUESTOS: " +NUM_ORDEN+ " , " +PATENTE+ " , " +ID_REPUESTO+ " , " +OBSERVACIONES+ " , " +CANTIDAD+ " , " +RUT_ENCARGADO);
+            cs.setInt(1, NUM_ORDEN);
+            cs.setString(2, PATENTE);
+            cs.setInt(3, ID_REPUESTO);
+            cs.setString(4, RUT_ENCARGADO);
+            cs.setString(5, OBSERVACIONES);
+            cs.setInt(6, CANTIDAD);
+            
+            cs.executeUpdate();
+            System.out.println("\nSuccesfully inserted");
+            Conexion.con.commit();
+            System.out.println("TERMINO del Stored Procedure de insercion OTREPUESTO");
+            JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,ex, "Error", JOptionPane.ERROR_MESSAGE); 
+    
+        }
+         
+    }
+    
+    public void RegistrarFallaOT(int NUM_ORDEN, String PATENTE, int ID_FALLA, String OBSERVACIONES) throws SQLException{
+        try {
+            System.out.println("INICIO del Stored Procedure de insercion OTREPUESTO");
+            OracleCallableStatement cs = (OracleCallableStatement) Conexion.con.prepareCall("begin registrarOTFALLA(?,?,?,?); end;");
+            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
+            System.out.println("AQUI YA RECIBI PARAMETROS DESDE RETIROREPUESTOS: " +NUM_ORDEN+ " , " +PATENTE+ " , " +ID_FALLA+ " , " +OBSERVACIONES);
+            cs.setInt(1, NUM_ORDEN);
+            cs.setString(2, PATENTE);
+            cs.setInt(3, ID_FALLA);           
+            cs.setString(4, OBSERVACIONES);            
+            
+            cs.executeUpdate();
+            System.out.println("\nSuccesfully inserted");
+            Conexion.con.commit();
+            System.out.println("TERMINO del Stored Procedure de insercion OTFALLA");
+            JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(null,ex, "Error", JOptionPane.ERROR_MESSAGE); 
+    
+        }
+         
+    }
+    
+    
      
     
 }
