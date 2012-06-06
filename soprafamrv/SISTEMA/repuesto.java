@@ -116,6 +116,43 @@ public class repuesto {
         return repuesto;
     }
     
+    public repuesto ObtenerRepuesto2 (int IDREPUESTO) throws IOException, SQLException{
+        repuesto repuesto = null;
+                    
+            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaRepuestos2(?,?,?,?,?); END;");
+            
+            System.out.println("***INICIO CARGA REPUESTO***");
+            System.out.println("Setiando Parametros ENTRADA");
+            cs.setInt(1, IDREPUESTO);
+
+            System.out.println("Setiando Parametros SALIDA");            
+            cs.registerOutParameter(2, Types.VARCHAR);                        
+            cs.registerOutParameter(3, Types.INTEGER);                        
+            cs.registerOutParameter(4, Types.VARCHAR);            
+            cs.registerOutParameter(5, Types.BLOB);
+            System.out.println("TERMINO Seteo de Parametros");              
+            cs.execute();
+                    
+            //Asignacion a las variables
+            System.out.println("INICIO ASIGNACION VARIABLES OBTENIDAS DE BD");                                                
+            
+            System.out.println("INICIO ASIGNACION VARIABLES OBTENIDAS DE BD");                                                
+            
+            this.ID_REPUESTO = IDREPUESTO;
+            NOMBRE = cs.getOracleObject(2).stringValue();            
+            CANTIDAD = cs.getOracleObject(3).intValue();            
+            DETALLE = cs.getOracleObject(4).stringValue();  
+            FOTO = cs.getBytes(5);            
+            InputStream z = new ByteArrayInputStream(FOTO);
+            BufferedImage FOTO2 = ImageIO.read(z);
+            System.out.println("IMPRIMIENDO FOTO: "+FOTO);                         
+            System.out.println("DETALLE: " +DETALLE);            
+            System.out.println("TERMINO CARGA REPUESTO");
+                                                              
+        return repuesto;
+    }
+    
      public void borrarRepuesto(int IDREPUESTO){
         try {
             Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
@@ -173,6 +210,63 @@ public class repuesto {
         }
         
     }
-
+     
+    public int obtenerMesRepuesto(String MES){
+        int numeroMes = 0;
+        if("Enero".equals(MES)){
+        numeroMes = 1;
+        }
+        else if("Febrero".equals(MES)){
+        numeroMes = 2;        
+        }
+        else if("Marzo".equals(MES)){
+        numeroMes = 3;
+         }
+        else if("Abril".equals(MES)){
+        numeroMes = 4;
+         }
+        else if("Mayo".equals(MES)){
+        numeroMes = 5;
+        }
+        else if("Junio".equals(MES)){
+        numeroMes = 6;
+        }
+        else if("Julio".equals(MES)){
+        numeroMes = 7;
+        }
+        else if("Agosto".equals(MES)){
+        numeroMes = 8;
+        }
+        else if("Septiembre".equals(MES)){
+        numeroMes = 9;
+        }
+        else if("Octubre".equals(MES)){
+        numeroMes = 10;
+        }
+        else if("Noviembre".equals(MES)){
+        numeroMes = 11;
+        }
+        else if("Diciembre".equals(MES)){
+        numeroMes = 12;
+        }
+        return numeroMes;
+        
+        } 
+    
+    public void borrarRepuestoOT(int ID_OT, String PATENTE, int ID_REPUESTO){
+        try {
+            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BorrarRepuestoOT(?,?,?); END;");
+            cs.setInt(1, ID_OT);
+            cs.setString(2, PATENTE);
+            cs.setInt(3, ID_REPUESTO);
+            cs.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Repuesto devuelto satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                    
+        } catch (SQLException ex) {
+            Logger.getLogger(falla.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se puede devolver el repuesto", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
     
 }

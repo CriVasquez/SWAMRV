@@ -22,6 +22,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import oracle.jdbc.OracleCallableStatement;
 import soprafamrv.BD.Conexion;
+import soprafamrv.SISTEMA.falla;
 import soprafamrv.SISTEMA.miPanel;
 import soprafamrv.SISTEMA.ot;
 
@@ -35,7 +36,7 @@ public class OT extends javax.swing.JInternalFrame {
     /** Creates new form OTS */
     public OT() throws SQLException {
         initComponents();
-        CargarOT();      
+        CargarOT();              
         this.JTOBSIDSERVICIO.setVisible(false);
         this.JLID_REPUESTO.setVisible(false);            
         this.jLabel23.setVisible(false);
@@ -1595,7 +1596,7 @@ public class OT extends javax.swing.JInternalFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -1647,6 +1648,161 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         JOptionPane.showMessageDialog(null, "Primero debe cargar una Orden de Trabajo", "Mensajero", JOptionPane.INFORMATION_MESSAGE);        
     }
 }//GEN-LAST:event_jButton2ActionPerformed
+
+private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+    System.out.println("Inicio Definición Variables");
+    int NUM_ORDEN = Integer.parseInt(JTRDSNUMORDEN.getText().trim());    
+    String PATENTE = this.JTRSPATENTE.getText().trim().toUpperCase();
+    int IDFALLA = Integer.parseInt(this.JLID_REPUESTO.getText().trim());
+    String OBSERVACIONES = this.JTObservaciones.getText().trim().toUpperCase();    
+    String RUT_ENCARGADO = "";
+                
+    System.out.println("Termino Definición Variables");
+    ot ot = new ot();            
+               
+    System.out.println("NUM_ORDEN: " +Integer.parseInt(JTRDSNUMORDEN.getText()));
+    System.out.println("PATENTE: " +JTRSPATENTE.getText());
+    System.out.println("IDREPUESTO: " +IDFALLA);
+    System.out.println("OBSERVACIONES: " +OBSERVACIONES);    
+    System.out.println ("RUT: " +RUT_ENCARGADO);
+                
+                
+            if(this.JTRSPATENTE.getText().trim() != null && this.JTRDSMARCA.getText().trim() != null && this.JTRDSMODELO.getText().trim() != null && this.JTRDSNUMORDEN.getText().trim() != null &&  this.JTObservaciones.getText() != null) {
+                int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
+                //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
+                if (n == 0) {
+                    try {
+                        ot.RegistrarFallaOT(NUM_ORDEN, PATENTE, IDFALLA, OBSERVACIONES);                     
+                        this.JListFallaSesion.add(this.JTRepueSelec.getText());                                  
+                        LimpiarCampos(null);
+                                                                               
+                } catch (SQLException ex) {
+                ex.printStackTrace();
+                JOptionPane.showMessageDialog(null, "Ya ha utilizado este repuesto en esta orden de trabajo y vehiculo", "Error", JOptionPane.ERROR_MESSAGE);                      
+                }
+                
+            } else if (n == 1) {
+                this.JTRSPATENTE.setText(null);
+                this.JTRDSMARCA.setText(null);
+                this.JTRDSMODELO.setText(null);
+                this.JTRDSNUMORDEN.setText(null);           
+                this.JLFallaDispo.removeAll();
+      }
+
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+        }
+                
+}//GEN-LAST:event_jButton13ActionPerformed
+
+private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
+        try {
+            LimpiarCampos(null);               
+            falla f = new falla();
+            String NOMBRE = this.JListFallaSesion.getSelectedItem();                                        
+            int IDOT = Integer.parseInt(this.JTRDSNUMORDEN.getText());
+            String PATENTE = this.JTRSPATENTE.getText();
+            
+            f.ObtenerFallaOT(IDOT, PATENTE, NOMBRE);
+            
+            this.JTRepueSelec.setText(f.getNOMBRE());            
+            this.JTObservaciones.setText(f.getDETALLE());
+            this.jLabel23.setText(String.valueOf(f.getID_FALLA()));                      
+            byte[] FOTOByte = f.getFOTO();                                    
+            InputStream z = new ByteArrayInputStream(FOTOByte);
+            BufferedImage FOTO = ImageIO.read(z);            
+            
+            String query = "Select descripcion from falla where id_falla ="+f.getID_FALLA()+"";
+            ResultSet rs = Conexion.ejecutarQuery(query);
+            while (rs.next()){
+                this.JTDESCREPU.setText(rs.getString("descripcion"));
+            }
+            
+            System.out.println("IMPRIMIENDO FOTO: "+FOTO);                                     
+            System.out.println("TERMINO CARGA REPUESTO");                        
+            
+            JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
+            JPanelImagen.setVisible(true);
+            JPanelImagen.repaint();            
+            
+        } catch (IOException ex) {           
+            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error 1", "Mensajero", JOptionPane.WARNING_MESSAGE);                
+            System.out.println("PROBLEMA1");
+        } catch (SQLException ex) {        
+            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error 2", "Mensajero", JOptionPane.WARNING_MESSAGE);                
+
+        } catch (NullPointerException ex){
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error 3", "Mensajero", JOptionPane.WARNING_MESSAGE);                
+            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);                     
+        }
+        
+}//GEN-LAST:event_jButton16ActionPerformed
+
+private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        try {
+            LimpiarCampos(null);               
+            String NOMBRE = this.JLFallaDispo.getSelectedItem();                            
+            this.JTRepueSelec.setText(NOMBRE);
+            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaFallas(?,?,?,?); END;");
+            
+            System.out.println("***INICIO CARGA FALLA***");
+            System.out.println("Setiando Parametros ENTRADA");
+            cs.setString(1, NOMBRE);
+
+            System.out.println("Setiando Parametros SALIDA");            
+            cs.registerOutParameter(2, Types.INTEGER);                        
+            cs.registerOutParameter(3, Types.VARCHAR);            
+            cs.registerOutParameter(4, Types.BLOB);
+            System.out.println("TERMINO Seteo de Parametros");                                                
+            
+            cs.execute();
+            int IDFALLA = 0;            
+            String DESCRIPCION = null;
+            byte[] FOTOByte;
+            
+            //Asignacion a las variables
+            System.out.println("INICIO ASIGNACION VARIABLES OBTENIDAS DE BD");                                                
+            
+            IDFALLA = cs.getOracleObject(2).intValue();                        
+            DESCRIPCION = cs.getOracleObject(3).stringValue();  
+            FOTOByte = cs.getBytes(4);
+            InputStream z = new ByteArrayInputStream(FOTOByte);
+            BufferedImage FOTO = ImageIO.read(z);
+            
+            this.JLID_REPUESTO.setText(String.valueOf(IDFALLA));
+            System.out.println("IMPRIMIENDO FOTO: "+FOTO);                         
+            System.out.println(DESCRIPCION);            
+            System.out.println("TERMINO CARGA REPUESTO");
+                        
+            this.JTDESCREPU.setText(DESCRIPCION);
+            JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
+            JPanelImagen.setVisible(true);
+            JPanelImagen.repaint();
+            this.JTObservaciones.setEnabled(true);
+            
+        } catch (IOException ex) {           
+            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("PROBLEMA1");
+        } catch (SQLException ex) {
+        
+            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
+
+
+        } catch (NullPointerException ex){
+                JOptionPane.showMessageDialog(rootPane, "El Repuesto no tiene STOCK, no puede retirar repuesto seleccionado", "Mensajero", JOptionPane.WARNING_MESSAGE);                
+                Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
+     //           LimpiarCampos();
+                
+        }
+            
+            
+        
+        
+}//GEN-LAST:event_jButton10ActionPerformed
 
 private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
             this.JLFallaDispo.removeAll();
@@ -1867,14 +2023,7 @@ private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_jButton15ActionPerformed
 
 private void TablaOT1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TablaOT1FocusGained
-    int y = this.TablaOT1.getSelectedColumn();
-    int x = this.TablaOT1.getSelectedRow();
-    
-    TablaOT1.getValueAt(x, y); //CON ESTE OBTENGO EL VALOR DE LA CELDA SELECCIONADA
-    System.out.println("VALOR EN CELDA SELECCIONADA " +TablaOT1.getValueAt(x, y));
-    
-    //Con este saco el IDOT
-    System.out.println("VALOR EN CELDA SELECCIONADA " +TablaOT1.getValueAt(x, 0)); //esto sirve para seleccionar cualquier fila y que me tome el valor de la primera columna           
+
 }//GEN-LAST:event_TablaOT1FocusGained
 
 private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -1883,7 +2032,7 @@ private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             System.out.println("jdspatente: " +this.JDSPATENTE.getText().trim());
             if(this.JDSPATENTE.getText().trim() != null && this.JDSMARCA.getText().trim() != null && this.JDSMODELO.getText().trim() != null && this.JDSNUMORDEN.getText().trim() != null && this.JLServiSelec.getItemCount()>0) {
                 String[] selectedItems = this.JLServiSelec.getItems();
-                Conexion c = new Conexion();
+                ot ot = new ot();
                 for (int i = 0; i < selectedItems.length; i++) {
                 try {
                     System.out.println("AQUI ENTRE AL TRY");
@@ -1900,7 +2049,7 @@ private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         System.out.println ("IDOT: " +idOT);
                         System.out.println ("PATENTE: " +patente);
                         System.out.println ("IDSERVICIO: " +idServ);                   
-                        c.actualizarOTSERVICIO(idOT, patente, idServ);
+                        ot.actualizarOTSERVICIO(idOT, patente, idServ);
                         contador = 0;
                     }
                 }   catch (DocumentException ex) {
@@ -1935,7 +2084,7 @@ private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             System.out.println("jdspatente: " +this.JDSPATENTE.getText().trim());
             if(this.JDSPATENTE.getText().trim() != null && this.JDSMARCA.getText().trim() != null && this.JDSMODELO.getText().trim() != null && this.JDSNUMORDEN.getText().trim() != null && this.JLServiSelec.getItemCount()>0) {
                 String[] selectedItems = this.JLServiSelec.getItems();
-                Conexion c = new Conexion();
+                ot ot = new ot();
                 for (int i = 0; i < selectedItems.length; i++) {
                 try {
                     System.out.println("AQUI ENTRE AL TRY");
@@ -1952,7 +2101,7 @@ private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                         System.out.println ("IDOT: " +idOT);
                         System.out.println ("PATENTE: " +patente);
                         System.out.println ("IDSERVICIO: " +idServ);                   
-                        c.registrarOTSERVICIO(idOT, patente, idServ);
+                        ot.registrarOTSERVICIO(idOT, patente, idServ);
                     }
                 }   catch (DocumentException ex) {
                     Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
@@ -2041,8 +2190,7 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             ordentrabajo.setFECHA_TERMINO(termino);
             ordentrabajo.setTIPOTRABAJO(TIPOTRAB);            
             
-            System.out.println("Termino Definición Variables");
-            Conexion c = new Conexion();
+            System.out.println("Termino Definición Variables");            
         
             System.out.println("INICIO impresion variables asignadas");            
             System.out.println("NUM_ORDEN: " +ordentrabajo.getID_OT());
@@ -2060,7 +2208,7 @@ private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 System.out.println("numero" + JOptionPane.YES_NO_CANCEL_OPTION);
                 if (n == 0) {
                     try {
-                        c.registrarOT(ordentrabajo);
+                        ordentrabajo.registrarOT(ordentrabajo);
                         ResetearCampos();
                         String query5 = "Select id_servicio, nombre from servicio";
                         ResultSet rs5 = Conexion.ejecutarQuery(query5);
@@ -2133,177 +2281,6 @@ private void JCPATENTEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRS
 private void TCTER3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TCTER3ItemStateChanged
     
 }//GEN-LAST:event_TCTER3ItemStateChanged
-
-private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        try {
-            LimpiarCampos(null);               
-            String NOMBRE = this.JLFallaDispo.getSelectedItem();                            
-            this.JTRepueSelec.setText(NOMBRE);
-            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaFallas(?,?,?,?); END;");
-            
-            System.out.println("***INICIO CARGA FALLA***");
-            System.out.println("Setiando Parametros ENTRADA");
-            cs.setString(1, NOMBRE);
-
-            System.out.println("Setiando Parametros SALIDA");            
-            cs.registerOutParameter(2, Types.INTEGER);                        
-            cs.registerOutParameter(3, Types.VARCHAR);            
-            cs.registerOutParameter(4, Types.BLOB);
-            System.out.println("TERMINO Seteo de Parametros");                                                
-            
-            cs.execute();
-            int IDFALLA = 0;            
-            String DESCRIPCION = null;
-            byte[] FOTOByte;
-            
-            //Asignacion a las variables
-            System.out.println("INICIO ASIGNACION VARIABLES OBTENIDAS DE BD");                                                
-            
-            IDFALLA = cs.getOracleObject(2).intValue();                        
-            DESCRIPCION = cs.getOracleObject(3).stringValue();  
-            FOTOByte = cs.getBytes(4);
-            InputStream z = new ByteArrayInputStream(FOTOByte);
-            BufferedImage FOTO = ImageIO.read(z);
-            
-            this.JLID_REPUESTO.setText(String.valueOf(IDFALLA));
-            System.out.println("IMPRIMIENDO FOTO: "+FOTO);                         
-            System.out.println(DESCRIPCION);            
-            System.out.println("TERMINO CARGA REPUESTO");
-                        
-            this.JTDESCREPU.setText(DESCRIPCION);
-            JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
-            JPanelImagen.setVisible(true);
-            JPanelImagen.repaint();            
-            
-        } catch (IOException ex) {           
-            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("PROBLEMA1");
-        } catch (SQLException ex) {
-        
-            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
-
-
-        } catch (NullPointerException ex){
-                JOptionPane.showMessageDialog(rootPane, "El Repuesto no tiene STOCK, no puede retirar repuesto seleccionado", "Mensajero", JOptionPane.WARNING_MESSAGE);                
-                Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
-     //           LimpiarCampos();
-                
-        }
-            
-            
-        
-        
-}//GEN-LAST:event_jButton10ActionPerformed
-
-private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-    System.out.println("Inicio Definición Variables");
-    int NUM_ORDEN = Integer.parseInt(JTRDSNUMORDEN.getText().trim());    
-    String PATENTE = this.JTRSPATENTE.getText().trim().toUpperCase();
-    int IDFALLA = Integer.parseInt(this.JLID_REPUESTO.getText().trim());
-    String OBSERVACIONES = this.JTObservaciones.getText().trim().toUpperCase();    
-    String RUT_ENCARGADO = "";
-                
-    System.out.println("Termino Definición Variables");
-    Conexion c = new Conexion();            
-               
-    System.out.println("NUM_ORDEN: " +Integer.parseInt(JTRDSNUMORDEN.getText()));
-    System.out.println("PATENTE: " +JTRSPATENTE.getText());
-    System.out.println("IDREPUESTO: " +IDFALLA);
-    System.out.println("OBSERVACIONES: " +OBSERVACIONES);    
-    System.out.println ("RUT: " +RUT_ENCARGADO);
-                
-                
-            if(this.JTRSPATENTE.getText().trim() != null && this.JTRDSMARCA.getText().trim() != null && this.JTRDSMODELO.getText().trim() != null && this.JTRDSNUMORDEN.getText().trim() != null &&  this.JTObservaciones.getText() != null) {
-                int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
-                //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
-                if (n == 0) {
-                    try {
-                        c.RegistrarFallaOT(NUM_ORDEN, PATENTE, IDFALLA, OBSERVACIONES);                     
-                                                
-                        LimpiarCampos(null);
-                        this.JListFallaSesion.add(this.JTRepueSelec.getText());                                  
-                                                       
-                } catch (SQLException ex) {
-                ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);
-                
-                }        
-                
-            } else if (n == 1) {
-                this.JTRSPATENTE.setText(null);
-                this.JTRDSMARCA.setText(null);
-                this.JTRDSMODELO.setText(null);
-                this.JTRDSNUMORDEN.setText(null);
-           //     LimpiarCampos();
-                this.JLFallaDispo.removeAll();
-      }
-
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
-        }
-                
-}//GEN-LAST:event_jButton13ActionPerformed
-
-private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        try {
-            LimpiarCampos(null);               
-            String NOMBRE = this.JListFallaSesion.getSelectedItem();                            
-            this.JTRepueSelec.setText(NOMBRE);
-            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaFallasRegistrada(?,?,?,?,?,?); END;");
-            
-            int IDOT = Integer.parseInt(this.JTRDSNUMORDEN.getText());
-            String PATENTE = this.JTRSPATENTE.getText();
-            System.out.println("***INICIO CARGA FALLA***");
-            System.out.println("Setiando Parametros ENTRADA");
-            cs.setInt(1, IDOT);
-            cs.setString(2, PATENTE);                        
-            cs.setString(3, NOMBRE);    
-            System.out.println("Setiando Parametros SALIDA");            
-            cs.registerOutParameter(4, Types.VARCHAR);            
-            cs.registerOutParameter(5, Types.INTEGER);                                    
-            cs.registerOutParameter(6, Types.BLOB);
-            System.out.println("TERMINO Seteo de Parametros");                                                
-            
-            cs.execute();
-            int IDFALLA = 0;            
-            String OBSERVACIONES = null;
-            byte[] FOTOByte;
-            
-            //Asignacion a las variables
-            System.out.println("INICIO ASIGNACION VARIABLES OBTENIDAS DE BD");                                                
-            
-            OBSERVACIONES = cs.getOracleObject(4).stringValue();                        
-            IDFALLA = cs.getOracleObject(5).intValue();  
-            FOTOByte = cs.getBytes(6);
-            InputStream z = new ByteArrayInputStream(FOTOByte);
-            BufferedImage FOTO = ImageIO.read(z);
-            
-            this.jLabel23.setText(String.valueOf(IDFALLA));
-            System.out.println("IMPRIMIENDO FOTO: "+FOTO);                                     
-            System.out.println("TERMINO CARGA REPUESTO");
-                        
-            this.JTObservaciones.setText(OBSERVACIONES);
-            JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
-            JPanelImagen.setVisible(true);
-            JPanelImagen.repaint();            
-            
-        } catch (IOException ex) {           
-            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("PROBLEMA1");
-        } catch (SQLException ex) {
-        
-            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
-
-
-        } catch (NullPointerException ex){
-                JOptionPane.showMessageDialog(rootPane, "Se ha producido un error", "Mensajero", JOptionPane.WARNING_MESSAGE);                
-                Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);                     
-        }
-        
-}//GEN-LAST:event_jButton16ActionPerformed
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox JCADMINISTRADOR;

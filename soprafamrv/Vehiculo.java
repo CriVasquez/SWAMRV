@@ -219,7 +219,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         this.JCMARCA.setEnabled(x);
         this.JCMODELO.setEnabled(x);
         this.jButton3.setEnabled(x);
-        this.jButton11.setEnabled(x);
         this.jButton1.setEnabled(x);        
     }
     
@@ -335,7 +334,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         JFANO = new javax.swing.JFormattedTextField();
         jButton1 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -536,6 +534,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        JFCHASIS.setText(resourceMap.getString("JFCHASIS.text")); // NOI18N
         JFCHASIS.setEnabled(false);
         JFCHASIS.setName("JFCHASIS"); // NOI18N
 
@@ -624,6 +623,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        JFANO.setText(resourceMap.getString("JFANO.text")); // NOI18N
         JFANO.setEnabled(false);
         JFANO.setName("JFANO"); // NOI18N
 
@@ -637,26 +637,13 @@ public class Vehiculo extends javax.swing.JInternalFrame {
             }
         });
 
-        jButton11.setText(resourceMap.getString("jButton11.text")); // NOI18N
-        jButton11.setEnabled(false);
-        jButton11.setName("jButton11"); // NOI18N
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jButton11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(JPanelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createSequentialGroup()
@@ -739,9 +726,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(JPanelImagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton11))
+                .addComponent(jButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -928,11 +913,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
-        JPanelImagen.removeAll();
-        JPanelImagen.repaint();    
-    }//GEN-LAST:event_jButton11ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         HabilitarCampos(true);
         ResetearCampos();
@@ -999,7 +979,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                 JPanelImagen.repaint();
                 this.jButton3.setEnabled(false);
                 this.jButton1.setEnabled(false);
-                this.jButton11.setEnabled(false);
                 contador = 1;
                 
             }
@@ -1071,8 +1050,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
 private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
     if(contador == 1){
         this.jButton3.setEnabled(true);
-        this.jButton1.setEnabled(true);
-        this.jButton11.setEnabled(true);
+        this.jButton1.setEnabled(true);        
         HabilitarCampos(true);
         this.JFPATENTE.setEnabled(false);
         contador = 2;
@@ -1157,7 +1135,6 @@ private void TablaVehiculoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRS
     private javax.swing.JTable TablaVehiculoConductor;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

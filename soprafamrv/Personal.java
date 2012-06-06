@@ -103,7 +103,7 @@ public class Personal extends javax.swing.JInternalFrame {
     private void AsignarFechaIngreso() {
         //Puedo jugar con DD MM YYYY para mostrarlos individualmente
         DateFormat dia = new SimpleDateFormat("dd");
-        DateFormat mes = new SimpleDateFormat("MM");
+        DateFormat mes = new SimpleDateFormat("MMMMMMMMMM");
         DateFormat ano = new SimpleDateFormat("yyyy");
         //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
@@ -756,6 +756,7 @@ public class Personal extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        JFNUMRADIO.setText(resourceMap.getString("JFNUMRADIO.text")); // NOI18N
         JFNUMRADIO.setEnabled(false);
         JFNUMRADIO.setName("JFNUMRADIO"); // NOI18N
 
@@ -825,6 +826,7 @@ public class Personal extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        JFNOMBRE.setText(resourceMap.getString("JFNOMBRE.text")); // NOI18N
         JFNOMBRE.setEnabled(false);
         JFNOMBRE.setName("JFNOMBRE"); // NOI18N
 
@@ -849,6 +851,7 @@ public class Personal extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        JFDIRE.setText(resourceMap.getString("JFDIRE.text")); // NOI18N
         JFDIRE.setEnabled(false);
         JFDIRE.setName("JFDIRE"); // NOI18N
 
@@ -857,6 +860,7 @@ public class Personal extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        JFTELE.setText(resourceMap.getString("JFTELE.text")); // NOI18N
         JFTELE.setEnabled(false);
         JFTELE.setName("JFTELE"); // NOI18N
 
@@ -865,6 +869,7 @@ public class Personal extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        JFEMAIL.setText(resourceMap.getString("JFEMAIL.text")); // NOI18N
         JFEMAIL.setEnabled(false);
         JFEMAIL.setName("JFEMAIL"); // NOI18N
 
@@ -892,6 +897,7 @@ public class Personal extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        JFAPEMA.setText(resourceMap.getString("JFAPEMA.text")); // NOI18N
         JFAPEMA.setEnabled(false);
         JFAPEMA.setName("JFAPEMA"); // NOI18N
 
@@ -910,6 +916,7 @@ public class Personal extends javax.swing.JInternalFrame {
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
+        JFTIPOLICENCIA.setText(resourceMap.getString("JFTIPOLICENCIA.text")); // NOI18N
         JFTIPOLICENCIA.setEnabled(false);
         JFTIPOLICENCIA.setName("JFTIPOLICENCIA"); // NOI18N
 

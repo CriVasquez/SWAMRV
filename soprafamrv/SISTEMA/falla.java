@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import oracle.jdbc.OracleCallableStatement;
 import soprafamrv.BD.Conexion;
-import soprafamrv.SISTEMA.falla;
 
 /**
  *
@@ -147,5 +146,36 @@ public class falla {
     
         }
         
+    }
+    
+    public falla ObtenerFallaOT (int IDOT, String PATENTE, String NOMBRE) throws IOException, SQLException{
+        falla falla = null;                    
+        Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
+        OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaFallasRegistrada(?,?,?,?,?,?); END;");        
+        System.out.println("***INICIO CARGA FALLA***");
+        System.out.println("Setiando Parametros ENTRADA");
+        cs.setInt(1, IDOT);
+        cs.setString(2, PATENTE);                        
+        cs.setString(3, NOMBRE);    
+        System.out.println("Setiando Parametros SALIDA");            
+        cs.registerOutParameter(4, Types.VARCHAR);            
+        cs.registerOutParameter(5, Types.INTEGER);                                    
+        cs.registerOutParameter(6, Types.BLOB);
+        System.out.println("TERMINO Seteo de Parametros");                                                            
+        
+        cs.execute();
+        
+        //Asignacion a las variables
+        System.out.println("INICIO ASIGNACION VARIABLES OBTENIDAS DE BD");                                                
+           
+        this.NOMBRE = NOMBRE;
+        DETALLE = cs.getOracleObject(4).stringValue();            
+        ID_FALLA = cs.getOracleObject(5).intValue();  
+        FOTO = cs.getBytes(6);                    
+        System.out.println("IMPRIMIENDO FOTO: "+FOTO);                         
+        System.out.println("DETALLE: " +DETALLE);            
+        System.out.println("TERMINO CARGA FALLA");
+                                                              
+        return falla;
     }
 }

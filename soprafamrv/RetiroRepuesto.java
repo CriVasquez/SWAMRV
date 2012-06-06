@@ -14,16 +14,15 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import oracle.jdbc.OracleCallableStatement;
 import soprafamrv.BD.Conexion;
 import soprafamrv.SISTEMA.miPanel;
 import soprafamrv.SISTEMA.ot;
@@ -39,10 +38,11 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
     public RetiroRepuesto() throws SQLException {
         initComponents();
         this.JLID_REPUESTO.setVisible(false);
-        CargaVehiculo();
+        this.jLabel7.setVisible(false);
+        CargaVehiculo();   
+        AsignarFechaIngreso();
+    }    
 
-    }
-    
     private void CargaVehiculo() throws SQLException {                
         String query = "Select * from buscarvehiculo";
         ResultSet rs = Conexion.ejecutarQuery(query);
@@ -68,6 +68,24 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
             this.JLRepuDispo.add(rs.getString("nombre"));
          }
     }
+     
+     private void AsignarFechaIngreso() {
+        //Puedo jugar con DD MM YYYY para mostrarlos individualmente
+        DateFormat ano = new SimpleDateFormat("yyyy");
+        //DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        
+        int year = Integer.parseInt(ano.format(date));
+        System.out.println("Inicio ingreso años");
+        for (int x = 2010; x <= year; x++) {
+            this.jComboBox2.addItem(x);                       
+        }
+        System.out.println("Termino ingreso años");
+
+    }
+     
      private void LimpiarCampos(){
          this.JTRepueSelec.setText(null);
          this.JTStock.setText(null);
@@ -95,12 +113,19 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         jLabel25 = new javax.swing.JLabel();
         JCPATENTEBUSQUEDA3 = new javax.swing.JComboBox();
         jButton21 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
+        jComboBox2 = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         JTRDSNUMORDEN = new javax.swing.JFormattedTextField();
         jLabel9 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         JLRepuDispo = new java.awt.List();
+        JLRepuSesion = new java.awt.List();
+        jLabel6 = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel6 = new javax.swing.JPanel();
         JTRepueSelec = new javax.swing.JTextField();
@@ -125,13 +150,8 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         jLabel22 = new javax.swing.JLabel();
         JTRDSMODELO = new javax.swing.JFormattedTextField();
         JLID_REPUESTO = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        JTABLAOTREP = new javax.swing.JTable();
 
         setClosable(true);
-        setMaximizable(true);
-        setResizable(true);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getResourceMap(RetiroRepuesto.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
@@ -165,6 +185,7 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         jScrollPane5.setViewportView(TablaOTRR);
 
         JBCargarOT.setText(resourceMap.getString("JBCargarOT.text")); // NOI18N
+        JBCargarOT.setEnabled(false);
         JBCargarOT.setName("JBCargarOT"); // NOI18N
         JBCargarOT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,25 +210,55 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
             }
         });
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        jComboBox1.setName("jComboBox1"); // NOI18N
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Año" }));
+        jComboBox2.setName("jComboBox2"); // NOI18N
+
+        jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
+        jLabel7.setName("jLabel7"); // NOI18N
+
         javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel16Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel25)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel25)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel7)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JCPATENTEBUSQUEDA3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton21)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel16Layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox2, 0, 58, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton21))
+                    .addComponent(JCPATENTEBUSQUEDA3, 0, 253, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel25)
-                .addComponent(JCPATENTEBUSQUEDA3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jButton21))
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel25)
+                    .addComponent(JCPATENTEBUSQUEDA3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton21)
+                    .addComponent(jLabel7))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
@@ -217,19 +268,23 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, 0, 0, Short.MAX_VALUE)
-                    .addComponent(JBCargarOT, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 512, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel15Layout.createSequentialGroup()
+                .addContainerGap(437, Short.MAX_VALUE)
+                .addComponent(JBCargarOT)
                 .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
                 .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(JBCargarOT))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(JBCargarOT)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("jPanel3.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, resourceMap.getColor("jPanel3.border.titleColor"))); // NOI18N
@@ -246,6 +301,7 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         jPanel4.setName("jPanel4"); // NOI18N
 
         jButton7.setText(resourceMap.getString("jButton7.text")); // NOI18N
+        jButton7.setEnabled(false);
         jButton7.setName("jButton7"); // NOI18N
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -255,26 +311,61 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
 
         JLRepuDispo.setName("JLRepuDispo"); // NOI18N
 
+        JLRepuSesion.setName("JLRepuSesion"); // NOI18N
+
+        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
+        jLabel6.setName("jLabel6"); // NOI18N
+
+        jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
+        jButton3.setEnabled(false);
+        jButton3.setName("jButton3"); // NOI18N
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText(resourceMap.getString("jButton4.text")); // NOI18N
+        jButton4.setEnabled(false);
+        jButton4.setName("jButton4"); // NOI18N
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(JLRepuSesion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
+                    .addComponent(JLRepuDispo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(JLRepuDispo, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                        .addGap(10, 10, 10))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jButton7)
-                        .addContainerGap())))
+                        .addComponent(jButton3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton7))
+                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addComponent(JLRepuDispo, javax.swing.GroupLayout.DEFAULT_SIZE, 347, Short.MAX_VALUE)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addComponent(JLRepuDispo, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton7))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton7)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4))
+                .addGap(9, 9, 9)
+                .addComponent(jLabel6)
+                .addGap(2, 2, 2)
+                .addComponent(JLRepuSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jSeparator1.setName("jSeparator1"); // NOI18N
@@ -379,6 +470,7 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         jScrollPane2.setViewportView(JTObservaciones);
 
         jButton9.setText(resourceMap.getString("jButton9.text")); // NOI18N
+        jButton9.setEnabled(false);
         jButton9.setName("jButton9"); // NOI18N
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -479,29 +571,28 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel21)
+                    .addComponent(jLabel22))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel21)
-                            .addComponent(jLabel22))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(JTRDSMODELO)
-                            .addComponent(JTRDSMARCA)
-                            .addComponent(JTRSPATENTE, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JLID_REPUESTO)
-                            .addComponent(JTRDSNUMORDEN, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jSeparator1))
+                    .addComponent(JTRDSMODELO)
+                    .addComponent(JTRDSMARCA)
+                    .addComponent(JTRSPATENTE, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JLID_REPUESTO)
+                    .addComponent(JTRDSNUMORDEN, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jSeparator1, javax.swing.GroupLayout.DEFAULT_SIZE, 783, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -526,43 +617,9 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-        );
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel5.border.title"))); // NOI18N
-        jPanel5.setName("jPanel5"); // NOI18N
-
-        jScrollPane3.setName("jScrollPane3"); // NOI18N
-
-        JTABLAOTREP.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        JTABLAOTREP.setName("JTABLAOTREP"); // NOI18N
-        JTABLAOTREP.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(JTABLAOTREP);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 489, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -570,38 +627,30 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 796, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel15, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -614,116 +663,87 @@ private void TablaOTRRFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:ev
 private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try {
             LimpiarCampos();         
+            repuesto r = new repuesto();            
             String NOMBRE = this.JLRepuDispo.getSelectedItem();                            
-            this.JTRepueSelec.setText(NOMBRE);
-            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
-            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaRepuestos(?,?,?,?,?); END;");
+            r.ObtenerRepuesto(NOMBRE);
             
-            System.out.println("***INICIO CARGA REPUESTO***");
-            System.out.println("Setiando Parametros ENTRADA");
-            cs.setString(1, NOMBRE);
-
-            System.out.println("Setiando Parametros SALIDA");            
-            cs.registerOutParameter(2, Types.INTEGER);            
-            cs.registerOutParameter(3, Types.INTEGER);            
-            cs.registerOutParameter(4, Types.VARCHAR);            
-            cs.registerOutParameter(5, Types.BLOB);
-            System.out.println("TERMINO Seteo de Parametros");                                                
+            if(r.getCANTIDAD() == 0){
+                JOptionPane.showMessageDialog(rootPane, "El repuesto seleccionado no tiene Stock", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+                LimpiarCampos();
+                this.JFCantidad.setEnabled(false);
+                this.jButton9.setEnabled(false);
+            }
+            else{
+                this.JTRepueSelec.setText(NOMBRE);            
+                InputStream z = new ByteArrayInputStream(r.getFOTO());
+                BufferedImage FOTO = ImageIO.read(z);
             
-            cs.execute();
-            int IDREPUESTO = 0;
-            int CANTIDAD = 0;
-            String DESCRIPCION = null;
-            byte[] FOTOByte;
-            
-            //Asignacion a las variables
-            System.out.println("INICIO ASIGNACION VARIABLES OBTENIDAS DE BD");                                                
-            
-            IDREPUESTO = cs.getOracleObject(2).intValue();
-            CANTIDAD = cs.getOracleObject(3).intValue();             
-            DESCRIPCION = cs.getOracleObject(4).stringValue();  
-            FOTOByte = cs.getBytes(5);
-            InputStream z = new ByteArrayInputStream(FOTOByte);
-            BufferedImage FOTO = ImageIO.read(z);
-            
-            this.JLID_REPUESTO.setText(String.valueOf(IDREPUESTO));
-            System.out.println("IMPRIMIENDO FOTO: "+FOTO);             
-            System.out.println(CANTIDAD);            
-            System.out.println(DESCRIPCION);            
-            System.out.println("TERMINO CARGA REPUESTO");
-            
-            this.JTStock.setText(String.valueOf(CANTIDAD));
-            this.JTDESCREPU.setText(DESCRIPCION);
-            JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
-            JPanelImagen.setVisible(true);
-            JPanelImagen.repaint();
-            this.JFCantidad.setEnabled(true);
-            
+                this.JLID_REPUESTO.setText(String.valueOf(r.getID_REPUESTO()));
+                System.out.println("IMPRIMIENDO FOTO: "+FOTO);             
+                System.out.println(r.getCANTIDAD());            
+                System.out.println(r.getDETALLE());            
+                System.out.println("TERMINO CARGA REPUESTO");
+                this.JTStock.setText(String.valueOf(r.getCANTIDAD()));
+                this.JTDESCREPU.setText(r.getDETALLE());
+                JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
+                JPanelImagen.setVisible(true);
+                JPanelImagen.repaint();
+                this.JFCantidad.setEnabled(true);
+                this.jButton9.setEnabled(true);            
+                }
+                    
+        } catch (SQLException ex) {
+            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {           
             Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println("PROBLEMA1");
-        } catch (SQLException ex) {
-        
-            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
-
-
+            System.out.println("PROBLEMA1");        
         } catch (NullPointerException ex){
                 //JOptionPane.showMessageDialog(rootPane, "El Repuesto no tiene STOCK, no puede retirar repuesto seleccionado", "Mensajero", JOptionPane.WARNING_MESSAGE);                
                 Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
                 //LimpiarCampos();
                 
-        }
-            
-            
-        
-        
+        }                   
 }//GEN-LAST:event_jButton7ActionPerformed
 
 private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-    System.out.println("Inicio Definición Variables");
-    int NUM_ORDEN = Integer.parseInt(JTRDSNUMORDEN.getText().trim());    
-    String PATENTE = this.JTRSPATENTE.getText().trim().toUpperCase();
-    int IDREPUESTO = Integer.parseInt(this.JLID_REPUESTO.getText().trim());
-    String OBSERVACIONES = this.JTObservaciones.getText().trim().toUpperCase();
-    int CANTIDAD = Integer.parseInt(this.JFCantidad.getText().trim());
-    String RUT_ENCARGADO = RUT.trim();
-                
-    System.out.println("Termino Definición Variables");
-    Conexion c = new Conexion();            
-               
-    System.out.println("NUM_ORDEN: " +Integer.parseInt(JTRDSNUMORDEN.getText()));
-    System.out.println("PATENTE: " +JTRSPATENTE.getText());
-    System.out.println("IDREPUESTO: " +IDREPUESTO);
-    System.out.println("OBSERVACIONES: " +OBSERVACIONES);
-    System.out.println("CANTIDAD: " +CANTIDAD);
-    System.out.println ("RUT: " +RUT_ENCARGADO);
-                
-                
-            if(this.JTRSPATENTE.getText().trim() != null && this.JTRDSMARCA.getText().trim() != null && this.JTRDSMODELO.getText().trim() != null && this.JTRDSNUMORDEN.getText().trim() != null && this.JFCantidad.getText() != null && this.JTObservaciones.getText() != null) {
-                int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
-                //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
-                if (n == 0) {
-                    try {
-                        c.RegistrarRepuestoOT(NUM_ORDEN, PATENTE, IDREPUESTO, RUT_ENCARGADO, OBSERVACIONES, CANTIDAD);
-                        this.TablaOTRR.removeAll();
-                        String query = "select * from ORDEN_TRABAJO_REPUESTO WHERE ID_OT= "+NUM_ORDEN+" AND PATENTE= '"+PATENTE+"'";
-                        ResultSet rs = Conexion.ejecutarQuery(query);
-                        ot.llenarTablaOT(JTABLAOTREP, rs);
-                        
-                        this.JTRSPATENTE.setText(null);
-                        this.JTRDSMARCA.setText(null);
-                        this.JTRDSMODELO.setText(null);
-                        this.JTRDSNUMORDEN.setText(null);
-                        LimpiarCampos();
-                        this.JLRepuDispo.removeAll();
-                        this.JFCantidad.setEnabled(false);
-                        
-                
-                //contador = 1;
+     System.out.println("Inicio Definición Variables");
+     int NUM_ORDEN = Integer.parseInt(JTRDSNUMORDEN.getText().trim());    
+     String PATENTE = this.JTRSPATENTE.getText().trim().toUpperCase();
+     int IDREPUESTO = Integer.parseInt(this.JLID_REPUESTO.getText().trim());
+     String OBSERVACIONES = this.JTObservaciones.getText().trim().toUpperCase();
+     String CANT = this.JFCantidad.getText().trim();
+     String RUT_ENCARGADO = RUT.trim();                
+     System.out.println("Termino Definición Variables");
+     
+     ot ot = new ot();                           
+     
+     System.out.println("NUM_ORDEN: " +Integer.parseInt(JTRDSNUMORDEN.getText()));
+     System.out.println("PATENTE: " +JTRSPATENTE.getText());
+     System.out.println("IDREPUESTO: " +IDREPUESTO);
+     System.out.println("OBSERVACIONES: " +OBSERVACIONES);
+     System.out.println("CANTIDAD: " +CANT);
+     System.out.println ("RUT: " +RUT_ENCARGADO);    
+    if(CANT.length() == 0 || OBSERVACIONES.length() == 0){
+        JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
+        }
+    else{                       
+        int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Guardar?", "Mensajero", JOptionPane.YES_NO_CANCEL_OPTION);
+        //n = 0 es YES, n = 1 es NO, n = 2 es Cancel
+        if (n == 0) {
+            try {
+                ot.RegistrarRepuestoOT(NUM_ORDEN, PATENTE, IDREPUESTO, "11.111.111-1", OBSERVACIONES, Integer.parseInt(CANT));
+                this.JLRepuSesion.add(this.JTRepueSelec.getText()+ ": " +this.JFCantidad.getText());
+                this.TablaOTRR.removeAll();                                                        
+                LimpiarCampos();
+                this.JFCantidad.setEnabled(false);
+                this.JTObservaciones.setEnabled(false);
+                                                        
                 } catch (SQLException ex) {
                 ex.printStackTrace();
-                JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);
-                
+                JOptionPane.showMessageDialog(null, "Se ha producido un error en la inserción", "Error", JOptionPane.ERROR_MESSAGE);                
+                } catch (NumberFormatException ex){
+                ex.printStackTrace();    
+                JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenar todos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
                 }        
                 
             } else if (n == 1) {
@@ -734,19 +754,14 @@ private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 LimpiarCampos();
                 this.JLRepuDispo.removeAll();
                 this.JFCantidad.setEnabled(false);
-      }
-
-        }
-        else{
-            JOptionPane.showMessageDialog(null,"Codigo: " +"Debe llenartodos los campos solicitados", "Error", JOptionPane.ERROR_MESSAGE); 
-        }
-                
+                }
+        }           
 }//GEN-LAST:event_jButton9ActionPerformed
 
 private void JBCargarOTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCargarOTActionPerformed
         try {
             this.JLRepuDispo.removeAll();
-            this.JTABLAOTREP.removeAll();
+            this.JLRepuSesion.removeAll();
             int y = this.TablaOTRR.getSelectedColumn();    
             int x = this.TablaOTRR.getSelectedRow();        
             String idot = (String) TablaOTRR.getValueAt(x,0);    
@@ -758,11 +773,14 @@ private void JBCargarOTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
             this.JTRDSMODELO.setText(modelo);
             this.JTRDSNUMORDEN.setText(idot);
             CargarRepuestos();
-            String query ="select otr.id_ot as ID_OT, otr.patente as PATENTE, v.marca as MARCA, v.modelo as MODELO, r.nombre as REPUESTO, r.cantidad as CANTIDAD from orden_trabajo_repuesto otr, repuesto r, vehiculo v where otr.patente = v.patente and otr.id_repuesto = r.id_repuesto and otr.patente = '"+patente+"' and otr.id_ot = '"+idot+"'";
-            ResultSet rs = Conexion.ejecutarQuery(query);
+            this.jButton7.setEnabled(true);
+            this.jButton3.setEnabled(true);
+            this.jButton4.setEnabled(true);
+            String query ="Select r.nombre as REPUESTO, otr.cantidad as CANTIDAD, otr.rut_encargado as RUT_ENCARGADO from orden_trabajo_repuesto otr, repuesto r, vehiculo v where otr.patente = v.patente and otr.id_repuesto = r.id_repuesto and otr.patente = '"+patente+"' and otr.id_ot = '"+idot+"'";
+            ResultSet rs = Conexion.ejecutarQuery(query);            
             while (rs.next()){
-                ot.llenarTablaOT(JTABLAOTREP, rs);
-            }
+                this.JLRepuSesion.add(rs.getString("REPUESTO") + ": " + rs.getString("CANTIDAD"));              
+            }                                          
         } catch (SQLException ex) {
             Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -773,44 +791,107 @@ private void JFCantidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 }//GEN-LAST:event_JFCantidadActionPerformed
 
 private void JFCantidadFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JFCantidadFocusLost
-
+ 
 }//GEN-LAST:event_JFCantidadFocusLost
 
 private void JFCantidadMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JFCantidadMouseExited
-        if(Integer.parseInt(this.JFCantidad.getText()) > Integer.parseInt(this.JTStock.getText())) {
-        JOptionPane.showMessageDialog(rootPane, "La cantidad seleccionada excede el Stock en Bodega", "Mensajero", JOptionPane.WARNING_MESSAGE);                
-        this.JFCantidad.setText(null);
-    }
-
+    
 }//GEN-LAST:event_JFCantidadMouseExited
 
 private void JFCantidadKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JFCantidadKeyPressed
-    if(Integer.parseInt(this.JFCantidad.getText()) > Integer.parseInt(this.JTStock.getText())) {
-        JOptionPane.showMessageDialog(rootPane, "La cantidad seleccionada excede el Stock en Bodega", "Mensajero", JOptionPane.WARNING_MESSAGE);                
-        this.JFCantidad.setText(null);
-    }
-
+  
 }//GEN-LAST:event_JFCantidadKeyPressed
 
 private void JFCantidadKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JFCantidadKeyReleased
     if(Integer.parseInt(this.JFCantidad.getText()) > Integer.parseInt(this.JTStock.getText())) {
         JOptionPane.showMessageDialog(rootPane, "La cantidad seleccionada excede el Stock en Bodega", "Mensajero", JOptionPane.WARNING_MESSAGE);                
         this.JFCantidad.setText(null);
-    }
-
+    }   
 }//GEN-LAST:event_JFCantidadKeyReleased
 
 private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        try {            
-            String PATENTE = (String) this.JCPATENTEBUSQUEDA3.getSelectedItem().toString().substring(0, 6);
-            String query = "Select ot.id_ot as idot, ot.patente as patente, marca, modelo from orden_trabajo ot, vehiculo v where ot.patente ='"+PATENTE+"' and v.patente = ot.patente";   
-            ResultSet rs = Conexion.ejecutarQuery(query);
-            ot.llenarTablaOT(TablaOTRR, rs);
+    try {            
+        String PATENTE = (String) this.JCPATENTEBUSQUEDA3.getSelectedItem().toString().substring(0, 6);
+        String query = "Select ot.id_ot as idot, ot.patente as patente, marca, modelo from orden_trabajo ot, vehiculo v where ot.patente ='"+PATENTE+"' and v.patente = ot.patente and ot.fecha_inicio between to_date('01-' || "+this.jLabel7.getText()+" || '-' || "+this.jComboBox2.getSelectedItem()+",'dd-mm-yyyy') and to_date(last_day(to_date('31-' || 'DEC' || '-' || "+this.jComboBox2.getSelectedItem()+",'dd-mm-yyyy')))";   
+        ResultSet rs = Conexion.ejecutarQuery(query);
+        ot.llenarTablaOT(TablaOTRR, rs);
+        this.JBCargarOT.setEnabled(true);
         } catch (SQLException ex) {
             Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
         }
                   
 }//GEN-LAST:event_jButton21ActionPerformed
+
+private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    repuesto r = new repuesto();
+    int numeroMes = r.obtenerMesRepuesto(this.jComboBox1.getSelectedItem().toString());
+    System.out.println("NUMERO DEL MES SELECCIONADO: " +numeroMes);
+    this.jLabel7.setText(String.valueOf(numeroMes));
+}//GEN-LAST:event_jComboBox1ItemStateChanged
+
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    String input = JOptionPane.showInputDialog("Escanee el Repuesto");
+    System.out.println("ASDASDASD:" +input);
+    try {
+            LimpiarCampos();         
+            repuesto r = new repuesto();                    
+            r.ObtenerRepuesto2(Integer.parseInt(input));                        
+            if(r.getCANTIDAD() == 0){
+                JOptionPane.showMessageDialog(rootPane, "El repuesto seleccionado no tiene Stock", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+                LimpiarCampos();
+                this.JFCantidad.setEnabled(false);
+                this.jButton9.setEnabled(false);
+            }
+            else{                
+                this.JTRepueSelec.setText(r.getNOMBRE());                
+                InputStream z = new ByteArrayInputStream(r.getFOTO());
+                BufferedImage FOTO = ImageIO.read(z);
+            
+                this.JLID_REPUESTO.setText(String.valueOf(r.getID_REPUESTO()));
+                System.out.println("IMPRIMIENDO FOTO: "+FOTO);             
+                System.out.println(r.getCANTIDAD());            
+                System.out.println(r.getDETALLE());            
+                System.out.println("TERMINO CARGA REPUESTO");
+                        
+                this.JTStock.setText(String.valueOf(r.getCANTIDAD()));
+                this.JTDESCREPU.setText(r.getDETALLE());
+                JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
+                JPanelImagen.setVisible(true);
+                JPanelImagen.repaint();
+                this.JFCantidad.setEnabled(true);
+                this.jButton9.setEnabled(true);            
+                }            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {           
+            Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("PROBLEMA1");        
+        } catch (NullPointerException ex){
+                //JOptionPane.showMessageDialog(rootPane, "El Repuesto no tiene STOCK, no puede retirar repuesto seleccionado", "Mensajero", JOptionPane.WARNING_MESSAGE);                
+                Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
+                //LimpiarCampos();
+                
+        }    
+}//GEN-LAST:event_jButton3ActionPerformed
+
+private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    String input = JOptionPane.showInputDialog("Escanee el repuesto a devolver");
+    repuesto r = new repuesto();
+    int ID_OT = Integer.parseInt(this.JTRDSNUMORDEN.getText());
+    String PATENTE = this.JTRSPATENTE.getText();
+    int ID_REPUESTO = Integer.parseInt(input);   
+    r.borrarRepuestoOT(ID_OT, PATENTE, ID_REPUESTO);   
+    this.JLRepuSesion.removeAll();
+    this.JTRSPATENTE.setText(null);
+    this.JTRDSMARCA.setText(null);
+    this.JTRDSMODELO.setText(null);
+    this.JTRDSNUMORDEN.setText(null);
+    this.JFCantidad.setEnabled(false);
+    this.JLRepuDispo.removeAll();
+    LimpiarCampos();
+    
+}//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JBCargarOT;
@@ -818,8 +899,8 @@ private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JFormattedTextField JFCantidad;
     private javax.swing.JLabel JLID_REPUESTO;
     private java.awt.List JLRepuDispo;
+    private java.awt.List JLRepuSesion;
     private javax.swing.JPanel JPanelImagen;
-    private javax.swing.JTable JTABLAOTREP;
     private javax.swing.JTextArea JTDESCREPU;
     private javax.swing.JTextArea JTObservaciones;
     private javax.swing.JFormattedTextField JTRDSMARCA;
@@ -830,8 +911,12 @@ private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JTextField JTStock;
     private javax.swing.JTable TablaOTRR;
     private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -841,6 +926,8 @@ private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel15;
@@ -848,11 +935,9 @@ private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables

@@ -5,6 +5,16 @@
 package soprafamrv.SISTEMA;
 
 import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import oracle.jdbc.OracleCallableStatement;
+import soprafamrv.BD.Conexion;
 
 
 
@@ -59,6 +69,148 @@ public class compra {
         this.RUT_ADMINISTRADOR = RUT_ADMINISTRADOR;
     }
     
+    public void RegistrarCompra(compra com){
+        try {
+            System.out.println("INICIO del Stored Procedure de insercion OT");
+            OracleCallableStatement cs = (OracleCallableStatement) Conexion.con.prepareCall("begin registrarCompra(?,?,?,?,?); end;");
+            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
+            cs.setInt(1, com.getNRO_FACTURA());
+            cs.setDate(2, com.getFECHA_COMPRA());
+            cs.setInt(3, com.getID_PROVEEDOR());
+            cs.setString(4, com.getRUT_ADMINISTRADOR());
+            cs.setString(5, com.getDETALLE());
+
+            cs.executeUpdate();
+
+            System.out.println("\nOT succesfully inserted");
+            Conexion.con.commit();
+            System.out.println("TERMINO del Stored Procedure de insercion OT");
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,ex, "Error", JOptionPane.ERROR_MESSAGE); 
+        }
+        
+    }   
     
+    public static void llenarTablaCompra(JTable tabla, ResultSet resultadoMostrarOT) throws SQLException {
+        tabla.removeAll();
+        System.out.println("INICIO LLENADO TABLA");
+        int cantidadColumnas = resultadoMostrarOT.getMetaData().getColumnCount();
+        
+        DefaultTableModel modelo = new DefaultTableModel(){
+            public boolean isCellEditable(int x, int y) {            
+            return false; //Disallow the editing of any cell
+    
+        }
+            
+        };
+        
+        modelo.setColumnCount(cantidadColumnas);
+        ArrayList cabeceras = new ArrayList();
+        for(int z=0;z<cantidadColumnas;z++){
+            //Esto imprime el nombre de las columnas
+            cabeceras.add(resultadoMostrarOT.getMetaData().getColumnName(z+1));
+            
+        }
+        modelo.setColumnIdentifiers(cabeceras.toArray()); 
+        while(resultadoMostrarOT.next()){
+            ArrayList lista = new ArrayList();            
+            for(int i=0;i<cantidadColumnas;i++){
+                lista.add(i,resultadoMostrarOT.getString(i+1));                    
+            }
+            modelo.addRow(lista.toArray());
+        }
+    
+        tabla.setModel(modelo);
+        tabla.setAutoCreateRowSorter(true);
+        tabla.setAutoscrolls(true);
+        
+    }
+    
+    public int obtenerMesRepuesto(String MES){
+        int numeroMes = 0;
+        if("Enero".equals(MES)){
+        numeroMes = 1;
+        }
+        else if("Febrero".equals(MES)){
+        numeroMes = 2;        
+        }
+        else if("Marzo".equals(MES)){
+        numeroMes = 3;
+         }
+        else if("Abril".equals(MES)){
+        numeroMes = 4;
+         }
+        else if("Mayo".equals(MES)){
+        numeroMes = 5;
+        }
+        else if("Junio".equals(MES)){
+        numeroMes = 6;
+        }
+        else if("Julio".equals(MES)){
+        numeroMes = 7;
+        }
+        else if("Agosto".equals(MES)){
+        numeroMes = 8;
+        }
+        else if("Septiembre".equals(MES)){
+        numeroMes = 9;
+        }
+        else if("Octubre".equals(MES)){
+        numeroMes = 10;
+        }
+        else if("Noviembre".equals(MES)){
+        numeroMes = 11;
+        }
+        else if("Diciembre".equals(MES)){
+        numeroMes = 12;
+        }
+        return numeroMes;
+        
+        } 
+    
+    public void RegistrarCompraRepuesto(int NROFACTURA, int IDREPUESTO, int CANTIDAD, String DETALLE){
+        try {
+            System.out.println("INICIO del Stored Procedure de insercion COMPRA DETALLE");
+            OracleCallableStatement cs = (OracleCallableStatement) Conexion.con.prepareCall("begin registrarCompraRep(?,?,?,?); end;");
+            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
+            cs.setInt(1, NROFACTURA);
+            cs.setInt(2, IDREPUESTO);
+            cs.setInt(3, CANTIDAD);
+            cs.setString(4, DETALLE);
+            cs.executeUpdate();
+
+            System.out.println("\nCOMPRA_DETALLE succesfully inserted");
+            Conexion.con.commit();
+            System.out.println("TERMINO del Stored Procedure de insercion COMPRA DETALLE");
+            JOptionPane.showMessageDialog(null, "Datos Ingresados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,ex, "Error", JOptionPane.ERROR_MESSAGE); 
+        }
+    
+    }
+    
+    public void actualizarCompraRepuesto(int NROFACTURA, int IDREPUESTO, int CANTIDAD, String DETALLE){
+        try {
+            System.out.println("INICIO del Stored Procedure de Actualización COMPRA DETALLE");
+            OracleCallableStatement cs = (OracleCallableStatement) Conexion.con.prepareCall("begin actualizarCompraRep(?,?,?,?); end;");
+            System.out.println("AQUI YA LLAME AL STORED PROCEDURE");
+            cs.setInt(1, NROFACTURA);
+            cs.setInt(2, IDREPUESTO);
+            cs.setInt(3, CANTIDAD);
+            cs.setString(4, DETALLE);
+            cs.executeUpdate();
+
+            System.out.println("\nCOMPRA_DETALLE succesfully inserted");
+            Conexion.con.commit();
+            System.out.println("TERMINO del Stored Procedure de insercion COMPRA DETALLE");
+            JOptionPane.showMessageDialog(null, "Datos Actualizados Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,ex, "Error", JOptionPane.ERROR_MESSAGE); 
+        }
+    
+    }
     
 }

@@ -14,16 +14,12 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
-import oracle.jdbc.OracleCallableStatement;
 import soprafamrv.BD.Conexion;
 import soprafamrv.SISTEMA.miPanel;
 import soprafamrv.SISTEMA.repuesto;
@@ -379,7 +375,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                     this.JFCODREP.setText(String.valueOf(id));               
                 
                 }else{
-                    this.JFCODREP.setText("1");
+                    this.JFCODREP.setText("20120001");
                     }
                  }
         } catch (SQLException ex) {
