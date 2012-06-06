@@ -89,7 +89,8 @@ public class subeImagen {
                 
                 cargar_imagen_en_buffer(url);
                 //se aÃ±ade al contenedor
-                        
+                
+                p.removeAll();
                 p.add(new miPanel(Obtener_imagen_de_Buffer(), p.getSize()));
                 p.setVisible(true);
                 p.repaint();

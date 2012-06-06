@@ -25,7 +25,8 @@ public class Principal extends javax.swing.JFrame {
 
     /** Creates new form Principal */
     public Principal() throws SQLException {
-        initComponents();   
+        initComponents();  
+        
         this.JBRUT.setVisible(false);
         setExtendedState(MAXIMIZED_BOTH);
                 //Agregando Stylo Nimbuu a todas las ventanas
@@ -72,6 +73,15 @@ public class Principal extends javax.swing.JFrame {
     }
     
     @Action
+    public void ModuloProveedor() throws SQLException {
+        Proveedor h1 = new Proveedor();
+        // se aÃ±ade al jDesktopPane
+        jDesktopPane1.add(h1);
+        //se muestra en pantalla
+        h1.show();
+    }
+    
+    @Action
     public void ModuloRepuesto() throws SQLException {
         Repuesto h1 = new Repuesto();
         // se aÃ±ade al jDesktopPane
@@ -106,6 +116,24 @@ public class Principal extends javax.swing.JFrame {
         //se muestra en pantalla
         h1.show();
      }
+    
+    @Action
+    public void ModuloCompras() throws SQLException {
+        Compra h1 = new Compra();
+        // se aÃ±ade al jDesktopPane
+        jDesktopPane1.add(h1);
+        //se muestra en pantalla
+        h1.show();
+     }
+    
+    @Action
+    public void ModuloInformeseIndicadores() throws SQLException {
+        Informe h1 = new Informe();
+        // se aÃ±ade al jDesktopPane
+        jDesktopPane1.add(h1);
+        //se muestra en pantalla
+        h1.show();
+    }
 
    
     /** This method is called from within the constructor to
@@ -135,12 +163,15 @@ public class Principal extends javax.swing.JFrame {
         JBRepuesto = new javax.swing.JMenuItem();
         JBFalla = new javax.swing.JMenuItem();
         JBOT = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
         javax.swing.JMenuItem JBAbout = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getResourceMap(Principal.class);
@@ -263,6 +294,11 @@ public class Principal extends javax.swing.JFrame {
         JBOT.setName("JBOT"); // NOI18N
         helpMenu.add(JBOT);
 
+        jMenuItem6.setAction(actionMap.get("ModuloProveedor")); // NOI18N
+        jMenuItem6.setText(resourceMap.getString("jMenuItem6.text")); // NOI18N
+        jMenuItem6.setName("jMenuItem6"); // NOI18N
+        helpMenu.add(jMenuItem6);
+
         JBAbout.setAction(actionMap.get("showAboutBox")); // NOI18N
         JBAbout.setText(resourceMap.getString("JBAbout.text")); // NOI18N
         JBAbout.setName("JBAbout"); // NOI18N
@@ -272,6 +308,12 @@ public class Principal extends javax.swing.JFrame {
 
         jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
         jMenu1.setName("jMenu1"); // NOI18N
+
+        jMenuItem5.setAction(actionMap.get("ModuloInformeseIndicadores")); // NOI18N
+        jMenuItem5.setText(resourceMap.getString("jMenuItem5.text")); // NOI18N
+        jMenuItem5.setName("jMenuItem5"); // NOI18N
+        jMenu1.add(jMenuItem5);
+
         menuBar.add(jMenu1);
 
         jMenu2.setText(resourceMap.getString("jMenu2.text")); // NOI18N
@@ -295,6 +337,11 @@ public class Principal extends javax.swing.JFrame {
         jMenuItem1.setText(resourceMap.getString("jMenuItem1.text")); // NOI18N
         jMenuItem1.setName("jMenuItem1"); // NOI18N
         jMenu3.add(jMenuItem1);
+
+        jMenuItem4.setAction(actionMap.get("ModuloCompras")); // NOI18N
+        jMenuItem4.setText(resourceMap.getString("jMenuItem4.text")); // NOI18N
+        jMenuItem4.setName("jMenuItem4"); // NOI18N
+        jMenu3.add(jMenuItem4);
 
         menuBar.add(jMenu3);
 
@@ -364,6 +411,9 @@ private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JLabel statusAnimationLabel;
