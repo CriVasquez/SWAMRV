@@ -42,6 +42,13 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         CargaVehiculo();   
         AsignarFechaIngreso();
     }    
+    String RUT_ENCARGADOBODEGA = null;
+    protected void setRut(String RUT_EB){
+        RUT_ENCARGADOBODEGA = RUT_EB;        
+    }
+    protected String getRUT(){
+        return RUT_ENCARGADOBODEGA;
+    }
 
     private void CargaVehiculo() throws SQLException {                
         String query = "Select * from buscarvehiculo";
@@ -152,6 +159,8 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
         JLID_REPUESTO = new javax.swing.JLabel();
 
         setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getResourceMap(RetiroRepuesto.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
@@ -364,7 +373,7 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
                 .addGap(9, 9, 9)
                 .addComponent(jLabel6)
                 .addGap(2, 2, 2)
-                .addComponent(JLRepuSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                .addComponent(JLRepuSesion, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -617,7 +626,7 @@ public class RetiroRepuesto extends javax.swing.JInternalFrame {
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
+                    .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -712,7 +721,7 @@ private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
      int IDREPUESTO = Integer.parseInt(this.JLID_REPUESTO.getText().trim());
      String OBSERVACIONES = this.JTObservaciones.getText().trim().toUpperCase();
      String CANT = this.JFCantidad.getText().trim();
-     String RUT_ENCARGADO = RUT.trim();                
+     String RUT_ENCARGADO = getRUT();
      System.out.println("Termino Definición Variables");
      
      ot ot = new ot();                           

@@ -4,7 +4,9 @@
  */
 package soprafamrv.SISTEMA;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -212,5 +214,37 @@ public class compra {
         }
     
     }
+    
+    public void borrarRepuestoCompra(int NRO_FACTURA,int ID_REPUESTO){
+        try {
+            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BorrarRepuestoCompra(?,?); END;");
+            cs.setInt(1, NRO_FACTURA);
+            cs.setInt(2, ID_REPUESTO);
+            cs.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Repuesto Eliminado Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                    
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(falla.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se puede eliminado el repuesto", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        }
+                    
+    }
+    
+    public void borrarCompra(int NRO_FACTURA){
+        try {
+            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BorrarCompra(?); END;");
+            cs.setInt(1, NRO_FACTURA);
+            cs.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Compra Borrada Satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                    
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(falla.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se pudo borrar la compra", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        }
+                    
+    }
+    
     
 }

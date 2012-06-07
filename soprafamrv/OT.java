@@ -25,6 +25,7 @@ import soprafamrv.BD.Conexion;
 import soprafamrv.SISTEMA.falla;
 import soprafamrv.SISTEMA.miPanel;
 import soprafamrv.SISTEMA.ot;
+import soprafamrv.SISTEMA.repuesto;
 
 
 
@@ -36,10 +37,12 @@ public class OT extends javax.swing.JInternalFrame {
     /** Creates new form OTS */
     public OT() throws SQLException {
         initComponents();
-        CargarOT();              
+        CargarOT();    
+        AsignarFechaIngreso();
         this.JTOBSIDSERVICIO.setVisible(false);
         this.JLID_REPUESTO.setVisible(false);            
         this.jLabel23.setVisible(false);
+        this.jLabel24.setVisible(false);
     }
     int contador = 0;
     int contador2 = 0;    
@@ -54,7 +57,7 @@ public class OT extends javax.swing.JInternalFrame {
             while (rs.next()) {                             
                 this.JCPATENTEBUSQUEDA.addItem(rs.getString("patente")+ " - " +rs.getString("marca")+ " " +rs.getString("modelo")+ " " +rs.getString("ano"));
                 this.JCPATENTEBUSQUEDA1.addItem(rs.getString("patente")+ " - " +rs.getString("marca")+ " " +rs.getString("modelo")+ " " +rs.getString("ano"));                
-                this.JCPATENTEBUSQUEDA3.addItem(rs.getString("patente")+ " - " +rs.getString("marca")+ " " +rs.getString("modelo")+ " " +rs.getString("ano"));
+                this.JCPATENTEBUSQUEDA4.addItem(rs.getString("patente")+ " - " +rs.getString("marca")+ " " +rs.getString("modelo")+ " " +rs.getString("ano"));
             }        
     }   
     private void CargarParaModificar(){
@@ -82,7 +85,7 @@ public class OT extends javax.swing.JInternalFrame {
     }
     
     private void LimpiarCampos(String x){
-         this.JTRepueSelec.setText(x);
+         this.JTFallaSelec.setText(x);
          this.JTDESCREPU.setText(x);
          this.JTObservaciones.setText(x);
          JPanelImagen.removeAll();
@@ -125,7 +128,8 @@ public class OT extends javax.swing.JInternalFrame {
         System.out.println("Inicio ingreso años");
         for (int x = 2010; x <= year; x++) {
             this.TCINI3.addItem(x);
-            this.TCTER3.addItem(x);            
+            this.TCTER3.addItem(x); 
+            this.jComboBox2.addItem(x);
         }
         System.out.println("Termino ingreso años");
 
@@ -271,11 +275,14 @@ public class OT extends javax.swing.JInternalFrame {
         jPanel15 = new javax.swing.JPanel();
         jScrollPane7 = new javax.swing.JScrollPane();
         TablaOT5 = new javax.swing.JTable();
-        jPanel16 = new javax.swing.JPanel();
-        jLabel25 = new javax.swing.JLabel();
-        JCPATENTEBUSQUEDA3 = new javax.swing.JComboBox();
-        jButton21 = new javax.swing.JButton();
         jButton23 = new javax.swing.JButton();
+        jPanel18 = new javax.swing.JPanel();
+        jLabel26 = new javax.swing.JLabel();
+        JCPATENTEBUSQUEDA4 = new javax.swing.JComboBox();
+        jButton22 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox();
+        jComboBox2 = new javax.swing.JComboBox();
+        jLabel24 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         JTRDSNUMORDEN = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -287,7 +294,7 @@ public class OT extends javax.swing.JInternalFrame {
         jButton16 = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jPanel14 = new javax.swing.JPanel();
-        JTRepueSelec = new javax.swing.JTextField();
+        JTFallaSelec = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
         JTDESCREPU = new javax.swing.JTextArea();
@@ -299,6 +306,7 @@ public class OT extends javax.swing.JInternalFrame {
         JTObservaciones = new javax.swing.JTextArea();
         jButton13 = new javax.swing.JButton();
         jLabel23 = new javax.swing.JLabel();
+        jButton19 = new javax.swing.JButton();
         JTRSPATENTE = new javax.swing.JFormattedTextField();
         JTRDSMARCA = new javax.swing.JFormattedTextField();
         jLabel29 = new javax.swing.JLabel();
@@ -310,7 +318,6 @@ public class OT extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setResizable(true);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getResourceMap(OT.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
@@ -980,8 +987,8 @@ public class OT extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 404, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1095,7 +1102,7 @@ public class OT extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel16, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                                     .addComponent(JTOBSIDSERVICIO, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JTOBSSERVICIO, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(JTOBSSERVICIO, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                             .addComponent(jLabel11)
                             .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -1215,44 +1222,6 @@ public class OT extends javax.swing.JInternalFrame {
         });
         jScrollPane7.setViewportView(TablaOT5);
 
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("jPanel16.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, resourceMap.getColor("jPanel16.border.titleColor"))); // NOI18N
-        jPanel16.setName("jPanel16"); // NOI18N
-
-        jLabel25.setText(resourceMap.getString("jLabel25.text")); // NOI18N
-        jLabel25.setName("jLabel25"); // NOI18N
-
-        JCPATENTEBUSQUEDA3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Patente" }));
-        JCPATENTEBUSQUEDA3.setName("JCPATENTEBUSQUEDA3"); // NOI18N
-
-        jButton21.setText(resourceMap.getString("jButton21.text")); // NOI18N
-        jButton21.setName("jButton21"); // NOI18N
-        jButton21.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton21ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel25)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JCPATENTEBUSQUEDA3, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton21)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                .addComponent(jLabel25)
-                .addComponent(JCPATENTEBUSQUEDA3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addComponent(jButton21))
-        );
-
         jButton23.setText(resourceMap.getString("jButton23.text")); // NOI18N
         jButton23.setName("jButton23"); // NOI18N
         jButton23.addActionListener(new java.awt.event.ActionListener() {
@@ -1260,6 +1229,73 @@ public class OT extends javax.swing.JInternalFrame {
                 jButton23ActionPerformed(evt);
             }
         });
+
+        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("jPanel18.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, resourceMap.getColor("jPanel18.border.titleColor"))); // NOI18N
+        jPanel18.setName("jPanel18"); // NOI18N
+
+        jLabel26.setText(resourceMap.getString("jLabel26.text")); // NOI18N
+        jLabel26.setName("jLabel26"); // NOI18N
+
+        JCPATENTEBUSQUEDA4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Patente" }));
+        JCPATENTEBUSQUEDA4.setName("JCPATENTEBUSQUEDA4"); // NOI18N
+
+        jButton22.setText(resourceMap.getString("jButton22.text")); // NOI18N
+        jButton22.setName("jButton22"); // NOI18N
+        jButton22.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton22ActionPerformed(evt);
+            }
+        });
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mes", "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre" }));
+        jComboBox1.setName("jComboBox1"); // NOI18N
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Año" }));
+        jComboBox2.setName("jComboBox2"); // NOI18N
+
+        jLabel24.setName("jLabel24"); // NOI18N
+
+        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
+        jPanel18.setLayout(jPanel18Layout);
+        jPanel18Layout.setHorizontalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel26)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel24)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel18Layout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBox2, 0, 58, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton22))
+                    .addComponent(JCPATENTEBUSQUEDA4, 0, 253, Short.MAX_VALUE))
+                .addGap(44, 44, 44))
+        );
+        jPanel18Layout.setVerticalGroup(
+            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel18Layout.createSequentialGroup()
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(JCPATENTEBUSQUEDA4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton22)
+                    .addComponent(jLabel24))
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
         jPanel15.setLayout(jPanel15Layout);
@@ -1269,16 +1305,16 @@ public class OT extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane7, 0, 0, Short.MAX_VALUE)
-                    .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton23, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel15Layout.createSequentialGroup()
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
-                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 329, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton23)
                 .addContainerGap(23, Short.MAX_VALUE))
@@ -1354,8 +1390,8 @@ public class OT extends javax.swing.JInternalFrame {
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(null, resourceMap.getString("jPanel14.border.title"), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, null, resourceMap.getColor("jPanel14.border.titleColor"))); // NOI18N
         jPanel14.setName("jPanel14"); // NOI18N
 
-        JTRepueSelec.setEnabled(false);
-        JTRepueSelec.setName("JTRepueSelec"); // NOI18N
+        JTFallaSelec.setEnabled(false);
+        JTFallaSelec.setName("JTFallaSelec"); // NOI18N
 
         jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
         jLabel8.setName("jLabel8"); // NOI18N
@@ -1415,6 +1451,7 @@ public class OT extends javax.swing.JInternalFrame {
         jScrollPane6.setViewportView(JTObservaciones);
 
         jButton13.setText(resourceMap.getString("jButton13.text")); // NOI18N
+        jButton13.setEnabled(false);
         jButton13.setName("jButton13"); // NOI18N
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1424,6 +1461,15 @@ public class OT extends javax.swing.JInternalFrame {
 
         jLabel23.setText(resourceMap.getString("jLabel23.text")); // NOI18N
         jLabel23.setName("jLabel23"); // NOI18N
+
+        jButton19.setText(resourceMap.getString("jButton19.text")); // NOI18N
+        jButton19.setEnabled(false);
+        jButton19.setName("jButton19"); // NOI18N
+        jButton19.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton19ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -1443,11 +1489,14 @@ public class OT extends javax.swing.JInternalFrame {
                                         .addGroup(jPanel14Layout.createSequentialGroup()
                                             .addComponent(jLabel8)
                                             .addGap(18, 18, 18)
-                                            .addComponent(JTRepueSelec, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(JTFallaSelec, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(jLabel27)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel17, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton13))
+                            .addGroup(jPanel14Layout.createSequentialGroup()
+                                .addComponent(jButton19)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton13)))
                         .addGap(39, 39, 39))
                     .addComponent(jLabel23))
                 .addContainerGap())
@@ -1460,7 +1509,7 @@ public class OT extends javax.swing.JInternalFrame {
                     .addGroup(jPanel14Layout.createSequentialGroup()
                         .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(JTRepueSelec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(JTFallaSelec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jLabel27)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1471,7 +1520,9 @@ public class OT extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton13)
+                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton13)
+                    .addComponent(jButton19))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel23)
                 .addGap(17, 17, 17))
@@ -1596,7 +1647,7 @@ public class OT extends javax.swing.JInternalFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 690, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(35, Short.MAX_VALUE))
         );
 
         pack();
@@ -1673,7 +1724,7 @@ private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
                 if (n == 0) {
                     try {
                         ot.RegistrarFallaOT(NUM_ORDEN, PATENTE, IDFALLA, OBSERVACIONES);                     
-                        this.JListFallaSesion.add(this.JTRepueSelec.getText());                                  
+                        this.JListFallaSesion.add(this.JTFallaSelec.getText());                                  
                         LimpiarCampos(null);
                                                                                
                 } catch (SQLException ex) {
@@ -1706,7 +1757,7 @@ private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             
             f.ObtenerFallaOT(IDOT, PATENTE, NOMBRE);
             
-            this.JTRepueSelec.setText(f.getNOMBRE());            
+            this.JTFallaSelec.setText(f.getNOMBRE());            
             this.JTObservaciones.setText(f.getDETALLE());
             this.jLabel23.setText(String.valueOf(f.getID_FALLA()));                      
             byte[] FOTOByte = f.getFOTO();                                    
@@ -1724,7 +1775,8 @@ private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             
             JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
             JPanelImagen.setVisible(true);
-            JPanelImagen.repaint();            
+            JPanelImagen.repaint();      
+            this.jButton19.setEnabled(true);
             
         } catch (IOException ex) {           
             Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
@@ -1745,7 +1797,7 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         try {
             LimpiarCampos(null);               
             String NOMBRE = this.JLFallaDispo.getSelectedItem();                            
-            this.JTRepueSelec.setText(NOMBRE);
+            this.JTFallaSelec.setText(NOMBRE);
             Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
             OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN CargaFallas(?,?,?,?); END;");
             
@@ -1782,7 +1834,7 @@ private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
             JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));
             JPanelImagen.setVisible(true);
             JPanelImagen.repaint();
-            this.JTObservaciones.setEnabled(true);
+            this.JTObservaciones.setEnabled(true);            
             
         } catch (IOException ex) {           
             Logger.getLogger(RetiroRepuesto.class.getName()).log(Level.SEVERE, null, ex);
@@ -1828,19 +1880,6 @@ private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         }                        
             CargarFallas();               
 }//GEN-LAST:event_jButton23ActionPerformed
-
-private void jButton21ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton21ActionPerformed
-        try {
-            this.TablaOT1.removeAll();
-            String PATENTE = (String) this.JCPATENTEBUSQUEDA3.getSelectedItem().toString().substring(0, 6);
-            String query = "Select ot.id_ot as idot, ot.patente as patente, marca, modelo from orden_trabajo ot, vehiculo v where ot.patente ='"+PATENTE+"' and v.patente = ot.patente";   
-            ResultSet rs = Conexion.ejecutarQuery(query);
-            ot.llenarTablaOT(TablaOT5, rs);
-        } catch (SQLException ex) {
-            Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                   
-}//GEN-LAST:event_jButton21ActionPerformed
 
 private void TablaOT5FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TablaOT5FocusGained
 // TODO add your handling code here:
@@ -1958,21 +1997,6 @@ private void TablaOT2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
         this.JTOBSSERVICIO.setText(SERVICIO);
         this.JTOBSERV.setText(OBSERVACION);
 }//GEN-LAST:event_TablaOT2MouseClicked
-
-private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        try {
-            this.TablaOT1.removeAll();
-            String PATENTE = (String) this.JCPATENTEBUSQUEDA.getSelectedItem().toString().substring(0, 6);
-            String query = "Select * from DatosOT where patente ='"+PATENTE+"'";   
-            ResultSet rs = Conexion.ejecutarQuery(query);
-            ot.llenarTablaOT(TablaOT, rs);
-            
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-}//GEN-LAST:event_jButton17ActionPerformed
 
 private void TablaOTFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TablaOTFocusGained
     int y = this.TablaOT.getSelectedColumn();
@@ -2281,6 +2305,68 @@ private void JCPATENTEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRS
 private void TCTER3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_TCTER3ItemStateChanged
     
 }//GEN-LAST:event_TCTER3ItemStateChanged
+
+private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
+    try {            
+        String PATENTE = (String) this.JCPATENTEBUSQUEDA4.getSelectedItem().toString().substring(0, 6);
+        String query = "Select ot.id_ot as idot, ot.patente as patente, marca, modelo from orden_trabajo ot, vehiculo v where ot.patente ='"+PATENTE+"' and v.patente = ot.patente and ot.fecha_inicio between to_date('01-' || "+this.jLabel24.getText()+" || '-' || "+this.jComboBox2.getSelectedItem()+",'dd-mm-yyyy') and to_date(last_day(to_date('31-' || 'DEC' || '-' || "+this.jComboBox2.getSelectedItem()+",'dd-mm-yyyy')))";   
+        ResultSet rs = Conexion.ejecutarQuery(query);
+        ot.llenarTablaOT(TablaOT5, rs);
+        this.jButton23.setEnabled(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                  
+}//GEN-LAST:event_jButton22ActionPerformed
+
+private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    repuesto r = new repuesto();
+    int numeroMes = r.obtenerMesRepuesto(this.jComboBox1.getSelectedItem().toString());
+    System.out.println("NUMERO DEL MES SELECCIONADO: " +numeroMes);
+    this.jLabel24.setText(String.valueOf(numeroMes));
+}//GEN-LAST:event_jComboBox1ItemStateChanged
+
+private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        try {
+            this.TablaOT1.removeAll();
+            String PATENTE = (String) this.JCPATENTEBUSQUEDA.getSelectedItem().toString().substring(0, 6);
+            String query = "Select * from DatosOT where patente ='"+PATENTE+"'";   
+            ResultSet rs = Conexion.ejecutarQuery(query);
+            ot.llenarTablaOT(TablaOT, rs);
+            
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+}//GEN-LAST:event_jButton17ActionPerformed
+
+private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
+        try {
+            falla f = new falla();
+            String ID_OT = this.JTRDSNUMORDEN.getText();
+            String PATENTE = this.JTRSPATENTE.getText();
+            String NOMBRE = this.JTFallaSelec.getText();
+            String query = "Select id_falla from falla where nombre= '"+NOMBRE+"'";
+            String ID_FALLA = null;
+            ResultSet rs = Conexion.ejecutarQuery(query);
+            while (rs.next()){
+                ID_FALLA = rs.getString("id_falla");
+            }
+            f.borrarFallaOT(Integer.parseInt(ID_OT), PATENTE, Integer.parseInt(ID_FALLA));   
+            this.JListFallaSesion.remove(this.JTFallaSelec.getText());
+            this.JTRSPATENTE.setText(null);
+            this.JTRDSMARCA.setText(null);
+            this.JTRDSMODELO.setText(null);
+            this.JTRDSNUMORDEN.setText(null);
+            this.jButton19.setEnabled(false);
+            LimpiarCampos(null);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(OT.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+}//GEN-LAST:event_jButton19ActionPerformed
   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox JCADMINISTRADOR;
@@ -2288,7 +2374,7 @@ private void TCTER3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:e
     private javax.swing.JComboBox JCPATENTE;
     private javax.swing.JComboBox JCPATENTEBUSQUEDA;
     private javax.swing.JComboBox JCPATENTEBUSQUEDA1;
-    private javax.swing.JComboBox JCPATENTEBUSQUEDA3;
+    private javax.swing.JComboBox JCPATENTEBUSQUEDA4;
     private javax.swing.JComboBox JCTRABAJO;
     private javax.swing.JFormattedTextField JDSMARCA;
     private javax.swing.JFormattedTextField JDSMODELO;
@@ -2302,6 +2388,7 @@ private void TCTER3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:e
     private java.awt.List JListFallaSesion;
     private javax.swing.JPanel JPanelImagen;
     private javax.swing.JTextArea JTDESCREPU;
+    private javax.swing.JTextField JTFallaSelec;
     private javax.swing.JTextArea JTOBSERV;
     private javax.swing.JTextField JTOBSIDOT;
     private javax.swing.JTextField JTOBSIDSERVICIO;
@@ -2312,7 +2399,6 @@ private void TCTER3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:e
     private javax.swing.JFormattedTextField JTRDSMODELO;
     private javax.swing.JFormattedTextField JTRDSNUMORDEN;
     private javax.swing.JFormattedTextField JTRSPATENTE;
-    private javax.swing.JTextField JTRepueSelec;
     private javax.swing.JComboBox TCINI1;
     private javax.swing.JComboBox TCINI2;
     private javax.swing.JComboBox TCINI3;
@@ -2333,8 +2419,9 @@ private void TCTER3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:e
     private javax.swing.JButton jButton16;
     private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton18;
+    private javax.swing.JButton jButton19;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton21;
+    private javax.swing.JButton jButton22;
     private javax.swing.JButton jButton23;
     private javax.swing.JButton jButton27;
     private javax.swing.JButton jButton3;
@@ -2344,6 +2431,8 @@ private void TCTER3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:e
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -2360,7 +2449,8 @@ private void TCTER3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:e
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JLabel jLabel27;
     private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel29;
@@ -2380,8 +2470,8 @@ private void TCTER3ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:e
     private javax.swing.JPanel jPanel13;
     private javax.swing.JPanel jPanel14;
     private javax.swing.JPanel jPanel15;
-    private javax.swing.JPanel jPanel16;
     private javax.swing.JPanel jPanel17;
+    private javax.swing.JPanel jPanel18;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel23;
     private javax.swing.JPanel jPanel3;

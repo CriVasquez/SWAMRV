@@ -11,8 +11,6 @@
 package soprafamrv;
 
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import org.jdesktop.application.Action;
@@ -98,6 +96,15 @@ public class Principal extends javax.swing.JFrame {
         //se muestra en pantalla
         h1.show();
     }
+    
+    @Action
+    public void ModuloServicio() {
+        Servicio h1 = new Servicio();
+        // se aÃ±ade al jDesktopPane
+        jDesktopPane1.add(h1);
+        //se muestra en pantalla
+        h1.show();
+    }
    
     @Action
     public void ModuloOT() throws SQLException {
@@ -153,6 +160,7 @@ public class Principal extends javax.swing.JFrame {
         progressBar = new javax.swing.JProgressBar();
         jLabel1 = new javax.swing.JLabel();
         JBRUT = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         menuBar = new javax.swing.JMenuBar();
         javax.swing.JMenu fileMenu = new javax.swing.JMenu();
         javax.swing.JMenuItem exitMenuItem = new javax.swing.JMenuItem();
@@ -162,16 +170,17 @@ public class Principal extends javax.swing.JFrame {
         JBPersonal = new javax.swing.JMenuItem();
         JBRepuesto = new javax.swing.JMenuItem();
         JBFalla = new javax.swing.JMenuItem();
-        JBOT = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
         javax.swing.JMenuItem JBAbout = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        JBOT = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getResourceMap(Principal.class);
@@ -200,6 +209,11 @@ public class Principal extends javax.swing.JFrame {
         JBRUT.setText(resourceMap.getString("JBRUT.text")); // NOI18N
         JBRUT.setName("JBRUT"); // NOI18N
 
+        jLabel2.setFont(resourceMap.getFont("jLabel2.font")); // NOI18N
+        jLabel2.setForeground(resourceMap.getColor("jLabel2.foreground")); // NOI18N
+        jLabel2.setText(resourceMap.getString("jLabel2.text")); // NOI18N
+        jLabel2.setName("jLabel2"); // NOI18N
+
         javax.swing.GroupLayout statusPanelLayout = new javax.swing.GroupLayout(statusPanel);
         statusPanel.setLayout(statusPanelLayout);
         statusPanelLayout.setHorizontalGroup(
@@ -210,9 +224,15 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(statusMessageLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
-                .addComponent(JBRUT)
-                .addGap(153, 153, 153)
+                .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(statusPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 231, Short.MAX_VALUE)
+                        .addComponent(JBRUT)
+                        .addGap(153, 153, 153))
+                    .addGroup(statusPanelLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(progressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(statusAnimationLabel)
@@ -234,7 +254,8 @@ public class Principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(statusPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel1)
-                            .addComponent(JBRUT))
+                            .addComponent(JBRUT)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
         );
 
@@ -289,15 +310,15 @@ public class Principal extends javax.swing.JFrame {
         JBFalla.setName("JBFalla"); // NOI18N
         helpMenu.add(JBFalla);
 
-        JBOT.setAction(actionMap.get("ModuloOT")); // NOI18N
-        JBOT.setText(resourceMap.getString("JBOT.text")); // NOI18N
-        JBOT.setName("JBOT"); // NOI18N
-        helpMenu.add(JBOT);
-
         jMenuItem6.setAction(actionMap.get("ModuloProveedor")); // NOI18N
         jMenuItem6.setText(resourceMap.getString("jMenuItem6.text")); // NOI18N
         jMenuItem6.setName("jMenuItem6"); // NOI18N
         helpMenu.add(jMenuItem6);
+
+        jMenuItem1.setAction(actionMap.get("ModuloServicio")); // NOI18N
+        jMenuItem1.setText(resourceMap.getString("jMenuItem1.text")); // NOI18N
+        jMenuItem1.setName("jMenuItem1"); // NOI18N
+        helpMenu.add(jMenuItem1);
 
         JBAbout.setAction(actionMap.get("showAboutBox")); // NOI18N
         JBAbout.setText(resourceMap.getString("JBAbout.text")); // NOI18N
@@ -334,16 +355,22 @@ public class Principal extends javax.swing.JFrame {
         jMenu3.setText(resourceMap.getString("jMenu3.text")); // NOI18N
         jMenu3.setName("jMenu3"); // NOI18N
 
-        jMenuItem1.setText(resourceMap.getString("jMenuItem1.text")); // NOI18N
-        jMenuItem1.setName("jMenuItem1"); // NOI18N
-        jMenu3.add(jMenuItem1);
-
         jMenuItem4.setAction(actionMap.get("ModuloCompras")); // NOI18N
         jMenuItem4.setText(resourceMap.getString("jMenuItem4.text")); // NOI18N
         jMenuItem4.setName("jMenuItem4"); // NOI18N
         jMenu3.add(jMenuItem4);
 
         menuBar.add(jMenu3);
+
+        jMenu4.setText(resourceMap.getString("jMenu4.text")); // NOI18N
+        jMenu4.setName("jMenu4"); // NOI18N
+
+        JBOT.setAction(actionMap.get("ModuloOT")); // NOI18N
+        JBOT.setText(resourceMap.getString("JBOT.text")); // NOI18N
+        JBOT.setName("JBOT"); // NOI18N
+        jMenu4.add(JBOT);
+
+        menuBar.add(jMenu4);
 
         setJMenuBar(menuBar);
 
@@ -405,15 +432,17 @@ private void jMenu2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     protected javax.swing.JMenuItem JBVehiculo;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
+    protected javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenu jMenu4;
+    protected javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
+    protected javax.swing.JMenuItem jMenuItem4;
+    protected javax.swing.JMenuItem jMenuItem5;
+    protected javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JProgressBar progressBar;
     private javax.swing.JLabel statusAnimationLabel;

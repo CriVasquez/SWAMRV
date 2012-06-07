@@ -179,6 +179,7 @@ public class Compra extends javax.swing.JInternalFrame {
         JTObservaciones = new javax.swing.JTextArea();
         jButton9 = new javax.swing.JButton();
         JCANT = new javax.swing.JTextField();
+        jButton6 = new javax.swing.JButton();
         JFNROFACTURA2 = new javax.swing.JFormattedTextField();
         jLabel12 = new javax.swing.JLabel();
         JLID_REPUESTO = new javax.swing.JLabel();
@@ -193,6 +194,7 @@ public class Compra extends javax.swing.JInternalFrame {
         jButton4 = new javax.swing.JButton();
 
         setClosable(true);
+        setMaximizable(true);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getResourceMap(Compra.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
@@ -214,13 +216,20 @@ public class Compra extends javax.swing.JInternalFrame {
         jToolBar1.add(jButton1);
 
         jButton2.setText(resourceMap.getString("jButton2.text")); // NOI18N
+        jButton2.setEnabled(false);
         jButton2.setFocusable(false);
         jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton2.setName("jButton2"); // NOI18N
         jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jButton2);
 
         jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
+        jButton3.setEnabled(false);
         jButton3.setFocusable(false);
         jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButton3.setName("jButton3"); // NOI18N
@@ -518,6 +527,15 @@ public class Compra extends javax.swing.JInternalFrame {
         JCANT.setEnabled(false);
         JCANT.setName("JCANT"); // NOI18N
 
+        jButton6.setText(resourceMap.getString("jButton6.text")); // NOI18N
+        jButton6.setEnabled(false);
+        jButton6.setName("jButton6"); // NOI18N
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -542,7 +560,10 @@ public class Compra extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.LEADING))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jButton9)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jButton6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton9))
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE))
                         .addGap(39, 39, 39)))
                 .addContainerGap())
@@ -570,7 +591,9 @@ public class Compra extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton9)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton9)
+                    .addComponent(jButton6))
                 .addGap(42, 42, 42))
         );
 
@@ -781,7 +804,7 @@ public class Compra extends javax.swing.JInternalFrame {
                 .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -1007,12 +1030,21 @@ private void TablaOTRRFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:ev
 
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try {
+            this.JPanelImagen.removeAll();
             this.JLREPDISPO.removeAll();
             this.JLREPINGRESADO.removeAll();
             int y = this.TablaOTRR.getSelectedColumn();    
-            int x = this.TablaOTRR.getSelectedRow();        
+            int x = this.TablaOTRR.getSelectedRow();      
+            repuesto r = new repuesto();
             String NROFACTURA = (String) TablaOTRR.getValueAt(x,0);    
-            String CODREP = (String) TablaOTRR.getValueAt(x,2);    
+            String CODREP = (String) TablaOTRR.getValueAt(x,2);   
+            
+            r.ObtenerRepuesto2(Integer.parseInt(CODREP));
+            InputStream z = new ByteArrayInputStream(r.getFOTO());
+            BufferedImage FOTO = ImageIO.read(z);
+            this.JTDESCREPU.setText(r.getDETALLE());
+            JPanelImagen.add(new miPanel(FOTO, JPanelImagen.getSize()));           
+            JPanelImagen.repaint();
             String NOMBRE = (String) TablaOTRR.getValueAt(x,3);    
             String CANTIDAD = (String) TablaOTRR.getValueAt(x,4);    
             String query = "Select detalle from compra_detalle where nro_factura ="+NROFACTURA+" and id_repuesto ="+CODREP+"";
@@ -1024,9 +1056,11 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
             this.JLID_REPUESTO.setText(CODREP);
             this.JTRepueSelec.setText(NOMBRE);
             this.JCANT.setText(CANTIDAD);
-            this.jButton9.setEnabled(true);    
-            contador = 1;
-            cargarRepuestos();
+            this.jButton9.setEnabled(true); 
+            //this.jButton6.setEnabled(true);
+            contador = 1;            
+        } catch (IOException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
         }   catch (SQLException ex) {
             Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1038,6 +1072,48 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         this.jButton9.setEnabled(true);
     }
 }//GEN-LAST:event_jButton3ActionPerformed
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    if (contador == 1 || contador == 2){            
+        int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Eliminar?", "Mensajero", JOptionPane.YES_NO_OPTION);
+        if (n == 0){
+            compra c = new compra();            
+            int NROFACTURA = Integer.parseInt(this.JFNROFACTURA2.getText());                        
+            c.borrarCompra(NROFACTURA);
+            ResetearCampos();
+            HabilitarCampos(false);            
+        }                                
+        else{
+            System.out.println("IMPRIMIENDO N :" +n);
+            ResetearCampos();
+        }
+    }
+    else {
+        JOptionPane.showMessageDialog(null, "Primero debe cargar una compra", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+    }      
+}//GEN-LAST:event_jButton2ActionPerformed
+
+private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+if (contador == 1 || contador == 2){            
+        int n = JOptionPane.showConfirmDialog(rootPane, "¿Está seguro que desea Eliminar?", "Mensajero", JOptionPane.YES_NO_OPTION);
+        if (n == 0){
+            compra c = new compra();            
+            int NROFACTURA = Integer.parseInt(this.JFNROFACTURA2.getText());
+            int IDREPUESTO = Integer.parseInt(this.JLID_REPUESTO.getText().trim());
+            System.out.println("IMPRIMIENDO IDFALLA: " +IDREPUESTO);
+            c.borrarRepuestoCompra(NROFACTURA, IDREPUESTO);            
+            ResetearCampos();
+            HabilitarCampos(false);            
+        }                                
+        else{
+            System.out.println("IMPRIMIENDO N :" +n);
+            ResetearCampos();
+        }
+    }
+    else {
+        JOptionPane.showMessageDialog(null, "Primero debe cargar una compra", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+    }      
+}//GEN-LAST:event_jButton6ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox JCADMINISTRADOR;
@@ -1064,6 +1140,7 @@ private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton9;
     private javax.swing.JComboBox jComboBox1;

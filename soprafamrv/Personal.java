@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -163,7 +164,7 @@ public class Personal extends javax.swing.JInternalFrame {
     }
 
     @Action
-    public void Guardar() throws SQLException, ParseException {
+    public void Guardar() throws SQLException, ParseException, NoSuchAlgorithmException {
         System.out.println("Creación de objetos");
         subeImagen s = new subeImagen();
         personal p = new personal();
@@ -171,8 +172,8 @@ public class Personal extends javax.swing.JInternalFrame {
         System.out.println("Inicio Definición Variables");
         String TIPOCUENTA = (String) this.jCBTipoCuenta.getSelectedItem();
         String RUT = this.JFRUT.getText();
-        String NOMBRE = this.JFNOMBRE.getText().toUpperCase().trim();
-        String CONTRASENA = this.JFCONTRASENA.getPassword().toString();
+        String NOMBRE = this.JFNOMBRE.getText().toUpperCase().trim();        
+        String CONTRASENA = p.getMD5(this.JFCONTRASENA.getText());
         String APELLIDO_PATERNO = this.JFAPEPA.getText().toUpperCase().trim();
         String APELLIDO_MATERNO = this.JFAPEMA.getText().toUpperCase().trim();
         String DIRECCION = this.JFDIRE.getText().toUpperCase().trim();
@@ -199,7 +200,7 @@ public class Personal extends javax.swing.JInternalFrame {
         
         
         System.out.println("Definicion formato fecha");
-        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy", new Locale("es", "ES"));
+        SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MMMMMMMMMM-yyyy", new Locale("es", "ES"));
         java.sql.Date ingreso = new java.sql.Date(sdf.parse(FECHA_INGRESO).getTime());        
         java.sql.Date nac = new java.sql.Date(sdf.parse(FECHA_NACIMIENTO).getTime());
    
@@ -579,6 +580,7 @@ public class Personal extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setMaximizable(true);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getResourceMap(Personal.class);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
