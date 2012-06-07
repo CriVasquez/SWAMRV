@@ -5,6 +5,8 @@
 package soprafamrv.SISTEMA;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -755,8 +757,7 @@ public class personal {
 
             System.out.println("\nBlob succesfully inserted");
             Conexion.con.commit();
-            
-            
+                        
             System.out.println("TERMINO del Stored Procedure de actualizacion Administrador");
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -816,8 +817,7 @@ public class personal {
 
             System.out.println("\nBlob succesfully inserted");
             Conexion.con.commit();
-            
-            
+                        
             System.out.println("TERMINO del Stored Procedure de actualizacion Encargado Bodega");
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -854,8 +854,7 @@ public class personal {
             ex.printStackTrace();    
         }        
     }
-    
-    
+        
     public void registrarEncargadoBodega(personal encargadob) throws SQLException{
         try {            
             System.out.println("INICIO del Stored Procedure de insercion Encargado Bodega");
@@ -977,7 +976,79 @@ public class personal {
         }    
     }
     
+    public static String getMD5(String clear) throws NoSuchAlgorithmException{
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] b = md.digest(clear.getBytes());
+        int size = b.length;
+        @SuppressWarnings("StringBufferMayBeStringBuilder")
+        StringBuffer h = new StringBuffer(size);
+        //algoritmo y arreglo md5
+            for (int i = 0; i < size; i++) {
+                int u = b[i] & 255;
+                    if (u < 16) {
+                        h.append("0" + Integer.toHexString(u));
+                    }
+                else {
+                        h.append(Integer.toHexString(u));
+                }
+            }
+        //clave encriptada
+        return h.toString();
+    } 
     
-    
+    public personal LoginPersonal(String TIPOC, String RUT, String PW) throws SQLException{
+        personal personal = null;
+        if ("Encargado Bodega".equals(TIPOC)){
+              
+            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BuscarEncargadoB(?,?,?,?,?); END;");
+
+             System.out.println("***INICIO CARGA ENCARGADO***");
+             System.out.println("Setiando Parametros ENTRADA");
+             cs.setString(1, RUT);
+             cs.setString(2, PW);
+
+             System.out.println("Setiando Parametros SALIDA");
+             cs.registerOutParameter(3, Types.VARCHAR);                
+             cs.registerOutParameter(4, Types.VARCHAR);
+             cs.registerOutParameter(5, Types.VARCHAR);
+             cs.execute();
+             
+             this.RUT = RUT;
+             this.CONTRASENA = PW;
+             NOMBRE = cs.getOracleObject(3).stringValue();
+             APELLIDOPAT = cs.getOracleObject(4).stringValue();
+             APELLIDOMAT = cs.getOracleObject(5).stringValue();                                                   
+             return personal;
+        }
+        
+        else if("Administrador".equals(TIPOC)){
+        
+            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BuscarAdmin(?,?,?,?,?); END;");
+
+             System.out.println("***INICIO CARGA ENCARGADO***");
+             System.out.println("Setiando Parametros ENTRADA");
+             cs.setString(1, RUT);
+             cs.setString(2, PW);
+
+             System.out.println("Setiando Parametros SALIDA");
+             cs.registerOutParameter(3, Types.VARCHAR);                
+             cs.registerOutParameter(4, Types.VARCHAR);
+             cs.registerOutParameter(5, Types.VARCHAR);
+             cs.execute();
+             
+             this.RUT = RUT;
+             this.CONTRASENA = PW;
+             NOMBRE = cs.getOracleObject(3).stringValue();
+             APELLIDOPAT = cs.getOracleObject(4).stringValue();
+             APELLIDOMAT = cs.getOracleObject(5).stringValue();                                      
+             return personal;
+                         
+        
+        }
+        return personal;
+            
+    }        
     
 }
