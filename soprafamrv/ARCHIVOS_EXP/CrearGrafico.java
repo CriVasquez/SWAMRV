@@ -7,10 +7,8 @@ package soprafamrv.ARCHIVOS_EXP;
 
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
-import java.io.File;
 import org.jfree.chart.plot.*;
 import java.io.*;
-import java.sql.ResultSet;
 import org.jfree.chart.ChartFactory;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.time.Day;
@@ -43,12 +41,8 @@ public class CrearGrafico {
             ChartUtilities.saveChartAsJPEG(new File(nombre+ " - AÑO - " +ANO+ ".jpg"), chart, 800, 600);
             } catch (IOException e) {
                 System.err.println("Error creando grafico.");
-                }
-        
+                }        
     }
- 
-
-        
 
 // Create a time series chart
     public void GraficoLineal(){

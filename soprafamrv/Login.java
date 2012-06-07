@@ -11,15 +11,15 @@
 package soprafamrv;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
+import java.security.NoSuchAlgorithmException;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +27,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import soprafamrv.BD.Conexion;
+import soprafamrv.SISTEMA.personal;
 
 /**
  *
@@ -114,6 +115,10 @@ public class Login extends javax.swing.JFrame {
         LabelESTADO = new javax.swing.JLabel();
         JCTipoCuenta = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         org.jdesktop.application.ResourceMap resourceMap = org.jdesktop.application.Application.getInstance(soprafamrv.SOPRAFAMRVApp0.class).getContext().getResourceMap(Login.class);
@@ -210,6 +215,28 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setText(resourceMap.getString("jLabel1.text")); // NOI18N
         jLabel1.setName("jLabel1"); // NOI18N
 
+        jMenuBar1.setName("jMenuBar1"); // NOI18N
+
+        jMenu1.setText(resourceMap.getString("jMenu1.text")); // NOI18N
+        jMenu1.setName("jMenu1"); // NOI18N
+
+        jMenuItem1.setText(resourceMap.getString("jMenuItem1.text")); // NOI18N
+        jMenuItem1.setName("jMenuItem1"); // NOI18N
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setText(resourceMap.getString("jMenuItem2.text")); // NOI18N
+        jMenuItem2.setName("jMenuItem2"); // NOI18N
+        jMenu1.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -285,47 +312,79 @@ private void JFLOGINRUTFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_JFLOGINRUTFocusLost
 
 private void JBIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBIngresarActionPerformed
-        try {
-            if (this.JCTipoCuenta.getSelectedItem() == "Encargado Bodega"){
-            Login l = new Login();
-            l.escribirArchivo("HOLACTM como te va??");
-            String texto = l.leerArchivo("hola.txt");
-            System.out.println(texto);
-            Principal p = new Principal();
-            p.show();
-            p.JBFalla.setEnabled(false);
-            p.JBOT.setEnabled(false);
-            p.JBPersonal.setEnabled(false);
-            p.JBVehiculo.setEnabled(false);
-            RetiroRepuesto rp = new RetiroRepuesto();
-            String query = "Select nombre, apellido_paterno, apellido_materno from Encargado_Bodega where rut_encargado='"+this.JFLOGINRUT.getText()+"'";
-            ResultSet rs = Conexion.ejecutarQuery(query);
-            while (rs.next()){
-                rp.RUT = "hola";
+    try {
+        String RUT = this.JFLOGINRUT.getText();    
+        String PW = personal.getMD5(this.JPCONTRASENA.getText());    
+        if (this.JCTipoCuenta.getSelectedItem() == "Encargado Bodega"){
+            try {                
+                Principal p = new Principal();
+                RetiroRepuesto rp = new RetiroRepuesto();
                         
+                p.JBOT.setEnabled(false);            
+                p.jMenuItem5.setEnabled(false);
+                p.jMenuItem4.setEnabled(false);
+                           
+                p.JBFalla.setEnabled(false);
+                p.JBPersonal.setEnabled(false);
+                p.JBVehiculo.setEnabled(false);
+                p.JBRepuesto.setEnabled(false);
+                p.jMenuItem6.setEnabled(false);
+                p.jMenuItem1.setEnabled(false);                
+                personal personal = new personal();                
+                personal.LoginPersonal("Encargado Bodega", RUT, PW);
+                rp.setRut(RUT);
+                        
+                JOptionPane.showMessageDialog(rootPane, "Bienvenido " +personal.getNOMBRE()+ " al Software AMRV \nVerifique que la fecha y hora sean correctas en el equipo", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
+                p.jLabel2.setText(personal.getNOMBRE()+ " " +personal.getAPELLIDOPAT()+ " " +personal.getAPELLIDOMAT());
+                p.jLabel2.setForeground(Color.blue.darker());
+                p.show(); 
+                } catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(rootPane, "Se ha producido un error", "Mensajero", JOptionPane.ERROR_MESSAGE);
+                } catch (NullPointerException ex){
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(rootPane, "Datos incorrectos", "Mensajero", JOptionPane.ERROR_MESSAGE);
+                }
             }
-            
-            }
-            else{
-            Principal p = new Principal();
-                        JOptionPane.showMessageDialog(rootPane, "Bienvenido " +"Cristian"+ " al Software AMRV \nVerifique que la fecha y hora sean correctas en el equipo", "Mensajero", JOptionPane.INFORMATION_MESSAGE);
-            p.show();
-            RetiroRepuesto rp = new RetiroRepuesto();
-            //String query = "Select nombre, apellido_paterno, apellido_materno from Administrador where rut_administrador='"+this.JFLOGINRUT.getText()+"'";
-            //ResultSet rs = Conexion.ejecutarQuery(query);
-            //while (rs.next()){
-                rp.RUT = this.JFLOGINRUT.getText();
-            //}
-            }
-        } catch (SQLException ex) {
+        else if (this.JCTipoCuenta.getSelectedItem() == "Administrador"){
+            try {
+                Principal p = new Principal();                
+                        
+                RetiroRepuesto rp = new RetiroRepuesto();
+                personal personal = new personal();                
+                personal.LoginPersonal("Administrador", RUT, PW);
+                JOptionPane.showMessageDialog(rootPane, "Bienvenido " +personal.getNOMBRE()+ " al Software AMRV \nVerifique que la fecha y hora sean correctas en el equipo", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                
+                p.jLabel2.setText(personal.getNOMBRE()+ " " +personal.getAPELLIDOPAT()+ " " +personal.getAPELLIDOMAT());                                
+                p.jLabel2.setForeground(Color.green.darker());                
+                p.show();
+                }catch (SQLException ex) {
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(rootPane, "Se ha producido un error", "Mensajero", JOptionPane.ERROR_MESSAGE);
+                }catch (NullPointerException ex){
+                    Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                    JOptionPane.showMessageDialog(rootPane, "Datos incorrectos", "Mensajero", JOptionPane.ERROR_MESSAGE);
+                }
+            }   
+
+        }catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            }        
 }//GEN-LAST:event_JBIngresarActionPerformed
+        
+
 
 private void JBLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBLimpiarActionPerformed
     this.JFLOGINRUT.setText(null);
     this.JPCONTRASENA.setText(null);    
 }//GEN-LAST:event_JBLimpiarActionPerformed
+
+private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    String Input = JOptionPane.showInputDialog("Ingrese la direccion ip, ejemplo: 192.168.1.0");
+    Login l = new Login();
+    l.escribirArchivo(Input);
+    String texto = l.leerArchivo("Servidor_SOPRAF.txt");
+    System.out.println(texto);
+}//GEN-LAST:event_jMenuItem1ActionPerformed
 
 private void PruebaConexion(){
     try {
@@ -391,6 +450,10 @@ private void PruebaConexion(){
     private javax.swing.JLabel LabelVersion;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JSeparator jSeparator1;
     // End of variables declaration//GEN-END:variables

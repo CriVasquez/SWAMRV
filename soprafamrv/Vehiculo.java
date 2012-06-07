@@ -99,9 +99,9 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         String PATENTE = this.JFPATENTE.getText().toUpperCase();
         String CHASIS = this.JFCHASIS.getText().toUpperCase().trim();
         int ANO = Integer.parseInt(this.JFANO.getText().trim());
-        String COLOR = (String) this.JCCOLOR.getSelectedItem();
-        String MARCA = (String) this.JCMARCA.getSelectedItem();
-        String MODELO = (String) this.JCMODELO.getSelectedItem();
+        String COLOR = (String) this.JCCOLOR.getText().toUpperCase();
+        String MARCA = (String) this.JCMARCA.getText().toUpperCase();
+        String MODELO = (String) this.JCMODELO.getText().toUpperCase();
         String FECHA_INGRESO = this.JCFECHAING1.getSelectedItem() + "-" + this.JCFECHAING2.getSelectedItem() + "-" + this.JCFECHAING3.getSelectedItem();
         //byte[] FOTO = s.obtenerBytes();
         byte[] FOTO = IMAGEN;
@@ -264,9 +264,9 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         this.JFPATENTE.setText(null);
         this.JFCHASIS.setText(null);
         this.JFANO.setText(null);
-        this.JCCOLOR.setSelectedIndex(0);
-        this.JCMARCA.setSelectedIndex(0);
-        this.JCMODELO.setSelectedIndex(0);
+        this.JCCOLOR.setText(null);
+        this.JCMARCA.setText(null);
+        this.JCMODELO.setText(null);
         
         this.JCFECHAING1.setSelectedIndex(0);
         this.JCFECHAING2.setSelectedIndex(0);
@@ -318,13 +318,10 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         JCFECHAING3 = new javax.swing.JComboBox();
-        JCMARCA = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         JFPATENTE = new javax.swing.JFormattedTextField();
-        JCCOLOR = new javax.swing.JComboBox();
-        JCMODELO = new javax.swing.JComboBox();
         JCFECHAING2 = new javax.swing.JComboBox();
         JCFECHAING1 = new javax.swing.JComboBox();
         jLabel4 = new javax.swing.JLabel();
@@ -334,6 +331,9 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         JFANO = new javax.swing.JFormattedTextField();
         jButton1 = new javax.swing.JButton();
+        JCCOLOR = new javax.swing.JFormattedTextField();
+        JCMARCA = new javax.swing.JFormattedTextField();
+        JCMODELO = new javax.swing.JFormattedTextField();
         jPanel1 = new javax.swing.JPanel();
         jButton10 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -466,6 +466,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setMaximizable(true);
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
         setPreferredSize(new java.awt.Dimension(1280, 700));
@@ -548,10 +549,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         JCFECHAING3.setEnabled(false);
         JCFECHAING3.setName("JCFECHAING3"); // NOI18N
 
-        JCMARCA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Marca", "DAEWOO" }));
-        JCMARCA.setEnabled(false);
-        JCMARCA.setName("JCMARCA"); // NOI18N
-
         jLabel9.setText(resourceMap.getString("jLabel9.text")); // NOI18N
         jLabel9.setName("jLabel9"); // NOI18N
 
@@ -569,14 +566,6 @@ public class Vehiculo extends javax.swing.JInternalFrame {
         JFPATENTE.setText(resourceMap.getString("JFPATENTE.text")); // NOI18N
         JFPATENTE.setEnabled(false);
         JFPATENTE.setName("JFPATENTE"); // NOI18N
-
-        JCCOLOR.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Color", "BLANCO", "NEGRO", "AZULINO", "AZUL FRANCIA", "ROJO", "NARANJO", "AMARILLO ORO", "CELESTE", "VERDE MANZANA", "VERDE LIMON", "VERDE BOTELLA", "MORADO", "GRIS", "CAFE", "FUCSIA/A PEDIDO", "CALIPSO/A PEDIDO", " " }));
-        JCCOLOR.setEnabled(false);
-        JCCOLOR.setName("JCCOLOR"); // NOI18N
-
-        JCMODELO.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Modelo", "HEAVEN" }));
-        JCMODELO.setEnabled(false);
-        JCMODELO.setName("JCMODELO"); // NOI18N
 
         JCFECHAING2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mes" }));
         JCFECHAING2.setEnabled(false);
@@ -637,6 +626,18 @@ public class Vehiculo extends javax.swing.JInternalFrame {
             }
         });
 
+        JCCOLOR.setText(resourceMap.getString("JCCOLOR.text")); // NOI18N
+        JCCOLOR.setEnabled(false);
+        JCCOLOR.setName("JCCOLOR"); // NOI18N
+
+        JCMARCA.setText(resourceMap.getString("JCMARCA.text")); // NOI18N
+        JCMARCA.setEnabled(false);
+        JCMARCA.setName("JCMARCA"); // NOI18N
+
+        JCMODELO.setText(resourceMap.getString("JCMODELO.text")); // NOI18N
+        JCMODELO.setEnabled(false);
+        JCMODELO.setName("JCMODELO"); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -677,10 +678,10 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                                         .addComponent(jLabel3))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(JCCOLOR, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(JCMODELO, javax.swing.GroupLayout.Alignment.TRAILING, 0, 120, Short.MAX_VALUE)
-                                        .addComponent(JCMARCA, 0, 120, Short.MAX_VALUE))))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(JCMARCA, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                        .addComponent(JCCOLOR, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+                                        .addComponent(JCMODELO, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE))))
+                            .addGap(0, 0, 0)
                             .addComponent(jButton3))))
                 .addContainerGap())
         );
@@ -883,7 +884,7 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -957,9 +958,9 @@ public class Vehiculo extends javax.swing.JInternalFrame {
                 this.JFPATENTE.setText(v.getPATENTE());
                 this.JFCHASIS.setText(v.getCHASIS());
                 this.JFANO.setText(String.valueOf(v.getANO()));
-                this.JCCOLOR.setSelectedItem(v.getCOLOR());
-                this.JCMARCA.setSelectedItem(v.getMARCA());
-                this.JCMODELO.setSelectedItem(v.getMODELO());
+                this.JCCOLOR.setText(v.getCOLOR());
+                this.JCMARCA.setText(v.getMARCA());
+                this.JCMODELO.setText(v.getMODELO());
                 
                 this.JCFECHAING1.removeAllItems();
                 this.JCFECHAING1.addItem(day);
@@ -1113,7 +1114,7 @@ private void TablaVehiculoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_TablaVehiculoFocusGained
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox JCCOLOR;
+    private javax.swing.JFormattedTextField JCCOLOR;
     private javax.swing.JComboBox JCConductor;
     private javax.swing.JComboBox JCFECHAING1;
     private javax.swing.JComboBox JCFECHAING2;
@@ -1121,8 +1122,8 @@ private void TablaVehiculoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRS
     private javax.swing.JComboBox JCFECHAING4;
     private javax.swing.JComboBox JCFECHAING5;
     private javax.swing.JComboBox JCFECHAING6;
-    private javax.swing.JComboBox JCMARCA;
-    private javax.swing.JComboBox JCMODELO;
+    private javax.swing.JFormattedTextField JCMARCA;
+    private javax.swing.JFormattedTextField JCMODELO;
     private javax.swing.JComboBox JCPATENTE;
     private javax.swing.JComboBox JCVEHICULO;
     private javax.swing.JDialog JDConductorVehiculo;

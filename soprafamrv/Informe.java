@@ -16,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import soprafamrv.ARCHIVOS_EXP.GeneratePDF;
 import soprafamrv.BD.Conexion;
 import soprafamrv.SISTEMA.vehiculo;
@@ -29,19 +30,18 @@ public class Informe extends javax.swing.JInternalFrame {
     /** Creates new form Informes */
     public Informe() {
         initComponents();
+        asignarBotones();
     }
     
     private void asignarBotones(){
+        //Tab Vehiculo
         GrupoBotonesBusqueda.add(JRADBUTANOVEHI);
-        
-        
+        GrupoBotonesBusqueda.add(JRADBUTANOINGR);
+        GrupoBotonesBusqueda.add(JRADBUTANORETI);
+        GrupoBotonesBusqueda.add(JRADBUTMARCAVE);        
     }
     
-    private void DeshabilitarCampos(){
-        
-        
-    }
-
+    
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -53,140 +53,23 @@ public class Informe extends javax.swing.JInternalFrame {
 
         GrupoBotonesBusqueda = new javax.swing.ButtonGroup();
         GrupoBotonePanelTiempo = new javax.swing.ButtonGroup();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel16 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        JFANO = new javax.swing.JFormattedTextField();
+        JLREPMESINICIAL = new javax.swing.JLabel();
+        JLREPMESFINAL = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        TablaVehiculo = new javax.swing.JTable();
         JBCargarDatosVehiculo = new javax.swing.JButton();
         jPanel7 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         JRADBUTANOVEHI = new javax.swing.JRadioButton();
         JRADBUTANOINGR = new javax.swing.JRadioButton();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         JRADBUTANORETI = new javax.swing.JRadioButton();
-        jLabel6 = new javax.swing.JLabel();
-        JCMARCA = new javax.swing.JComboBox();
-        JCMODELO = new javax.swing.JComboBox();
         JRADBUTMARCAVE = new javax.swing.JRadioButton();
-        JRADBUTMODELOVE = new javax.swing.JRadioButton();
-        JRADBUTCONDVEHIC = new javax.swing.JRadioButton();
-        jLabel19 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        jPanel8 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel13 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        JRBREPUANO = new javax.swing.JRadioButton();
-        jLabel11 = new javax.swing.JLabel();
-        JRBREPUMASUSADOS = new javax.swing.JRadioButton();
-        JRBREPUSTOCK = new javax.swing.JRadioButton();
-        jLabel12 = new javax.swing.JLabel();
-        jPanel14 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        JRBREPUVEHINFOREPUUSADOS = new javax.swing.JRadioButton();
-        JCPATENTE = new javax.swing.JComboBox();
-        jPanel15 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
-        JCMECANICO = new javax.swing.JComboBox();
-        jLabel24 = new javax.swing.JLabel();
-        JCENCARGADOBODEGA = new javax.swing.JComboBox();
-        JRRENCARBODEGA = new javax.swing.JRadioButton();
-        JRRMECANICO = new javax.swing.JRadioButton();
-        jLabel68 = new javax.swing.JLabel();
-        JCADMINISTRADOR8 = new javax.swing.JComboBox();
-        JRBREPUPORADMIN1 = new javax.swing.JRadioButton();
-        JBCargarDatosRepuesto = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        TablaRepuesto = new javax.swing.JTable();
-        jLabel20 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jPanel3 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
-        jPanel18 = new javax.swing.JPanel();
-        jLabel22 = new javax.swing.JLabel();
-        JRBFALLANO = new javax.swing.JRadioButton();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel25 = new javax.swing.JLabel();
-        JRBRFALLAMASDET = new javax.swing.JRadioButton();
-        JRBFALLMES = new javax.swing.JRadioButton();
-        jPanel19 = new javax.swing.JPanel();
-        jLabel34 = new javax.swing.JLabel();
-        jLabel35 = new javax.swing.JLabel();
-        jLabel36 = new javax.swing.JLabel();
-        JRBFALLAVEHINFOFALLA = new javax.swing.JRadioButton();
-        JRBFALLAVEHINFOMASDETEC = new javax.swing.JRadioButton();
-        JCPATENTE1 = new javax.swing.JComboBox();
-        jPanel20 = new javax.swing.JPanel();
-        jLabel37 = new javax.swing.JLabel();
-        JCMECANICO2 = new javax.swing.JComboBox();
-        JRRMECANICO2 = new javax.swing.JRadioButton();
-        JBCargarDatosFalla = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        TablaRepuesto1 = new javax.swing.JTable();
-        jLabel39 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel22 = new javax.swing.JPanel();
-        jPanel23 = new javax.swing.JPanel();
-        jPanel24 = new javax.swing.JPanel();
-        jLabel44 = new javax.swing.JLabel();
-        JRBOTANO = new javax.swing.JRadioButton();
-        jLabel46 = new javax.swing.JLabel();
-        JRBOTMES = new javax.swing.JRadioButton();
-        jPanel25 = new javax.swing.JPanel();
-        jLabel48 = new javax.swing.JLabel();
-        jLabel49 = new javax.swing.JLabel();
-        JRBOTVEHINFOTIPOREPU = new javax.swing.JRadioButton();
-        JCPATENTE2 = new javax.swing.JComboBox();
-        jPanel26 = new javax.swing.JPanel();
-        jLabel51 = new javax.swing.JLabel();
-        JCMECANICO4 = new javax.swing.JComboBox();
-        jLabel52 = new javax.swing.JLabel();
-        JCADMINISTRADOROT = new javax.swing.JComboBox();
-        JRRADMIN3 = new javax.swing.JRadioButton();
-        JRRMECANICO4 = new javax.swing.JRadioButton();
-        JBCargarDatosOT = new javax.swing.JButton();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        TablaRepuesto2 = new javax.swing.JTable();
-        jLabel53 = new javax.swing.JLabel();
-        jButton4 = new javax.swing.JButton();
-        jPanel12 = new javax.swing.JPanel();
-        jPanel31 = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        TablaVehiculo1 = new javax.swing.JTable();
-        JBCargarDatosPersonal = new javax.swing.JButton();
-        jPanel34 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        JRADBUTANUALPERS = new javax.swing.JRadioButton();
-        JRADBUTANOINGPERS = new javax.swing.JRadioButton();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel45 = new javax.swing.JLabel();
-        JRADBUTANORETPERS = new javax.swing.JRadioButton();
-        JCCARGO1 = new javax.swing.JComboBox();
-        JRADBUTCONDVEHIC1 = new javax.swing.JRadioButton();
-        jLabel50 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jPanel16 = new javax.swing.JPanel();
-        jLabel14 = new javax.swing.JLabel();
-        JFANO = new javax.swing.JFormattedTextField();
-        JCFECHAING2 = new javax.swing.JComboBox();
-        JRBRSI = new javax.swing.JRadioButton();
-        jLabel26 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        JFANO3 = new javax.swing.JFormattedTextField();
-        JCFECHAING5 = new javax.swing.JComboBox();
-        JLFECHAFINAL = new javax.swing.JLabel();
-        jLabel29 = new javax.swing.JLabel();
-        JRBRNO = new javax.swing.JRadioButton();
-        JLREPMESINICIAL = new javax.swing.JLabel();
-        JLREPMESFINAL = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -195,26 +78,60 @@ public class Informe extends javax.swing.JInternalFrame {
         setTitle(resourceMap.getString("Form.title")); // NOI18N
         setName("Form"); // NOI18N
 
-        jTabbedPane1.setBorder(javax.swing.BorderFactory.createCompoundBorder());
-        jTabbedPane1.setName("jTabbedPane1"); // NOI18N
+        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel16.border.title"))); // NOI18N
+        jPanel16.setName("jPanel16"); // NOI18N
+
+        jLabel14.setText(resourceMap.getString("jLabel14.text")); // NOI18N
+        jLabel14.setName("jLabel14"); // NOI18N
+
+        try {
+            JFANO.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        JFANO.setText(resourceMap.getString("JFANO.text")); // NOI18N
+        JFANO.setToolTipText(resourceMap.getString("JFANO.toolTipText")); // NOI18N
+        JFANO.setEnabled(false);
+        JFANO.setName("JFANO"); // NOI18N
+
+        JLREPMESINICIAL.setName("JLREPMESINICIAL"); // NOI18N
+
+        JLREPMESFINAL.setName("JLREPMESFINAL"); // NOI18N
+
+        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
+        jPanel16.setLayout(jPanel16Layout);
+        jPanel16Layout.setHorizontalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(JLREPMESINICIAL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 110, Short.MAX_VALUE)
+                .addComponent(JLREPMESFINAL)
+                .addGap(18, 18, 18))
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGap(63, 63, 63)
+                .addComponent(jLabel14)
+                .addGap(9, 9, 9)
+                .addComponent(JFANO, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(85, Short.MAX_VALUE))
+        );
+        jPanel16Layout.setVerticalGroup(
+            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel16Layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(JFANO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel14))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JLREPMESINICIAL)
+                    .addComponent(JLREPMESFINAL)))
+        );
 
         jPanel1.setName("jPanel1"); // NOI18N
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel6.border.title"))); // NOI18N
         jPanel6.setName("jPanel6"); // NOI18N
-
-        jScrollPane1.setName("jScrollPane1"); // NOI18N
-
-        TablaVehiculo.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        TablaVehiculo.setName("TablaVehiculo"); // NOI18N
-        jScrollPane1.setViewportView(TablaVehiculo);
 
         JBCargarDatosVehiculo.setText(resourceMap.getString("JBCargarDatosVehiculo.text")); // NOI18N
         JBCargarDatosVehiculo.setEnabled(false);
@@ -250,12 +167,6 @@ public class Informe extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
-        jLabel3.setName("jLabel3"); // NOI18N
-
-        jLabel4.setText(resourceMap.getString("jLabel4.text")); // NOI18N
-        jLabel4.setName("jLabel4"); // NOI18N
-
         jLabel5.setText(resourceMap.getString("jLabel5.text")); // NOI18N
         jLabel5.setName("jLabel5"); // NOI18N
 
@@ -267,17 +178,6 @@ public class Informe extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel6.setText(resourceMap.getString("jLabel6.text")); // NOI18N
-        jLabel6.setName("jLabel6"); // NOI18N
-
-        JCMARCA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Marca", "DAEWOO" }));
-        JCMARCA.setEnabled(false);
-        JCMARCA.setName("JCMARCA"); // NOI18N
-
-        JCMODELO.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Modelo", "HEAVEN" }));
-        JCMODELO.setEnabled(false);
-        JCMODELO.setName("JCMODELO"); // NOI18N
-
         JRADBUTMARCAVE.setText(resourceMap.getString("JRADBUTMARCAVE.text")); // NOI18N
         JRADBUTMARCAVE.setName("JRADBUTMARCAVE"); // NOI18N
         JRADBUTMARCAVE.addActionListener(new java.awt.event.ActionListener() {
@@ -286,26 +186,8 @@ public class Informe extends javax.swing.JInternalFrame {
             }
         });
 
-        JRADBUTMODELOVE.setText(resourceMap.getString("JRADBUTMODELOVE.text")); // NOI18N
-        JRADBUTMODELOVE.setName("JRADBUTMODELOVE"); // NOI18N
-        JRADBUTMODELOVE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRADBUTMODELOVEActionPerformed(evt);
-            }
-        });
-
-        JRADBUTCONDVEHIC.setText(resourceMap.getString("JRADBUTCONDVEHIC.text")); // NOI18N
-        JRADBUTCONDVEHIC.setName("JRADBUTCONDVEHIC"); // NOI18N
-        JRADBUTCONDVEHIC.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                JRADBUTCONDVEHICItemStateChanged(evt);
-            }
-        });
-        JRADBUTCONDVEHIC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRADBUTCONDVEHICActionPerformed(evt);
-            }
-        });
+        jLabel3.setText(resourceMap.getString("jLabel3.text")); // NOI18N
+        jLabel3.setName("jLabel3"); // NOI18N
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -314,105 +196,67 @@ public class Informe extends javax.swing.JInternalFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(JRADBUTANOINGR)
+                    .addComponent(JRADBUTANOVEHI))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 116, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
-                        .addComponent(JRADBUTANOINGR))
+                        .addComponent(jLabel3)
+                        .addGap(35, 35, 35)
+                        .addComponent(JRADBUTMARCAVE))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addComponent(JRADBUTANORETI))
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                        .addComponent(JRADBUTANOVEHI)))
-                .addGap(67, 67, 67)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6))
-                .addGap(22, 22, 22)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JCMODELO, javax.swing.GroupLayout.Alignment.TRAILING, 0, 246, Short.MAX_VALUE)
-                            .addComponent(JCMARCA, 0, 246, Short.MAX_VALUE))
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(JRADBUTMARCAVE)
-                            .addComponent(JRADBUTMODELOVE)))
-                    .addComponent(JRADBUTCONDVEHIC))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(JRADBUTANORETI)))
                 .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(JCMARCA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(JRADBUTMARCAVE))
-                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel3)
-                        .addComponent(JRADBUTANOVEHI)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JCMODELO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JRADBUTMODELOVE)
-                            .addComponent(jLabel4))
+                            .addComponent(JRADBUTANOVEHI)
+                            .addComponent(jLabel1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JRADBUTCONDVEHIC)
-                            .addComponent(jLabel6)))
+                            .addComponent(JRADBUTANOINGR)
+                            .addComponent(jLabel2)))
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(JRADBUTANOINGR))
+                            .addComponent(JRADBUTMARCAVE)
+                            .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(JRADBUTANORETI))))
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jLabel19.setText(resourceMap.getString("jLabel19.text")); // NOI18N
-        jLabel19.setName("jLabel19"); // NOI18N
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addGap(392, 392, 392)
-                .addComponent(jLabel19)
-                .addContainerGap(462, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel6Layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1054, Short.MAX_VALUE))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(250, 250, 250)
                         .addComponent(JBCargarDatosVehiculo)))
-                .addGap(14, 14, 14))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(JBCargarDatosVehiculo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel19)
+                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(52, Short.MAX_VALUE))
+                .addComponent(JBCargarDatosVehiculo)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -420,1293 +264,15 @@ public class Informe extends javax.swing.JInternalFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(211, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab(resourceMap.getString("jPanel1.TabConstraints.tabTitle"), jPanel1); // NOI18N
-
-        jPanel2.setName("jPanel2"); // NOI18N
-
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel8.border.title"))); // NOI18N
-        jPanel8.setName("jPanel8"); // NOI18N
-
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel4.border.title"))); // NOI18N
-        jPanel4.setName("jPanel4"); // NOI18N
-
-        jPanel13.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel13.border.title"))); // NOI18N
-        jPanel13.setName("jPanel13"); // NOI18N
-
-        jLabel10.setText(resourceMap.getString("jLabel10.text")); // NOI18N
-        jLabel10.setName("jLabel10"); // NOI18N
-
-        JRBREPUANO.setText(resourceMap.getString("JRBREPUANO.text")); // NOI18N
-        JRBREPUANO.setName("JRBREPUANO"); // NOI18N
-        JRBREPUANO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBREPUANOActionPerformed(evt);
-            }
-        });
-
-        jLabel11.setText(resourceMap.getString("jLabel11.text")); // NOI18N
-        jLabel11.setName("jLabel11"); // NOI18N
-
-        JRBREPUMASUSADOS.setText(resourceMap.getString("JRBREPUMASUSADOS.text")); // NOI18N
-        JRBREPUMASUSADOS.setName("JRBREPUMASUSADOS"); // NOI18N
-        JRBREPUMASUSADOS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBREPUMASUSADOSActionPerformed(evt);
-            }
-        });
-
-        JRBREPUSTOCK.setText(resourceMap.getString("JRBREPUSTOCK.text")); // NOI18N
-        JRBREPUSTOCK.setName("JRBREPUSTOCK"); // NOI18N
-        JRBREPUSTOCK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBREPUSTOCKActionPerformed(evt);
-            }
-        });
-
-        jLabel12.setText(resourceMap.getString("jLabel12.text")); // NOI18N
-        jLabel12.setName("jLabel12"); // NOI18N
-
-        javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
-        jPanel13.setLayout(jPanel13Layout);
-        jPanel13Layout.setHorizontalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel12))
-                        .addGap(27, 27, 27)
-                        .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(JRBREPUANO)
-                            .addComponent(JRBREPUSTOCK)))
-                    .addGroup(jPanel13Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JRBREPUMASUSADOS)))
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-        jPanel13Layout.setVerticalGroup(
-            jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel13Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(JRBREPUANO))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(JRBREPUMASUSADOS, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(7, 7, 7)
-                .addGroup(jPanel13Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(JRBREPUSTOCK))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
-
-        jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel14.border.title"))); // NOI18N
-        jPanel14.setName("jPanel14"); // NOI18N
-
-        jLabel15.setText(resourceMap.getString("jLabel15.text")); // NOI18N
-        jLabel15.setName("jLabel15"); // NOI18N
-
-        jLabel17.setText(resourceMap.getString("jLabel17.text")); // NOI18N
-        jLabel17.setName("jLabel17"); // NOI18N
-
-        JRBREPUVEHINFOREPUUSADOS.setText(resourceMap.getString("JRBREPUVEHINFOREPUUSADOS.text")); // NOI18N
-        JRBREPUVEHINFOREPUUSADOS.setName("JRBREPUVEHINFOREPUUSADOS"); // NOI18N
-        JRBREPUVEHINFOREPUUSADOS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBREPUVEHINFOREPUUSADOSActionPerformed(evt);
-            }
-        });
-
-        JCPATENTE.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Patente" }));
-        JCPATENTE.setEnabled(false);
-        JCPATENTE.setName("JCPATENTE"); // NOI18N
-        JCPATENTE.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                JCPATENTEItemStateChanged(evt);
-            }
-        });
-        JCPATENTE.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JCPATENTEActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
-        jPanel14.setLayout(jPanel14Layout);
-        jPanel14Layout.setHorizontalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
-                        .addGap(18, 18, 18)
-                        .addComponent(JCPATENTE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel14Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel17)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JRBREPUVEHINFOREPUUSADOS)))
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-        jPanel14Layout.setVerticalGroup(
-            jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel14Layout.createSequentialGroup()
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(JCPATENTE, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(JRBREPUVEHINFOREPUUSADOS))
-                .addContainerGap(63, Short.MAX_VALUE))
-        );
-
-        jPanel15.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel15.border.title"))); // NOI18N
-        jPanel15.setName("jPanel15"); // NOI18N
-
-        jLabel21.setText(resourceMap.getString("jLabel21.text")); // NOI18N
-        jLabel21.setName("jLabel21"); // NOI18N
-
-        JCMECANICO.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Mecanico" }));
-        JCMECANICO.setEnabled(false);
-        JCMECANICO.setName("JCMECANICO"); // NOI18N
-
-        jLabel24.setText(resourceMap.getString("jLabel24.text")); // NOI18N
-        jLabel24.setName("jLabel24"); // NOI18N
-
-        JCENCARGADOBODEGA.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Encargado Bodega" }));
-        JCENCARGADOBODEGA.setEnabled(false);
-        JCENCARGADOBODEGA.setName("JCENCARGADOBODEGA"); // NOI18N
-
-        JRRENCARBODEGA.setName("JRRENCARBODEGA"); // NOI18N
-        JRRENCARBODEGA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRRENCARBODEGAActionPerformed(evt);
-            }
-        });
-
-        JRRMECANICO.setName("JRRMECANICO"); // NOI18N
-        JRRMECANICO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRRMECANICOActionPerformed(evt);
-            }
-        });
-
-        jLabel68.setText(resourceMap.getString("jLabel68.text")); // NOI18N
-        jLabel68.setName("jLabel68"); // NOI18N
-
-        JCADMINISTRADOR8.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Administrador" }));
-        JCADMINISTRADOR8.setEnabled(false);
-        JCADMINISTRADOR8.setName("JCADMINISTRADOR8"); // NOI18N
-
-        JRBREPUPORADMIN1.setName("JRBREPUPORADMIN1"); // NOI18N
-        JRBREPUPORADMIN1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBREPUPORADMIN1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel15Layout = new javax.swing.GroupLayout(jPanel15);
-        jPanel15.setLayout(jPanel15Layout);
-        jPanel15Layout.setHorizontalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel24)
-                    .addComponent(jLabel21)
-                    .addComponent(jLabel68))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(JCADMINISTRADOR8, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JCMECANICO, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JCENCARGADOBODEGA, 0, 224, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JRRMECANICO)
-                    .addComponent(JRRENCARBODEGA)
-                    .addComponent(JRBREPUPORADMIN1))
-                .addContainerGap(56, Short.MAX_VALUE))
-        );
-        jPanel15Layout.setVerticalGroup(
-            jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel15Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JRRENCARBODEGA)
-                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel24)
-                        .addComponent(JCENCARGADOBODEGA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel21)
-                        .addComponent(JCMECANICO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JRRMECANICO))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel15Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel68)
-                        .addComponent(JCADMINISTRADOR8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JRBREPUPORADMIN1, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel15, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel15, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel14, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel13, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        JBCargarDatosRepuesto.setText(resourceMap.getString("JBCargarDatosRepuesto.text")); // NOI18N
-        JBCargarDatosRepuesto.setEnabled(false);
-        JBCargarDatosRepuesto.setName("JBCargarDatosRepuesto"); // NOI18N
-        JBCargarDatosRepuesto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBCargarDatosRepuestoActionPerformed(evt);
-            }
-        });
-
-        jScrollPane2.setName("jScrollPane2"); // NOI18N
-
-        TablaRepuesto.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        TablaRepuesto.setName("TablaRepuesto"); // NOI18N
-        jScrollPane2.setViewportView(TablaRepuesto);
-
-        jLabel20.setText(resourceMap.getString("jLabel20.text")); // NOI18N
-        jLabel20.setName("jLabel20"); // NOI18N
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel8Layout.createSequentialGroup()
-                        .addGap(512, 512, 512)
-                        .addComponent(jLabel20))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel8Layout.createSequentialGroup()
-                                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(JBCargarDatosRepuesto)))))
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JBCargarDatosRepuesto)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel20)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jButton1.setText(resourceMap.getString("jButton1.text")); // NOI18N
-        jButton1.setName("jButton1"); // NOI18N
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(649, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(557, 557, 557))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Repuestos", jPanel2);
-
-        jPanel3.setName("jPanel3"); // NOI18N
-
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel10.border.title"))); // NOI18N
-        jPanel10.setName("jPanel10"); // NOI18N
-
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel11.border.title"))); // NOI18N
-        jPanel11.setName("jPanel11"); // NOI18N
-
-        jPanel18.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel18.border.title"))); // NOI18N
-        jPanel18.setName("jPanel18"); // NOI18N
-
-        jLabel22.setText(resourceMap.getString("jLabel22.text")); // NOI18N
-        jLabel22.setName("jLabel22"); // NOI18N
-
-        JRBFALLANO.setText(resourceMap.getString("JRBFALLANO.text")); // NOI18N
-        JRBFALLANO.setName("JRBFALLANO"); // NOI18N
-        JRBFALLANO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBFALLANOActionPerformed(evt);
-            }
-        });
-
-        jLabel23.setText(resourceMap.getString("jLabel23.text")); // NOI18N
-        jLabel23.setName("jLabel23"); // NOI18N
-
-        jLabel25.setText(resourceMap.getString("jLabel25.text")); // NOI18N
-        jLabel25.setName("jLabel25"); // NOI18N
-
-        JRBRFALLAMASDET.setText(resourceMap.getString("JRBRFALLAMASDET.text")); // NOI18N
-        JRBRFALLAMASDET.setName("JRBRFALLAMASDET"); // NOI18N
-        JRBRFALLAMASDET.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBRFALLAMASDETActionPerformed(evt);
-            }
-        });
-
-        JRBFALLMES.setText(resourceMap.getString("JRBFALLMES.text")); // NOI18N
-        JRBFALLMES.setName("JRBFALLMES"); // NOI18N
-        JRBFALLMES.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBFALLMESActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel23)
-                    .addComponent(jLabel22)
-                    .addComponent(jLabel25))
-                .addGap(13, 13, 13)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JRBRFALLAMASDET)
-                    .addComponent(JRBFALLANO)
-                    .addComponent(JRBFALLMES))
-                .addGap(15, 15, 15))
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel18Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel22)
-                    .addComponent(JRBFALLANO))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JRBFALLMES)
-                    .addComponent(jLabel25))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JRBRFALLAMASDET, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel23))
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
-
-        jPanel19.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel19.border.title"))); // NOI18N
-        jPanel19.setName("jPanel19"); // NOI18N
-
-        jLabel34.setText(resourceMap.getString("jLabel34.text")); // NOI18N
-        jLabel34.setName("jLabel34"); // NOI18N
-
-        jLabel35.setText(resourceMap.getString("jLabel35.text")); // NOI18N
-        jLabel35.setName("jLabel35"); // NOI18N
-
-        jLabel36.setText(resourceMap.getString("jLabel36.text")); // NOI18N
-        jLabel36.setName("jLabel36"); // NOI18N
-
-        JRBFALLAVEHINFOFALLA.setText(resourceMap.getString("JRBFALLAVEHINFOFALLA.text")); // NOI18N
-        JRBFALLAVEHINFOFALLA.setName("JRBFALLAVEHINFOFALLA"); // NOI18N
-        JRBFALLAVEHINFOFALLA.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBFALLAVEHINFOFALLAActionPerformed(evt);
-            }
-        });
-
-        JRBFALLAVEHINFOMASDETEC.setText(resourceMap.getString("JRBFALLAVEHINFOMASDETEC.text")); // NOI18N
-        JRBFALLAVEHINFOMASDETEC.setName("JRBFALLAVEHINFOMASDETEC"); // NOI18N
-        JRBFALLAVEHINFOMASDETEC.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBFALLAVEHINFOMASDETECActionPerformed(evt);
-            }
-        });
-
-        JCPATENTE1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Patente" }));
-        JCPATENTE1.setEnabled(false);
-        JCPATENTE1.setName("JCPATENTE1"); // NOI18N
-        JCPATENTE1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                JCPATENTE1ItemStateChanged(evt);
-            }
-        });
-        JCPATENTE1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JCPATENTE1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel19Layout = new javax.swing.GroupLayout(jPanel19);
-        jPanel19.setLayout(jPanel19Layout);
-        jPanel19Layout.setHorizontalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel35)
-                    .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel19Layout.createSequentialGroup()
-                            .addComponent(jLabel34)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(JCPATENTE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel19Layout.createSequentialGroup()
-                            .addComponent(jLabel36)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(JRBFALLAVEHINFOFALLA)
-                                .addComponent(JRBFALLAVEHINFOMASDETEC)))))
-                .addGap(16, 16, 16))
-        );
-        jPanel19Layout.setVerticalGroup(
-            jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel19Layout.createSequentialGroup()
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel34)
-                    .addComponent(JCPATENTE1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel35)
-                    .addComponent(JRBFALLAVEHINFOFALLA))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel36)
-                    .addComponent(JRBFALLAVEHINFOMASDETEC))
-                .addContainerGap(38, Short.MAX_VALUE))
-        );
-
-        jPanel20.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel20.border.title"))); // NOI18N
-        jPanel20.setName("jPanel20"); // NOI18N
-
-        jLabel37.setText(resourceMap.getString("jLabel37.text")); // NOI18N
-        jLabel37.setName("jLabel37"); // NOI18N
-
-        JCMECANICO2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Mecanico" }));
-        JCMECANICO2.setEnabled(false);
-        JCMECANICO2.setName("JCMECANICO2"); // NOI18N
-
-        JRRMECANICO2.setName("JRRMECANICO2"); // NOI18N
-        JRRMECANICO2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRRMECANICO2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel20Layout = new javax.swing.GroupLayout(jPanel20);
-        jPanel20.setLayout(jPanel20Layout);
-        jPanel20Layout.setHorizontalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel37)
-                .addGap(49, 49, 49)
-                .addComponent(JCMECANICO2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(JRRMECANICO2)
-                .addContainerGap(144, Short.MAX_VALUE))
-        );
-        jPanel20Layout.setVerticalGroup(
-            jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel20Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel20Layout.createSequentialGroup()
-                        .addGap(1, 1, 1)
-                        .addGroup(jPanel20Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel37)
-                            .addComponent(JCMECANICO2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(JRRMECANICO2, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(78, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel18, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel19, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel20, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel19, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel18, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-
-        JBCargarDatosFalla.setText(resourceMap.getString("JBCargarDatosFalla.text")); // NOI18N
-        JBCargarDatosFalla.setEnabled(false);
-        JBCargarDatosFalla.setName("JBCargarDatosFalla"); // NOI18N
-
-        jScrollPane3.setName("jScrollPane3"); // NOI18N
-
-        TablaRepuesto1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        TablaRepuesto1.setName("TablaRepuesto1"); // NOI18N
-        jScrollPane3.setViewportView(TablaRepuesto1);
-
-        jLabel39.setText(resourceMap.getString("jLabel39.text")); // NOI18N
-        jLabel39.setName("jLabel39"); // NOI18N
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addGap(512, 512, 512)
-                        .addComponent(jLabel39))
-                    .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
-                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(JBCargarDatosFalla)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JBCargarDatosFalla)
-                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel39)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 213, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jButton3.setText(resourceMap.getString("jButton3.text")); // NOI18N
-        jButton3.setName("jButton3"); // NOI18N
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(644, Short.MAX_VALUE)
-                .addComponent(jButton3)
-                .addGap(562, 562, 562))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(58, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab(resourceMap.getString("jPanel3.TabConstraints.tabTitle"), jPanel3); // NOI18N
-
-        jPanel5.setName("jPanel5"); // NOI18N
-
-        jPanel22.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel22.border.title"))); // NOI18N
-        jPanel22.setName("jPanel22"); // NOI18N
-
-        jPanel23.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel23.border.title"))); // NOI18N
-        jPanel23.setName("jPanel23"); // NOI18N
-
-        jPanel24.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel24.border.title"))); // NOI18N
-        jPanel24.setName("jPanel24"); // NOI18N
-
-        jLabel44.setText(resourceMap.getString("jLabel44.text")); // NOI18N
-        jLabel44.setName("jLabel44"); // NOI18N
-
-        JRBOTANO.setText(resourceMap.getString("JRBOTANO.text")); // NOI18N
-        JRBOTANO.setName("JRBOTANO"); // NOI18N
-        JRBOTANO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBOTANOActionPerformed(evt);
-            }
-        });
-
-        jLabel46.setText(resourceMap.getString("jLabel46.text")); // NOI18N
-        jLabel46.setName("jLabel46"); // NOI18N
-
-        JRBOTMES.setText(resourceMap.getString("JRBOTMES.text")); // NOI18N
-        JRBOTMES.setName("JRBOTMES"); // NOI18N
-        JRBOTMES.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBOTMESActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel24Layout = new javax.swing.GroupLayout(jPanel24);
-        jPanel24.setLayout(jPanel24Layout);
-        jPanel24Layout.setHorizontalGroup(
-            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel24Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel44)
-                    .addComponent(jLabel46))
-                .addGap(71, 71, 71)
-                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JRBOTANO)
-                    .addComponent(JRBOTMES))
-                .addGap(15, 15, 15))
-        );
-        jPanel24Layout.setVerticalGroup(
-            jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel24Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel44)
-                    .addComponent(JRBOTANO))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(JRBOTMES)
-                    .addComponent(jLabel46))
-                .addContainerGap(34, Short.MAX_VALUE))
-        );
-
-        jPanel25.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel25.border.title"))); // NOI18N
-        jPanel25.setName("jPanel25"); // NOI18N
-
-        jLabel48.setText(resourceMap.getString("jLabel48.text")); // NOI18N
-        jLabel48.setName("jLabel48"); // NOI18N
-
-        jLabel49.setText(resourceMap.getString("jLabel49.text")); // NOI18N
-        jLabel49.setName("jLabel49"); // NOI18N
-
-        JRBOTVEHINFOTIPOREPU.setText(resourceMap.getString("JRBOTVEHINFOTIPOREPU.text")); // NOI18N
-        JRBOTVEHINFOTIPOREPU.setName("JRBOTVEHINFOTIPOREPU"); // NOI18N
-        JRBOTVEHINFOTIPOREPU.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBOTVEHINFOTIPOREPUActionPerformed(evt);
-            }
-        });
-
-        JCPATENTE2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Patente" }));
-        JCPATENTE2.setEnabled(false);
-        JCPATENTE2.setName("JCPATENTE2"); // NOI18N
-        JCPATENTE2.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                JCPATENTE2ItemStateChanged(evt);
-            }
-        });
-        JCPATENTE2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JCPATENTE2ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel25Layout = new javax.swing.GroupLayout(jPanel25);
-        jPanel25.setLayout(jPanel25Layout);
-        jPanel25Layout.setHorizontalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel25Layout.createSequentialGroup()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel48)
-                    .addComponent(jLabel49))
-                .addGap(61, 61, 61)
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(JRBOTVEHINFOTIPOREPU)
-                    .addComponent(JCPATENTE2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
-        jPanel25Layout.setVerticalGroup(
-            jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel25Layout.createSequentialGroup()
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel48)
-                    .addComponent(JCPATENTE2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel49)
-                    .addComponent(JRBOTVEHINFOTIPOREPU))
-                .addContainerGap(42, Short.MAX_VALUE))
-        );
-
-        jPanel26.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel26.border.title"))); // NOI18N
-        jPanel26.setName("jPanel26"); // NOI18N
-
-        jLabel51.setText(resourceMap.getString("jLabel51.text")); // NOI18N
-        jLabel51.setName("jLabel51"); // NOI18N
-
-        JCMECANICO4.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Mecanico" }));
-        JCMECANICO4.setEnabled(false);
-        JCMECANICO4.setName("JCMECANICO4"); // NOI18N
-
-        jLabel52.setText(resourceMap.getString("jLabel52.text")); // NOI18N
-        jLabel52.setName("jLabel52"); // NOI18N
-
-        JCADMINISTRADOROT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Administrador" }));
-        JCADMINISTRADOROT.setEnabled(false);
-        JCADMINISTRADOROT.setName("JCADMINISTRADOROT"); // NOI18N
-
-        JRRADMIN3.setName("JRRADMIN3"); // NOI18N
-        JRRADMIN3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRRADMIN3ActionPerformed(evt);
-            }
-        });
-
-        JRRMECANICO4.setName("JRRMECANICO4"); // NOI18N
-        JRRMECANICO4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRRMECANICO4ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel26Layout = new javax.swing.GroupLayout(jPanel26);
-        jPanel26.setLayout(jPanel26Layout);
-        jPanel26Layout.setHorizontalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel26Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel52)
-                    .addComponent(jLabel51))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(JCMECANICO4, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(JCADMINISTRADOROT, javax.swing.GroupLayout.Alignment.LEADING, 0, 222, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(JRRMECANICO4)
-                    .addComponent(JRRADMIN3))
-                .addGap(36, 36, 36))
-        );
-        jPanel26Layout.setVerticalGroup(
-            jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel26Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JRRADMIN3)
-                    .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel52)
-                        .addComponent(JCADMINISTRADOROT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel51)
-                        .addComponent(JCMECANICO4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(JRRMECANICO4))
-                .addContainerGap(30, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout jPanel23Layout = new javax.swing.GroupLayout(jPanel23);
-        jPanel23.setLayout(jPanel23Layout);
-        jPanel23Layout.setHorizontalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel23Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel24, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel26, javax.swing.GroupLayout.PREFERRED_SIZE, 434, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(22, Short.MAX_VALUE))
-        );
-        jPanel23Layout.setVerticalGroup(
-            jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel23Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel26, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel25, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel24, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-        );
-
-        JBCargarDatosOT.setText(resourceMap.getString("JBCargarDatosOT.text")); // NOI18N
-        JBCargarDatosOT.setEnabled(false);
-        JBCargarDatosOT.setName("JBCargarDatosOT"); // NOI18N
-
-        jScrollPane4.setName("jScrollPane4"); // NOI18N
-
-        TablaRepuesto2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        TablaRepuesto2.setName("TablaRepuesto2"); // NOI18N
-        jScrollPane4.setViewportView(TablaRepuesto2);
-
-        jLabel53.setText(resourceMap.getString("jLabel53.text")); // NOI18N
-        jLabel53.setName("jLabel53"); // NOI18N
-
-        jButton4.setText(resourceMap.getString("jButton4.text")); // NOI18N
-        jButton4.setName("jButton4"); // NOI18N
-
-        javax.swing.GroupLayout jPanel22Layout = new javax.swing.GroupLayout(jPanel22);
-        jPanel22.setLayout(jPanel22Layout);
-        jPanel22Layout.setHorizontalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel22Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
-                            .addComponent(jLabel53)
-                            .addGap(520, 520, 520))
-                        .addGroup(jPanel22Layout.createSequentialGroup()
-                            .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel22Layout.createSequentialGroup()
-                                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(JBCargarDatosOT)))
-                            .addContainerGap(44, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel22Layout.createSequentialGroup()
-                        .addComponent(jButton4)
-                        .addGap(529, 529, 529))))
-        );
-        jPanel22Layout.setVerticalGroup(
-            jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel22Layout.createSequentialGroup()
-                .addGroup(jPanel22Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JBCargarDatosOT)
-                    .addComponent(jPanel23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel53)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton4)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel22, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Ordenes de Trabajo", jPanel5);
-
-        jPanel12.setName("jPanel12"); // NOI18N
-
-        jPanel31.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel31.border.title"))); // NOI18N
-        jPanel31.setName("jPanel31"); // NOI18N
-
-        jScrollPane6.setName("jScrollPane6"); // NOI18N
-
-        TablaVehiculo1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-
-            }
-        ));
-        TablaVehiculo1.setName("TablaVehiculo1"); // NOI18N
-        jScrollPane6.setViewportView(TablaVehiculo1);
-
-        JBCargarDatosPersonal.setText(resourceMap.getString("JBCargarDatosPersonal.text")); // NOI18N
-        JBCargarDatosPersonal.setEnabled(false);
-        JBCargarDatosPersonal.setName("JBCargarDatosPersonal"); // NOI18N
-        JBCargarDatosPersonal.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JBCargarDatosPersonalActionPerformed(evt);
-            }
-        });
-
-        jPanel34.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel34.border.title"))); // NOI18N
-        jPanel34.setName("jPanel34"); // NOI18N
-
-        jLabel7.setText(resourceMap.getString("jLabel7.text")); // NOI18N
-        jLabel7.setName("jLabel7"); // NOI18N
-
-        jLabel8.setText(resourceMap.getString("jLabel8.text")); // NOI18N
-        jLabel8.setName("jLabel8"); // NOI18N
-
-        JRADBUTANUALPERS.setText(resourceMap.getString("JRADBUTANUALPERS.text")); // NOI18N
-        JRADBUTANUALPERS.setName("JRADBUTANUALPERS"); // NOI18N
-        JRADBUTANUALPERS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRADBUTANUALPERSActionPerformed(evt);
-            }
-        });
-
-        JRADBUTANOINGPERS.setText(resourceMap.getString("JRADBUTANOINGPERS.text")); // NOI18N
-        JRADBUTANOINGPERS.setName("JRADBUTANOINGPERS"); // NOI18N
-        JRADBUTANOINGPERS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRADBUTANOINGPERSActionPerformed(evt);
-            }
-        });
-
-        jLabel9.setText(resourceMap.getString("jLabel9.text")); // NOI18N
-        jLabel9.setName("jLabel9"); // NOI18N
-
-        jLabel45.setText(resourceMap.getString("jLabel45.text")); // NOI18N
-        jLabel45.setName("jLabel45"); // NOI18N
-
-        JRADBUTANORETPERS.setText(resourceMap.getString("JRADBUTANORETPERS.text")); // NOI18N
-        JRADBUTANORETPERS.setName("JRADBUTANORETPERS"); // NOI18N
-        JRADBUTANORETPERS.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRADBUTANORETPERSActionPerformed(evt);
-            }
-        });
-
-        JCCARGO1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Cargo" }));
-        JCCARGO1.setEnabled(false);
-        JCCARGO1.setName("JCCARGO1"); // NOI18N
-
-        JRADBUTCONDVEHIC1.setText(resourceMap.getString("JRADBUTCONDVEHIC1.text")); // NOI18N
-        JRADBUTCONDVEHIC1.setName("JRADBUTCONDVEHIC1"); // NOI18N
-        JRADBUTCONDVEHIC1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                JRADBUTCONDVEHIC1ItemStateChanged(evt);
-            }
-        });
-        JRADBUTCONDVEHIC1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRADBUTCONDVEHIC1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel34Layout = new javax.swing.GroupLayout(jPanel34);
-        jPanel34.setLayout(jPanel34Layout);
-        jPanel34Layout.setHorizontalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel34Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JRADBUTANOINGPERS))
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addComponent(jLabel45)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                        .addComponent(JRADBUTANORETPERS))
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(JRADBUTANUALPERS)))
-                .addGap(130, 130, 130)
-                .addComponent(jLabel9)
-                .addGap(49, 49, 49)
-                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addComponent(JCCARGO1, 0, 243, Short.MAX_VALUE)
-                        .addGap(103, 103, 103))
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addComponent(JRADBUTCONDVEHIC1)
-                        .addContainerGap())))
-        );
-        jPanel34Layout.setVerticalGroup(
-            jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel34Layout.createSequentialGroup()
-                .addContainerGap(11, Short.MAX_VALUE)
-                .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel7)
-                            .addComponent(JRADBUTANUALPERS))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(JRADBUTANOINGPERS))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel45)
-                            .addComponent(JRADBUTANORETPERS)))
-                    .addGroup(jPanel34Layout.createSequentialGroup()
-                        .addGroup(jPanel34Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JCCARGO1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JRADBUTCONDVEHIC1)))
-                .addContainerGap())
-        );
-
-        jLabel50.setText(resourceMap.getString("jLabel50.text")); // NOI18N
-        jLabel50.setName("jLabel50"); // NOI18N
-
-        javax.swing.GroupLayout jPanel31Layout = new javax.swing.GroupLayout(jPanel31);
-        jPanel31.setLayout(jPanel31Layout);
-        jPanel31Layout.setHorizontalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel31Layout.createSequentialGroup()
-                .addGap(411, 411, 411)
-                .addComponent(jLabel50)
-                .addContainerGap(430, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel31Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1051, Short.MAX_VALUE)
-                    .addGroup(jPanel31Layout.createSequentialGroup()
-                        .addComponent(jPanel34, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JBCargarDatosPersonal)))
-                .addGap(14, 14, 14))
-        );
-        jPanel31Layout.setVerticalGroup(
-            jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel31Layout.createSequentialGroup()
-                .addGroup(jPanel31Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(JBCargarDatosPersonal)
-                    .addComponent(jPanel34, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel50)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jButton6.setText(resourceMap.getString("jButton6.text")); // NOI18N
-        jButton6.setName("jButton6"); // NOI18N
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGroup(jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel12Layout.createSequentialGroup()
-                        .addGap(489, 489, 489)
-                        .addComponent(jButton6)))
-                .addContainerGap(224, Short.MAX_VALUE))
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel12Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel31, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
-                .addContainerGap(69, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab(resourceMap.getString("jPanel12.TabConstraints.tabTitle"), jPanel12); // NOI18N
-
-        jPanel16.setBorder(javax.swing.BorderFactory.createTitledBorder(resourceMap.getString("jPanel16.border.title"))); // NOI18N
-        jPanel16.setName("jPanel16"); // NOI18N
-
-        jLabel14.setText(resourceMap.getString("jLabel14.text")); // NOI18N
-        jLabel14.setName("jLabel14"); // NOI18N
-
-        JFANO.setEnabled(false);
-        JFANO.setName("JFANO"); // NOI18N
-
-        JCFECHAING2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mes", "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE" }));
-        JCFECHAING2.setEnabled(false);
-        JCFECHAING2.setName("JCFECHAING2"); // NOI18N
-        JCFECHAING2.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                JCFECHAING2ItemStateChanged(evt);
-            }
-        });
-
-        JRBRSI.setText(resourceMap.getString("JRBRSI.text")); // NOI18N
-        JRBRSI.setName("JRBRSI"); // NOI18N
-        JRBRSI.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBRSIActionPerformed(evt);
-            }
-        });
-
-        jLabel26.setText(resourceMap.getString("jLabel26.text")); // NOI18N
-        jLabel26.setName("jLabel26"); // NOI18N
-
-        jLabel27.setText(resourceMap.getString("jLabel27.text")); // NOI18N
-        jLabel27.setName("jLabel27"); // NOI18N
-
-        JFANO3.setEnabled(false);
-        JFANO3.setName("JFANO3"); // NOI18N
-
-        JCFECHAING5.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Mes", "ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE" }));
-        JCFECHAING5.setEnabled(false);
-        JCFECHAING5.setName("JCFECHAING5"); // NOI18N
-        JCFECHAING5.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                JCFECHAING5ItemStateChanged(evt);
-            }
-        });
-
-        JLFECHAFINAL.setText(resourceMap.getString("JLFECHAFINAL.text")); // NOI18N
-        JLFECHAFINAL.setName("JLFECHAFINAL"); // NOI18N
-
-        jLabel29.setText(resourceMap.getString("jLabel29.text")); // NOI18N
-        jLabel29.setName("jLabel29"); // NOI18N
-
-        JRBRNO.setSelected(true);
-        JRBRNO.setText(resourceMap.getString("JRBRNO.text")); // NOI18N
-        JRBRNO.setName("JRBRNO"); // NOI18N
-        JRBRNO.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JRBRNOActionPerformed(evt);
-            }
-        });
-
-        JLREPMESINICIAL.setName("JLREPMESINICIAL"); // NOI18N
-
-        JLREPMESFINAL.setName("JLREPMESFINAL"); // NOI18N
-
-        javax.swing.GroupLayout jPanel16Layout = new javax.swing.GroupLayout(jPanel16);
-        jPanel16.setLayout(jPanel16Layout);
-        jPanel16Layout.setHorizontalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel16Layout.createSequentialGroup()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel16Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jLabel29, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(61, 61, 61)
-                        .addComponent(jLabel26)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
-                        .addComponent(JLFECHAFINAL, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel14)
-                        .addGap(9, 9, 9)
-                        .addComponent(JFANO, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JCFECHAING2, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JLREPMESINICIAL))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JRBRSI)
-                            .addComponent(JRBRNO))
-                        .addGap(85, 85, 85)
-                        .addComponent(jLabel27)
-                        .addGap(9, 9, 9)
-                        .addComponent(JFANO3, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JLREPMESFINAL)
-                            .addComponent(JCFECHAING5, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
-        );
-        jPanel16Layout.setVerticalGroup(
-            jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel16Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(JLFECHAFINAL)
-                        .addComponent(jLabel29))
-                    .addComponent(jLabel26))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JFANO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel14)
-                            .addComponent(JCFECHAING2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JLREPMESINICIAL)
-                            .addComponent(JLREPMESFINAL)))
-                    .addGroup(jPanel16Layout.createSequentialGroup()
-                        .addGroup(jPanel16Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(JFANO3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel27)
-                            .addComponent(JCFECHAING5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JRBRSI))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JRBRNO)))
-                .addGap(3, 3, 3))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1714,376 +280,207 @@ public class Informe extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1326, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(438, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(12, 12, 12)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 549, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel16, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(183, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(85, 85, 85)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(15, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 private void JBCargarDatosVehiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCargarDatosVehiculoActionPerformed
+    int ANO_INICIAL = Integer.parseInt(this.JFANO.getText());
     if (this.JRADBUTANOVEHI.isSelected()){
-            try {
-                int ANO_INICIAL = Integer.parseInt(this.JFANO.getText());
-                String query = "select patente, chasis, marca, modelo, ano from vehiculo where ano = "+ANO_INICIAL+"";
-                ResultSet rsDatos = Conexion.ejecutarQuery(query);
-                //vehiculo.llenarTablaVehiculos(TablaVehiculo, rsDatos);                       
-                
-                ResultSet rsGrafico = Conexion.ejecutarQuery(query);
-//                vehiculo.llenarTablaVehiculos(TablaVehiculo, rsGrafico);                       
+            try {             
+                String anoVeh = "select patente, chasis, marca, modelo, ano from vehiculo where ano = "+ANO_INICIAL+"";
+                ResultSet rsDatos = Conexion.ejecutarQuery(anoVeh);
+                                
+                ResultSet rsGrafico = Conexion.ejecutarQuery(anoVeh);
                 //Generacion Documento
                 GeneratePDF gpdf = new GeneratePDF();    
                 gpdf.crearDocumento("INFORME VEHICULOS AÑO - "+ANO_INICIAL);
-                gpdf.ContenidoInformeVehiculos("SOPRAF S.A. SOFTWARE AMRV", "I  N  F  O  R  M  E    P  O  R    A  Ñ  O    V  E  H  I  C  U  L  O", "V  E  H  I  C  U  L  O  S", rsDatos, rsGrafico);
-        
-            
+                gpdf.ContenidoInformeVehiculos("SOPRAF S.A. - SOFTWARE AMRV", "I  N  F  O  R  M  E    P  O  R    A  Ñ  O    V  E  H  I  C  U  L  O", "V  E  H  I  C  U  L  O  S", rsDatos, rsGrafico);
+                   
         } catch (FileNotFoundException ex) {
             Logger.getLogger(vehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Debe cerrar el documento actual para poder crearlo nuevamente", "Mensajero", JOptionPane.ERROR_MESSAGE);
+            
         } catch (DocumentException ex) {
             Logger.getLogger(vehiculo.class.getName()).log(Level.SEVERE, null, ex);            
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error2", "Mensajero", JOptionPane.ERROR_MESSAGE);
+            
         } catch (SQLException ex) {
             Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error3", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException ex){
+            Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error4", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }
+    else if(this.JRADBUTANOINGR.isSelected()){
+        try {   
+            //agregar a todas las query el año
+                String RepUsados = "Select r.nombre as NOMBRE, sum(otr.cantidad) as TOTAL_USADO from orden_trabajo_repuesto otr, repuesto r, orden_trabajo ot where otr.id_repuesto = r.id_repuesto and ot.fecha_inicio between to_date('01-' || 1 || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and last_day(to_date('31-' || 12 || '-' || "+ANO_INICIAL+",'dd-mm-yyyy')) and rownum <11 group by r.id_repuesto, r.nombre order by TOTAL_USADO desc"; 
+                String RepCompraXaño = "Select sum(cd.cantidad) as TOTAL_AÑO, r.nombre as Nombre, c.fecha_compra as Fecha_compra from compra_detalle cd, repuesto r, compra c where cd.nro_factura = c.nro_factura and cd.id_repuesto = r.id_repuesto and c.fecha_compra between to_date('01-' || 1 || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and last_day(to_date('31-' || 12 || '-' || "+ANO_INICIAL+",'dd-mm-yyyy')) group by r.nombre, c.fecha_compra";
+                String StockRep = "select r.nombre as nombre, sum(r.cantidad) as TOTAL from repuesto r group by r.nombre order by TOTAL desc";
+                String RepUsadoXvehi = "select otr.id_ot AS NUMERO_ORDEN, otr.patente AS PATENTE, r.nombre AS REPUESTO, sum(otr.cantidad) as TOTAL from repuesto r, orden_trabajo ot, orden_trabajo_repuesto otr WHERE ot.id_ot = otr.id_ot and ot.patente = otr.patente and otr.id_repuesto = r.id_repuesto and ot.fecha_inicio between to_date('01-' || 1 || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and last_day(to_date('31-' || 12 || '-' || "+ANO_INICIAL+",'dd-mm-yyyy')) group by otr.id_ot, otr.patente, r.nombre order by TOTAL desc";
+                String RepXmecan = "select m.rut_mecanico as RUT_MECANICO, m.nombre AS NOMBRE, m.apellido_paterno AS APELLIDO_PATERNO, m.apellido_materno AS APELLIDO_MATERNO, ot.id_ot AS ID_ORDEN, ot.patente AS PATENTE, r.nombre AS NOMBRE_REPUESTO, sum(otr.cantidad) as TOTAL from repuesto r, orden_trabajo ot, orden_trabajo_repuesto otr, mecanico m where ot.id_ot = otr.id_ot and ot.patente = otr.patente and otr.id_repuesto = r.id_repuesto and ot.rut_mecanico = m.rut_mecanico and ot.fecha_inicio between to_date('01-' || 1 || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and last_day(to_date('31-' || 12 || '-' || "+ANO_INICIAL+",'dd-mm-yyyy')) group by m.rut_mecanico, m.nombre, m.apellido_paterno, m.apellido_materno, ot.id_ot, ot.patente, r.nombre order by TOTAL desc"; 
+                String RepXencb = "select eb.rut_encargado as RUT_ENCARGADO, eb.nombre AS NOMBRE, eb.apellido_paterno AS APELLIDO_PATERNO, eb.apellido_materno AS APELLIDO_MATERNO, ot.id_ot AS ID_ORDEN, ot.patente AS PATENTE, r.nombre AS NOMBRE_REPUESTO, sum(otr.cantidad) as TOTAL from repuesto r, orden_trabajo ot, orden_trabajo_repuesto otr, encargado_bodega eb WHERE ot.id_ot = otr.id_ot and ot.patente = otr.patente and otr.id_repuesto = r.id_repuesto and otr.rut_encargado = eb.rut_encargado and ot.fecha_inicio between to_date('01-' || 1 || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and last_day(to_date('31-' || 12 || '-' || "+ANO_INICIAL+",'dd-mm-yyyy')) group by eb.rut_encargado, eb.nombre, eb.apellido_paterno, eb.apellido_materno, ot.id_ot, ot.patente, r.nombre order by TOTAL desc";
+                
+                               
+                ResultSet rsRepUsados = Conexion.ejecutarQuery(RepUsados);                
+                ResultSet rsRepCompraXaño = Conexion.ejecutarQuery(RepCompraXaño);
+                ResultSet rsStockRep = Conexion.ejecutarQuery(StockRep);
+                ResultSet rsRepUsadoXvehi = Conexion.ejecutarQuery(RepUsadoXvehi);
+                ResultSet rsRepXmecan = Conexion.ejecutarQuery(RepXmecan);
+                ResultSet rsRepXencb = Conexion.ejecutarQuery(RepXencb);
+                
+                //Generacion Documento
+                GeneratePDF gpdf = new GeneratePDF();    
+                gpdf.crearDocumento("INFORME REPUESTOS AÑO - "+ANO_INICIAL);
+                gpdf.ContenidoInformeRepuestos("SOPRAF S.A. - SOFTWARE AMRV", "I  N  F  O  R  M  E    A  N  U  A  L    R  E  P  U  E  S  T  O  S   -   " +ANO_INICIAL, "R  E  P  U  E  S  T  O  S", rsRepUsados, rsRepCompraXaño, rsStockRep, rsRepUsadoXvehi, rsRepXmecan, rsRepXencb);
+        
+            
+               } catch (FileNotFoundException ex) {
+            Logger.getLogger(vehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Debe cerrar el documento actual para poder crearlo nuevamente", "Mensajero", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (DocumentException ex) {
+            Logger.getLogger(vehiculo.class.getName()).log(Level.SEVERE, null, ex);            
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error2", "Mensajero", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error3", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException ex){
+            Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error4", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
+    else if (this.JRADBUTANORETI.isSelected()){
+            try {
+                String FallaXaño = "select count(otf.id_falla) as TOTAL_FALLAS from orden_trabajo_falla otf, orden_trabajo ot, vehiculo v, falla f where ot.id_ot = otf.id_ot and ot.patente = otf.patente and ot.patente = v.patente and f.id_falla = otf.id_falla and ot.fecha_inicio between to_date('01-' || '1' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and to_date(last_day(to_date('31-' || '12' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy')))"; 
+                String MasDetect = "select f.nombre as NOMBRE, otf.id_falla as ID_FALLA, count(f.id_falla) as TOTAL from orden_trabajo_falla otf, orden_trabajo ot, vehiculo v, falla f where otf.id_ot = ot.id_ot and ot.patente = otf.patente and ot.patente = v.patente and f.id_falla = otf.id_falla and ot.fecha_inicio between to_date('01-' || '1' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and to_date(last_day(to_date('31-' || '12' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy'))) and rownum <11 group by f.nombre, otf.id_falla order by TOTAL desc ";
+                String FallaXvehi = "Select otf.patente as PATENTE, f.nombre as NOMBRE, count(otf.id_falla) as TOTAL from falla f, orden_trabajo ot, orden_trabajo_falla otf, vehiculo v where ot.id_ot = otf.id_ot and ot.patente = otf.patente and otf.id_falla = f.id_falla and ot.patente = v.patente and ot.fecha_inicio between to_date('01-' || '1' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and to_date(last_day(to_date('31-' || '12' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy'))) group by otf.patente, f.nombre ";
+                String FallaXmeca = "Select m.rut_mecanico as RUT_MECANICO, m.nombre AS NOMBRE, m.apellido_paterno AS APELLIDO_PATERNO, m.apellido_materno AS APELLIDO_MATERNO,otf.id_ot as ID_ORDEN, otf.patente AS PATENTE, f.nombre as NOMBRE_FALLA, count(otf.id_falla) as TOTAL from falla f, orden_trabajo ot, orden_trabajo_falla otf, mecanico m where ot.id_ot = otf.id_ot and ot.patente = otf.patente and otf.id_falla = f.id_falla and ot.rut_mecanico = m.rut_mecanico and ot.fecha_inicio between to_date('01-' || '1' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and to_date(last_day(to_date('31-' || '12' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy'))) group by m.rut_mecanico, m.nombre, m.apellido_paterno, m.apellido_materno, otf.id_ot, otf.patente, f.nombre ";        
+                
+                ResultSet rsFallaXaño = Conexion.ejecutarQuery(FallaXaño);
+                ResultSet rsMasDetect = Conexion.ejecutarQuery(MasDetect);
+                ResultSet rsFallaXvehi = Conexion.ejecutarQuery(FallaXvehi);
+                ResultSet rsFallaXmeca = Conexion.ejecutarQuery(FallaXmeca);
+                
+                //Generacion Documento
+                GeneratePDF gpdf = new GeneratePDF();    
+                gpdf.crearDocumento("INFORME FALLAS AÑO - "+ANO_INICIAL);
+                gpdf.ContenidoInformeFallas("SOPRAF S.A. - SOFTWARE AMRV", "I  N  F  O  R  M  E    A  N  U  A  L    F  A  L  L  A  S   -   " +ANO_INICIAL, "F  A  L  L  A  S", rsFallaXaño, rsMasDetect, rsFallaXvehi, rsFallaXmeca);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(vehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Debe cerrar el documento actual para poder crearlo nuevamente", "Mensajero", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (DocumentException ex) {
+            Logger.getLogger(vehiculo.class.getName()).log(Level.SEVERE, null, ex);            
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error2", "Mensajero", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error3", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException ex){
+            Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error4", "Mensajero", JOptionPane.ERROR_MESSAGE);
         }
     }
+    else if(this.JRADBUTMARCAVE.isSelected()){
+            try {
+                String otXaño = "select count(ot.id_ot) as TOTAL_OT from orden_trabajo ot where ot.fecha_inicio between to_date('01-' || '1' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and to_date(last_day(to_date('31-' || '12' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy')))";
+                String otXveh = "Select ot.patente as PATENTE, count(ot.id_ot) as TOTAL_OT from orden_trabajo ot,  vehiculo v where ot.patente = v.patente and ot.fecha_inicio between to_date('01-' || '1' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and to_date(last_day(to_date('31-' || '12' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy'))) group by ot.patente ";
+                String otXadm = "Select ad.rut_administrador AS RUT_ADMIN, ad.nombre AS NOMBRE, ad.apellido_paterno AS APELLIDO_PATERNO, ad.apellido_materno AS APELLIDO_MATERNO, ot.patente AS PATENTE, count(ot.id_ot) as TOTAL_POR_VEHICULO from orden_trabajo ot, administrador ad where ot.rut_administrador = ad.rut_administrador and ot.fecha_inicio between to_date('01-' || '1' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and to_date(last_day(to_date('31-' || '12' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy'))) group by ad.rut_administrador ,ad.nombre, ad.apellido_paterno, ad.apellido_materno, ot.patente ";
+                String otXmec = "Select m.rut_mecanico AS RUT_MECANICO, m.nombre AS NOMBRE, m.apellido_paterno AS APELLIDO_PATERNO, m.apellido_materno AS APELLIDO_MATERNO, ot.patente AS PATENTE, count(ot.id_ot) as TOTAL_POR_VEHICULO from orden_trabajo ot, mecanico m where ot.rut_mecanico = m.rut_mecanico and ot.fecha_inicio between to_date('01-' || '1' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy') and to_date(last_day(to_date('31-' || '12' || '-' || "+ANO_INICIAL+",'dd-mm-yyyy'))) group by m.rut_mecanico, m.nombre, m.apellido_paterno, m.apellido_materno, ot.patente ";
+                
+                ResultSet rsotXaño = Conexion.ejecutarQuery(otXaño);
+                ResultSet rsotXveh = Conexion.ejecutarQuery(otXveh);
+                ResultSet rsotXadm = Conexion.ejecutarQuery(otXadm);
+                ResultSet rsotXmec = Conexion.ejecutarQuery(otXmec);
+                
+                //Generacion Documento
+                GeneratePDF gpdf = new GeneratePDF();    
+                gpdf.crearDocumento("INFORME ORDENES DE TRABAJO AÑO - "+ANO_INICIAL);
+                gpdf.ContenidoInformeOT("SOPRAF S.A. - SOFTWARE AMRV", "I  N  F  O  R  M  E    A  N  U  A  L    O  T   -   " +ANO_INICIAL, "O  R  D  E  N  E  S    D  E    T  R  A  B  A  J  O", rsotXaño, rsotXveh, rsotXadm, rsotXmec);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(vehiculo.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Debe cerrar el documento actual para poder crearlo nuevamente", "Mensajero", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (DocumentException ex) {
+            Logger.getLogger(vehiculo.class.getName()).log(Level.SEVERE, null, ex);            
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error2", "Mensajero", JOptionPane.ERROR_MESSAGE);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error3", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException ex){
+            Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(rootPane, "Se ha producido un error4", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }    
 }//GEN-LAST:event_JBCargarDatosVehiculoActionPerformed
 
 private void JRADBUTANOVEHIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRADBUTANOVEHIActionPerformed
-    this.JFANO.setEnabled(true);
-    this.JCFECHAING2.setEnabled(false);
+    this.JFANO.setEnabled(true);    
     this.JBCargarDatosVehiculo.setEnabled(true);
     
 }//GEN-LAST:event_JRADBUTANOVEHIActionPerformed
 
 private void JRADBUTANOINGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRADBUTANOINGRActionPerformed
-// TODO add your handling code here:
+    this.JFANO.setEnabled(true);    
+    this.JBCargarDatosVehiculo.setEnabled(true);
 }//GEN-LAST:event_JRADBUTANOINGRActionPerformed
 
 private void JRADBUTANORETIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRADBUTANORETIActionPerformed
-// TODO add your handling code here:
+    this.JFANO.setEnabled(true);    
+    this.JBCargarDatosVehiculo.setEnabled(true);
 }//GEN-LAST:event_JRADBUTANORETIActionPerformed
 
 private void JRADBUTMARCAVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRADBUTMARCAVEActionPerformed
-// TODO add your handling code here:
+    this.JFANO.setEnabled(true);    
+    this.JBCargarDatosVehiculo.setEnabled(true);
 }//GEN-LAST:event_JRADBUTMARCAVEActionPerformed
-
-private void JRADBUTMODELOVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRADBUTMODELOVEActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRADBUTMODELOVEActionPerformed
-
-private void JRADBUTCONDVEHICItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JRADBUTCONDVEHICItemStateChanged
-// TODO add your handling code here:
-}//GEN-LAST:event_JRADBUTCONDVEHICItemStateChanged
-
-private void JRADBUTCONDVEHICActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRADBUTCONDVEHICActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRADBUTCONDVEHICActionPerformed
-
-private void JRBREPUANOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBREPUANOActionPerformed
-    this.JFANO.setEnabled(true);
-    this.JCFECHAING2.setEnabled(false);
-    this.JBCargarDatosRepuesto.setEnabled(true);
-}//GEN-LAST:event_JRBREPUANOActionPerformed
-
-private void JRBREPUMASUSADOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBREPUMASUSADOSActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBREPUMASUSADOSActionPerformed
-
-private void JRBREPUSTOCKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBREPUSTOCKActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBREPUSTOCKActionPerformed
-
-private void JRBREPUVEHINFOREPUUSADOSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBREPUVEHINFOREPUUSADOSActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBREPUVEHINFOREPUUSADOSActionPerformed
-
-private void JCPATENTEItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCPATENTEItemStateChanged
-// TODO add your handling code here:
-}//GEN-LAST:event_JCPATENTEItemStateChanged
-
-private void JCPATENTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCPATENTEActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JCPATENTEActionPerformed
-
-private void JRRENCARBODEGAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRRENCARBODEGAActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRRENCARBODEGAActionPerformed
-
-private void JRRMECANICOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRRMECANICOActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRRMECANICOActionPerformed
-
-private void JRBREPUPORADMIN1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBREPUPORADMIN1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBREPUPORADMIN1ActionPerformed
-
-private void JBCargarDatosRepuestoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCargarDatosRepuestoActionPerformed
-    if(this.JRBREPUANO.isSelected()){
-            try {
-                int ANO_INICIAL = Integer.parseInt(this.JFANO.getText().trim());                
-                //SOLO MANDARE LA QUERY con el año PARA QUE EL GENERATEPDF HAGA LA PEGA CON EL RESULTSET
-                GeneratePDF gpdf = new GeneratePDF();    
-                gpdf.crearDocumento("INFORME REPUESTOS AÑO - "+ANO_INICIAL);
-                gpdf.ContenidoInformeRepuestos("SOPRAF S.A. SOFTWARE AMRV", "I  N  F  O  R  M  E    R  E  P  U  E  S  T  O  S    P  O  R    A  Ñ  O", "R  E  P  U  E  S  T  O  S", ANO_INICIAL);
-            } catch (SQLException ex) {
-                Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (DocumentException ex) {
-                Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Informe.class.getName()).log(Level.SEVERE, null, ex);
-            }
-           
-    }
-}//GEN-LAST:event_JBCargarDatosRepuestoActionPerformed
-
-private void JRBFALLANOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBFALLANOActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBFALLANOActionPerformed
-
-private void JRBRFALLAMASDETActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBRFALLAMASDETActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBRFALLAMASDETActionPerformed
-
-private void JRBFALLMESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBFALLMESActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBFALLMESActionPerformed
-
-private void JRBFALLAVEHINFOFALLAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBFALLAVEHINFOFALLAActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBFALLAVEHINFOFALLAActionPerformed
-
-private void JRBFALLAVEHINFOMASDETECActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBFALLAVEHINFOMASDETECActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBFALLAVEHINFOMASDETECActionPerformed
-
-private void JCPATENTE1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCPATENTE1ItemStateChanged
-// TODO add your handling code here:
-}//GEN-LAST:event_JCPATENTE1ItemStateChanged
-
-private void JCPATENTE1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCPATENTE1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JCPATENTE1ActionPerformed
-
-private void JRRMECANICO2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRRMECANICO2ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRRMECANICO2ActionPerformed
-
-private void JRBOTANOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBOTANOActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBOTANOActionPerformed
-
-private void JRBOTMESActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBOTMESActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBOTMESActionPerformed
-
-private void JRBOTVEHINFOTIPOREPUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBOTVEHINFOTIPOREPUActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBOTVEHINFOTIPOREPUActionPerformed
-
-private void JCPATENTE2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCPATENTE2ItemStateChanged
-// TODO add your handling code here:
-}//GEN-LAST:event_JCPATENTE2ItemStateChanged
-
-private void JCPATENTE2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JCPATENTE2ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JCPATENTE2ActionPerformed
-
-private void JRRADMIN3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRRADMIN3ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRRADMIN3ActionPerformed
-
-private void JRRMECANICO4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRRMECANICO4ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRRMECANICO4ActionPerformed
-
-private void JBCargarDatosPersonalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBCargarDatosPersonalActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JBCargarDatosPersonalActionPerformed
-
-private void JRADBUTANUALPERSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRADBUTANUALPERSActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRADBUTANUALPERSActionPerformed
-
-private void JRADBUTANOINGPERSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRADBUTANOINGPERSActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRADBUTANOINGPERSActionPerformed
-
-private void JRADBUTANORETPERSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRADBUTANORETPERSActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRADBUTANORETPERSActionPerformed
-
-private void JRADBUTCONDVEHIC1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JRADBUTCONDVEHIC1ItemStateChanged
-// TODO add your handling code here:
-}//GEN-LAST:event_JRADBUTCONDVEHIC1ItemStateChanged
-
-private void JRADBUTCONDVEHIC1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRADBUTCONDVEHIC1ActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRADBUTCONDVEHIC1ActionPerformed
-
-private void JCFECHAING2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCFECHAING2ItemStateChanged
-// TODO add your handling code here:
-}//GEN-LAST:event_JCFECHAING2ItemStateChanged
-
-private void JRBRNOActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBRNOActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBRNOActionPerformed
-
-private void JRBRSIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JRBRSIActionPerformed
-// TODO add your handling code here:
-}//GEN-LAST:event_JRBRSIActionPerformed
-
-private void JCFECHAING5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_JCFECHAING5ItemStateChanged
-// TODO add your handling code here:
-}//GEN-LAST:event_JCFECHAING5ItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup GrupoBotonePanelTiempo;
     private javax.swing.ButtonGroup GrupoBotonesBusqueda;
-    private javax.swing.JButton JBCargarDatosFalla;
-    private javax.swing.JButton JBCargarDatosOT;
-    private javax.swing.JButton JBCargarDatosPersonal;
-    private javax.swing.JButton JBCargarDatosRepuesto;
     private javax.swing.JButton JBCargarDatosVehiculo;
-    private javax.swing.JComboBox JCADMINISTRADOR8;
-    private javax.swing.JComboBox JCADMINISTRADOROT;
-    private javax.swing.JComboBox JCCARGO1;
-    private javax.swing.JComboBox JCENCARGADOBODEGA;
-    private javax.swing.JComboBox JCFECHAING2;
-    private javax.swing.JComboBox JCFECHAING5;
-    private javax.swing.JComboBox JCMARCA;
-    private javax.swing.JComboBox JCMECANICO;
-    private javax.swing.JComboBox JCMECANICO2;
-    private javax.swing.JComboBox JCMECANICO4;
-    private javax.swing.JComboBox JCMODELO;
-    private javax.swing.JComboBox JCPATENTE;
-    private javax.swing.JComboBox JCPATENTE1;
-    private javax.swing.JComboBox JCPATENTE2;
     private javax.swing.JFormattedTextField JFANO;
-    private javax.swing.JFormattedTextField JFANO3;
-    private javax.swing.JLabel JLFECHAFINAL;
     private javax.swing.JLabel JLREPMESFINAL;
     private javax.swing.JLabel JLREPMESINICIAL;
-    private javax.swing.JRadioButton JRADBUTANOINGPERS;
     private javax.swing.JRadioButton JRADBUTANOINGR;
     private javax.swing.JRadioButton JRADBUTANORETI;
-    private javax.swing.JRadioButton JRADBUTANORETPERS;
     private javax.swing.JRadioButton JRADBUTANOVEHI;
-    private javax.swing.JRadioButton JRADBUTANUALPERS;
-    private javax.swing.JRadioButton JRADBUTCONDVEHIC;
-    private javax.swing.JRadioButton JRADBUTCONDVEHIC1;
     private javax.swing.JRadioButton JRADBUTMARCAVE;
-    private javax.swing.JRadioButton JRADBUTMODELOVE;
-    private javax.swing.JRadioButton JRBFALLANO;
-    private javax.swing.JRadioButton JRBFALLAVEHINFOFALLA;
-    private javax.swing.JRadioButton JRBFALLAVEHINFOMASDETEC;
-    private javax.swing.JRadioButton JRBFALLMES;
-    private javax.swing.JRadioButton JRBOTANO;
-    private javax.swing.JRadioButton JRBOTMES;
-    private javax.swing.JRadioButton JRBOTVEHINFOTIPOREPU;
-    private javax.swing.JRadioButton JRBREPUANO;
-    private javax.swing.JRadioButton JRBREPUMASUSADOS;
-    private javax.swing.JRadioButton JRBREPUPORADMIN1;
-    private javax.swing.JRadioButton JRBREPUSTOCK;
-    private javax.swing.JRadioButton JRBREPUVEHINFOREPUUSADOS;
-    private javax.swing.JRadioButton JRBRFALLAMASDET;
-    private javax.swing.JRadioButton JRBRNO;
-    private javax.swing.JRadioButton JRBRSI;
-    private javax.swing.JRadioButton JRRADMIN3;
-    private javax.swing.JRadioButton JRRENCARBODEGA;
-    private javax.swing.JRadioButton JRRMECANICO;
-    private javax.swing.JRadioButton JRRMECANICO2;
-    private javax.swing.JRadioButton JRRMECANICO4;
-    private javax.swing.JTable TablaRepuesto;
-    private javax.swing.JTable TablaRepuesto1;
-    private javax.swing.JTable TablaRepuesto2;
-    private javax.swing.JTable TablaVehiculo;
-    private javax.swing.JTable TablaVehiculo1;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel22;
-    private javax.swing.JLabel jLabel23;
-    private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel26;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel29;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel34;
-    private javax.swing.JLabel jLabel35;
-    private javax.swing.JLabel jLabel36;
-    private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel44;
-    private javax.swing.JLabel jLabel45;
-    private javax.swing.JLabel jLabel46;
-    private javax.swing.JLabel jLabel48;
-    private javax.swing.JLabel jLabel49;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel50;
-    private javax.swing.JLabel jLabel51;
-    private javax.swing.JLabel jLabel52;
-    private javax.swing.JLabel jLabel53;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel68;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel13;
-    private javax.swing.JPanel jPanel14;
-    private javax.swing.JPanel jPanel15;
     private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel18;
-    private javax.swing.JPanel jPanel19;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel20;
-    private javax.swing.JPanel jPanel22;
-    private javax.swing.JPanel jPanel23;
-    private javax.swing.JPanel jPanel24;
-    private javax.swing.JPanel jPanel25;
-    private javax.swing.JPanel jPanel26;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel31;
-    private javax.swing.JPanel jPanel34;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

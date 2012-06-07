@@ -178,4 +178,20 @@ public class falla {
                                                               
         return falla;
     }
+    
+    public void borrarFallaOT(int ID_OT, String PATENTE, int ID_FALLA){
+        try {
+            Connection con = DriverManager.getConnection(Conexion.url, Conexion.usuario, Conexion.clave);
+            OracleCallableStatement cs = (OracleCallableStatement) con.prepareCall("BEGIN BorrarFALLAOT(?,?,?); END;");
+            cs.setInt(1, ID_OT);
+            cs.setString(2, PATENTE);
+            cs.setInt(3, ID_FALLA);
+            cs.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Falla eliminada satisfactoriamente", "Mensajero", JOptionPane.INFORMATION_MESSAGE);                    
+        } catch (SQLException ex) {
+            Logger.getLogger(falla.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No se puede eliminar la falla", "Mensajero", JOptionPane.ERROR_MESSAGE);
+        }
+        
+    }
 }
