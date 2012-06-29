@@ -1,5 +1,5 @@
 --------------------------------------------------------
---  File created - jueves-mayo-03-2012   
+--  File created - miércoles-junio-20-2012   
 --------------------------------------------------------
 --------------------------------------------------------
 --  DDL for Procedure CARGAVEHICULOS
@@ -14,13 +14,12 @@ v_color OUT vehiculo.color%type,
 v_marca OUT vehiculo.marca%type,
 v_modelo OUT vehiculo.modelo%type,
 v_fechain OUT vehiculo.fecha_ingreso%type,
-v_fechare OUT vehiculo.fecha_retiro%type,
 v_foto OUT vehiculo.foto%type)
 
 as
 BEGIN
-SELECT chasis, ano, color, marca, modelo, fecha_ingreso, fecha_retiro ,foto
-INTO v_chasis, v_ano, v_color, v_marca, v_modelo, v_fechain, v_fechare, v_foto
+SELECT chasis, ano, color, marca, modelo, fecha_ingreso, foto
+INTO v_chasis, v_ano, v_color, v_marca, v_modelo, v_fechain, v_foto
 FROM VEHICULO WHERE PATENTE = v_patente;
 commit;
 exception
